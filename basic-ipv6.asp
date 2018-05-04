@@ -393,9 +393,10 @@ createFieldTable('', [
 	{ title: '分配/路由 前辍', name: 'f_ipv6_prefix', type: 'text', maxlen: 40, size: 42, value: nvram.ipv6_prefix, suffix: ' <small>(例如. 2001:0db8:1234:0001::)<\/small>' },
 	{ title: '6rd 路由前缀', name: 'ipv6_6rd_prefix', type: 'text', maxlen: 40, size: 42, value: nvram.ipv6_6rd_prefix },
 	{ title: '6rd 前缀长度', name: 'ipv6_6rd_prefix_length', type: 'text', maxlen: 3, size: 5, value: nvram.ipv6_6rd_prefix_length, suffix: ' <small>(Usually 32)<\/small>' },
-		{ name: 'f_ipv6_rtr_addr_auto', type: 'select', options: [['0', '默认'],['1','手动']], value: (nvram.ipv6_rtr_addr == '' ? '0' : '1') },
+	{ title: 'Prefix Length', name: 'f_ipv6_prefix_length', type: 'text', maxlen: 3, size: 5, value: nvram.ipv6_prefix_length },
 	{ title: '仅请求前缀委派(PD)', name: 'f_ipv6_pdonly', type: 'checkbox', value: (nvram.ipv6_pdonly != '0'), suffix: ' <small>(通常是 PPPoE 连接)<\/small>' },
 	{ title: '路由器 IPv6 地址', multi: [
+		{ name: 'f_ipv6_rtr_addr_auto', type: 'select', options: [['0', '默认'],['1','手动']], value: (nvram.ipv6_rtr_addr == '' ? '0' : '1') },
 		{ name: 'f_ipv6_rtr_addr', type: 'text', maxlen: 46, size: 48, value: nvram.ipv6_rtr_addr }
 	] },
 	{ title: '静态 DNS', name: 'f_ipv6_dns_1', type: 'text', maxlen: 40, size: 42, value: dns[0] || '' },

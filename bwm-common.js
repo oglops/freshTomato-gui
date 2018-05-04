@@ -294,7 +294,7 @@ function loadData()
 			/* WAN label (for wan_ifname) */
 			else if ((nvram.wan_proto != 'disabled') || (nvram.wan2_proto != 'disabled')
 /* MULTIWAN-BEGIN */
-			    ||(nvram.wan3_proto != 'disabled') || (nvram.wan4_proto != 'disabled')
+			    || (nvram.wan3_proto != 'disabled') || (nvram.wan4_proto != 'disabled')
 /* MULTIWAN-END */
 			) {
 				if (nvram.wan_ifname == i) t = 'WAN <small>(' + i + ')<\/small>';

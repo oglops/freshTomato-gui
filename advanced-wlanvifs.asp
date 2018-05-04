@@ -62,7 +62,7 @@ var max_no_vifs = 0;
 
 var wl_modes_available = [];
 
-var wmo = {'ap':'Access Point','apwds':'Access Point + WDS','sta':'无线客户端','wet':'无线桥接','wds':'WDS'};
+var wmo = {'ap':'无线AP','apwds':'无线AP + WDS','sta':'无线客户端','wet':'无线桥接','wds':'WDS'};
 var macmode = {'disabled':'Disabled','deny':'Block','allow':'Permit'};
 
 var tabs = [['overview', '概览']];

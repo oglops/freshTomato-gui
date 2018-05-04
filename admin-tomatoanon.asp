@@ -81,7 +81,6 @@ TomatoAnon 脚本是完全开放的，并且用 bash 编写。 每个人都可�
 如果您不希望提供数据或对正在收集的数据不舒服的情况下，可以禁用 TomatoAnon 脚本.<br />
 当然您也可以随时重新启用它.
 <br />
-<br />
 以下数据由 TomatoAnon 收集和传输:<br />
  - WAN+LAN MAC 地址的 MD5SUM - 用来区分路由器. 如: 1c1dbd4202d794251ec1acf1211bb2c8<br />
  - 路由器型号. 如: Asus RT-N66U<br />
@@ -90,7 +89,7 @@ TomatoAnon 脚本是完全开放的，并且用 bash 编写。 每个人都可�
  - 路由器开机时间. 如: 3 天<br />
 这就是全部的数据了 !!<br />
 <br />
-Thank you for reading and please make the right choice to help this project.<br />.<br />感谢您的阅读，请做出正确的选择来帮助这个项目Thank you for reading and please make the right choice to help this project.<br />.<br />
+感谢您的阅读，请做出正确的选择来帮助这个项目<br />
 <br />
 <b>谨此致意!</b>
 </div></div>

@@ -195,14 +195,14 @@ function init()
 		最大:&nbsp;
 			<a href='javascript:switchScale(0)' id='scale0'>一致</a>,
 			<a href='javascript:switchScale(1)' id='scale1'>每个 IF</a><br />
-		Unit:&nbsp;
+		单位:&nbsp;
 			<a href='javascript:switchUnit(0)' id='unit0'>kbit/KB</a>,
 			<a href='javascript:switchUnit(1)' id='unit1'>Mbit/MB</a><br />
-		颜色:&nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br>
-		<small><a href='javascript:switchColor(1)' id='drawrev'>[颜色反转]</a></small><br>
-			<a href='javascript:switchDraw(1)' id='draw1'>Line</a><br />
-		Color:&nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br />
-		<small><a href='javascript:switchColor(1)' id='drawrev'>[reverse]</a></small><br />
+		显示:&nbsp;
+			<a href='javascript:switchDraw(0)' id='draw0'>填充</a>,
+			<a href='javascript:switchDraw(1)' id='draw1'>实线</a><br />
+		颜色:&nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br />
+		<small><a href='javascript:switchColor(1)' id='drawrev'>[颜色反转]</a></small><br />
 		<br /><br />
 		&nbsp; &raquo; <a href="admin-bwm.asp">设置</a>
 	</div>

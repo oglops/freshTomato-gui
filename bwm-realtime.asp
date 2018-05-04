@@ -170,7 +170,7 @@ function init() {
 		最大:&nbsp;
 			<a href='javascript:switchScale(0)' id='scale0'>一致</a>,
 			<a href='javascript:switchScale(1)' id='scale1'>每个 IF</a><br />
-		Unit:&nbsp;
+		单位:&nbsp;
 			<a href='javascript:switchUnit(0)' id='unit0'>kbit/KB</a>,
 			<a href='javascript:switchUnit(1)' id='unit1'>Mbit/MB</a><br />
 		显示:&nbsp;

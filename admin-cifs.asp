@@ -54,7 +54,7 @@ function verifyFields(focused, quiet)
 			if ((!v_length(user, quiet, 1)) || (!v_length(pass, quiet, 1))) return 0;
 			unc.value = unc.value.replace(/\//g, '\\');
 			if (!unc.value.match(/^\\\\.+\\/)) {
-				ferror.set(unc, '错误的共享路径(UNC)', quiet);
+				ferror.set(unc, '无效的共享路径(UNC)', quiet);
 				return 0;
 			}
 		}

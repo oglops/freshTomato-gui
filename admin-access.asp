@@ -127,7 +127,7 @@ function verifyFields(focused, quiet)
 	}
 	else if (a.value != '') {
         if (a.value.search(/^\s*ssh-(dss|rsa)/) == -1) {
-			ferror.set(a, '不正确的 SSH 密钥.', quiet || !ok);
+			ferror.set(a, '无效的 SSH 密钥.', quiet || !ok);
 			ok = 0;
 		}
 	}

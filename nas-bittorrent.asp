@@ -325,8 +325,8 @@ createFieldTable('', [
 	{ title: '启动延时', name: 'bt_sleep', type: 'text', maxlen: 5, size: 7, value: nvram.bt_sleep, suffix: ' <small>秒(范围: 1 - 60; 默认: 10)<\/small>' },
 	{ title: '监听端口', name: 'bt_port', type: 'text', maxlen: 5, size: 7, value: nvram.bt_port, suffix: ' <small>*<\/small>' },
 	{ title: '下载目录', name: 'bt_dir', type: 'text', maxlen: 40, size: 40, value: nvram.bt_dir },
-	{ title: 'Use .incomplete/', indent: 2, name: 'f_bt_incomplete', type: 'checkbox', value: nvram.bt_incomplete == '1' },
-	{ title: 'Autoadd .torrents', indent: 2, name: 'f_bt_autoadd', type: 'checkbox', value: nvram.bt_autoadd == '1', suffix: ' <small>(search .torrent files in Download directory by default)<\/small>' }
+	{ title: '使用 .incomplete/', indent: 2, name: 'f_bt_incomplete', type: 'checkbox', value: nvram.bt_incomplete == '1' },
+	{ title: '自动添加 .torrents', indent: 2, name: 'f_bt_autoadd', type: 'checkbox', value: nvram.bt_autoadd == '1', suffix: ' <small>(在下载目录中自动搜索 .torrent 文件)<\/small>' }
 ]);
 </script>
 	<ul>
@@ -334,7 +334,7 @@ createFieldTable('', [
 		<li><b>Transmission 程序路径</b> 到包含 transmission-daemon 等程序的路径.
 		<li><b>保持活动</b> - 开启后,系统将在指定时段检查 transmission-daemon 运行状况并在其崩溃后将其重新启动.
 		<li><b>监听端口</b> - torrent 客户端使用的端口.确保此端口不被占用.
-		<li><b>Autoadd .torrents</b> - Search and add .torrent files from Download directory. Other watch directory can be setup with 'watch-dir' parameter in "Custom configuration".
+		<li><b>自动添加 .torrents</b> - 在下载目录中搜索并自动添加.torrent 文件，可以在"自定义配置"中的'watch-dir'选项处添加额外的监控文件夹.
 	</ul>
 </div>
 <div class='section-title'>远程访问<script type='text/javascript'>W(btgui_link);</script></div>
@@ -365,7 +365,7 @@ createFieldTable('', [
 	{ title: '上传限速', multi: [
 		{ name: 'f_bt_ul_enable', type: 'checkbox', value: nvram.bt_ul_enable == '1', suffix: '  ' },
 		{ name: 'bt_ul', type: 'text', maxlen: 10, size: 7, value: nvram.bt_ul, suffix: ' <small>kB/s<\/small>' } ] },
-	{ title: '达到带宽比例停止上传', multi: [
+	{ title: '达到上传比例停止上传', multi: [
 		{ name: 'f_bt_ratio_enable', type: 'checkbox', value: nvram.bt_ratio_enable == '1', suffix: '  ' },
 		{ name: 'bt_ratio', type: 'select', options: [['0.0000','0.0'],['0.1000','0.1'],['0.2000','0.2'],['0.5000','0.5'],['1.0000','1.0'],['1.5000','1.5'],['2.0000','2.0'],['2.5000','2.5'],['3.0000','3.0']], value: nvram.bt_ratio } ] },
 	{ title: '超出闲置时间停止上传', multi: [
@@ -377,23 +377,23 @@ createFieldTable('', [
 ]);
 </script>
 </div>
-<div class='section-title'>种子序列</div>
+<div class='section-title'>种子队列</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: '下载序列', multi: [
+	{ title: '下载队列', multi: [
 		{ name: 'f_bt_dl_queue_enable', type: 'checkbox', value: nvram.bt_dl_queue_enable == '1', suffix: '  ' },
 		{ name: 'bt_dl_queue_size', type: 'text', maxlen: 5, size: 7, value: nvram.bt_dl_queue_size, suffix: ' <small>(范围: 1 - 30; 默认: 5) *<\/small>' }
 		] },
-	{ title: '上传序列', multi: [
+	{ title: '上传队列', multi: [
 		{ name: 'f_bt_ul_queue_enable', type: 'checkbox', value: nvram.bt_ul_queue_enable == '1', suffix: '  ' },
 		{ name: 'bt_ul_queue_size', type: 'text', maxlen: 5, size: 7, value: nvram.bt_ul_queue_size, suffix: ' <small>(范围: 1 - 30; 默认: 5) *<\/small>' }
 		] }
 ]);
 </script>
 	<ul>
-		<li><b>下载序列</b> - 开启后将限制一次能被下载的最大数目.
-		<li><b>上传序列</b> - 开启后将限制一次能上传/做种的最大数目.
+		<li><b>下载队列</b> - 开启后将限制同时下载的最大种子数目.
+		<li><b>上传队列</b> - 开启后将限制同时上传/做种的最大数目.
 	</ul>
 </div>
 <div class='section-title'>高级设置</div>
@@ -419,7 +419,7 @@ createFieldTable('', [
 			['/tmp','RAM (临时)'], ['custom','用户自定义'] ], value: nvram.bt_settings, suffix: ' ' },
 		{ name: 'bt_settings_custom', type: 'text', maxlen: 60, size: 40, value: nvram.bt_settings_custom }
 		] },
-	{ title: 'Blocklist', multi: [
+	{ title: '黑名单', multi: [
 		{ name: 'f_bt_blocklist', type: 'checkbox', value: nvram.bt_blocklist == '1', suffix: '  ' },
 		{ name: 'bt_blocklist_url', type: 'text', maxlen: 80, size: 60, value: nvram.bt_blocklist_url }
 		] },

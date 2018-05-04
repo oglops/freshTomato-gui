@@ -548,6 +548,7 @@ function toggleVisibility(whichone) {
 		{ title: 'VPN 子网掩码', name: 'tinc_vpn_netmask', type: 'text', maxlen: 15, size: 25, value: nvram.tinc_vpn_netmask,  suffix: ' <small>子网掩码将用于全部VPN网络.<\/small>' },
 		{ title: '主机名称', name: 'tinc_name', type: 'text', maxlen: 30, size: 25, value: nvram.tinc_name, suffix: ' <small>必须被定义在\'主机\'选项中.<\/small>' },
 		{ title: 'Poll Interval', name: 'tinc_poll', type: 'text', maxlen: 4, size: 5, value: nvram.tinc_poll, suffix: '&nbsp;<small>(in minutes, 0 to disable)<\/small>' },
+		{ title: 'Ed25519 私钥', name: 'tinc_private_ed25519', type: 'textarea', value: nvram.tinc_private_ed25519 },
 		{ title: 'RSA 私钥 *', name: 'tinc_private_rsa', type: 'textarea', value: nvram.tinc_private_rsa },
 		{ title: '自定义', name: 'tinc_custom', type: 'textarea', value: nvram.tinc_custom }
 	]);

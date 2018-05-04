@@ -84,7 +84,7 @@ sg.dataToView = function(data) {
 
 	v.push((data[2].toString() != '0') ? '<small><i>启用<\/i><\/small>' : '');
 	v.push(escapeHTML('' + data[3]));
-	v.push((data[4].toString() != '0') ? '<small><i>Enabled<\/i><\/small>' : '');
+	v.push((data[4].toString() != '0') ? '<small><i>启用<\/i><\/small>' : '');
 	v.push(escapeHTML('' + data[5]));
 	return v;
 }

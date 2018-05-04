@@ -47,7 +47,7 @@ function check()
 		for (i = 1; i < 13; ++i) {
 			E('count' + i).innerHTML = '&nbsp; <small>('+ ((conntrack[i] || 0) * 1) + ' 个连接处于该状态)<\/small>';
 		}
-		E('count0').innerHTML = '(' + ((conntrack[0] || 0) * 1) + ' 个连接数目前使用中)';
+		E('count0').innerHTML = '(' + ((conntrack[0] || 0) * 1) + ' 个连接目前使用中)';
 		checker = null;
 		timer.start(3000);
 	}

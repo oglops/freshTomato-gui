@@ -40,7 +40,7 @@ function backupButton()
 {
 	var name = fixFile(E('backup-name').value);
 	if (name.length <= 1) {
-		alert('不正确的文件名');
+		alert('无效的文件名');
 		return;
 	}
 	location.href = 'cfg/' + name + '.cfg?_http_id=' + nvram.http_id;
@@ -141,7 +141,7 @@ createFieldTable('', [
 
 if (a <= 5) {
 	document.write('<br /><div id="notice1">' +
-		'NVRAM 可用容量非常低. 非常推荐 ' +
+		'NVRAM 可用容量非常低. 强烈建议 ' +
 		'擦除 NVRAM 内存中的所有数据，并手动重新配置路由器 ' +
 		'以清除所有未使用和过时的条目.' +
 		'<\/div><br style="clear:both">');

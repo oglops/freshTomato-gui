@@ -51,7 +51,7 @@ function backupButton()
 
 	name = fix(E('backup-name').value);
 	if (name.length <= 1) {
-		alert('不正确的文件名');
+		alert('无效的文件名');
 		return;
 	}
 	location.href = 'ipt/' + name + '.gz?_http_id=' + nvram.http_id;
