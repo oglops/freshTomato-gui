@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Basic: Identification</title>
+<title>[<% ident(); %>] 基本设置：名称设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -55,13 +55,13 @@ function save()
 <input type='hidden' name='_service' value='*'>
 
 
-<div class='section-title'>Router Identification</div>
+<div class='section-title'>路由器名称</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Router Name', name: 'router_name', type: 'text', maxlen: 32, size: 34, value: nvram.router_name },
-	{ title: 'Hostname', name: 'wan_hostname', type: 'text', maxlen: 63, size: 34, value: nvram.wan_hostname },
-	{ title: 'Domain Name', name: 'wan_domain', type: 'text', maxlen: 32, size: 34, value: nvram.wan_domain }
+	{ title: '路由器名称', name: 'router_name', type: 'text', maxlen: 32, size: 34, value: nvram.router_name },
+	{ title: '主机名称', name: 'wan_hostname', type: 'text', maxlen: 63, size: 34, value: nvram.wan_hostname },
+	{ title: '所在域', name: 'wan_domain', type: 'text', maxlen: 32, size: 34, value: nvram.wan_domain }
 ]);
 </script>
 </div>
@@ -71,8 +71,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

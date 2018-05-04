@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: Buttons</title>
+<title>[<% ident(); %>] 系统管理: 按键/指示灯</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -85,21 +85,21 @@ function earlyInit()
 <input type='hidden' name='sesx_led' value='0'>
 
 <div id='sesdiv' style='display:none'>
-<div class='section-title'>SES/WPS/AOSS Button</div>
+<div class='section-title'>SES/WPS/AOSS 按键</div>
 <div class='section'>
 <script type='text/javascript'>
-a = [[0,'Do Nothing'],[1,'Toggle Wireless'],[2,'Reboot'],[3,'Shutdown'],
+a = [[0,'不做任何事'],[1,'开/关无线网络'],[2,'重启系统'],[3,'关闭系统'],
 /* USB-BEGIN */
-[5,'Unmount all USB Drives'],
+[5,'卸载所有 USB 设备'],
 /* USB-END */
-[4,'Run Custom Script']];
+[4,'运行自定义脚本']];
 createFieldTable('', [
-	{ title: "When Pushed For..." },
-	{ title: '0-2 Seconds', indent: 2, name: 'sesx_b0', type: 'select', options: a, value: nvram.sesx_b0 || 0 },
-	{ title: '4-6 Seconds', indent: 2, name: 'sesx_b1', type: 'select', options: a, value: nvram.sesx_b1 || 0 },
-	{ title: '8-10 Seconds', indent: 2, name: 'sesx_b2', type: 'select', options: a, value: nvram.sesx_b2 || 0 },
-	{ title: '12+ Seconds', indent: 2, name: 'sesx_b3', type: 'select', options: a, value: nvram.sesx_b3 || 0 },
-	{ title: 'Custom Script', indent: 2, name: 'sesx_script', type: 'textarea', value: nvram.sesx_script }
+	{ title: "当按下时..." },
+	{ title: '0-2 秒', indent: 2, name: 'sesx_b0', type: 'select', options: a, value: nvram.sesx_b0 || 0 },
+	{ title: '4-6 秒', indent: 2, name: 'sesx_b1', type: 'select', options: a, value: nvram.sesx_b1 || 0 },
+	{ title: '8-10 秒', indent: 2, name: 'sesx_b2', type: 'select', options: a, value: nvram.sesx_b2 || 0 },
+	{ title: '12+ 秒', indent: 2, name: 'sesx_b3', type: 'select', options: a, value: nvram.sesx_b3 || 0 },
+	{ title: '自定义脚本', indent: 2, name: 'sesx_script', type: 'textarea', value: nvram.sesx_script }
 ]);
 </script>
 </div>
@@ -110,28 +110,28 @@ createFieldTable('', [
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Custom Script', indent: 2, name: 'script_brau', type: 'textarea', value: nvram.script_brau }
+	{ title: '自定义脚本', indent: 2, name: 'script_brau', type: 'textarea', value: nvram.script_brau }
 ]);
 </script>
 </div>
 </div>
 
 <div id='leddiv' style='display:none'>
-<div class='section-title'>Startup LED</div>
+<div class='section-title'>启动指示灯</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Amber SES', name: '_led0', type: 'checkbox', value: nvram.sesx_led & 1, hidden: !wham },
-	{ title: 'White SES', name: '_led1', type: 'checkbox', value: nvram.sesx_led & 2, hidden: !wham },
+	{ title: '琥珀色 SES', name: '_led0', type: 'checkbox', value: nvram.sesx_led & 1, hidden: !wham },
+	{ title: '白色 SES', name: '_led1', type: 'checkbox', value: nvram.sesx_led & 2, hidden: !wham },
 	{ title: 'AOSS', name: '_led2', type: 'checkbox', value: nvram.sesx_led & 4, hidden: !aoss },
-	{ title: 'Bridge', name: '_led3', type: 'checkbox', value: nvram.sesx_led & 8, hidden: !brau }
+	{ title: '桥接', name: '_led3', type: 'checkbox', value: nvram.sesx_led & 8, hidden: !brau }
 ]);
 </script>
 </div>
 </div>
 
 <script type='text/javascript'>
-if ((!ses) && (!brau)) W('<i>This feature is not supported on this router.<\/i>');
+if ((!ses) && (!brau)) W('<i>此路由器不支持此功能.<\/i>');
 </script>
 
 <!-- / / / -->
@@ -139,8 +139,8 @@ if ((!ses) && (!brau)) W('<i>This feature is not supported on this router.<\/i>'
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

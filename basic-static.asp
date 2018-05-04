@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Basic: Static DHCP/ARP/IPT</title>
+<title>[<% ident(); %>] 基本设置: 静态 DHCP/ARP/IPT</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -80,9 +80,9 @@ sg.dataToView = function(data) {
 	var v = [];
 	var s = (data[0] == '00:00:00:00:00:00') ? '' : data[0];
 	if (!isMAC0(data[1])) s += '<br />' + data[1];
-	v.push((s == '') ? '<center><small><i>(unset)<\/i><\/small><\/center>' : s);
+	v.push((s == '') ? '<center><small><i>(未设置)<\/i><\/small><\/center>' : s);
 
-	v.push((data[2].toString() != '0') ? '<small><i>Enabled<\/i><\/small>' : '');
+	v.push((data[2].toString() != '0') ? '<small><i>启用<\/i><\/small>' : '');
 	v.push(escapeHTML('' + data[3]));
 	v.push((data[4].toString() != '0') ? '<small><i>Enabled<\/i><\/small>' : '');
 	v.push(escapeHTML('' + data[5]));
@@ -154,7 +154,7 @@ sg.verifyFields = function(row, quiet) {
 
 	for (i = 0; i < 2; ++i) {
 		if (this.existMAC(f[i].value)) {
-			ferror.set(f[i], 'Duplicate MAC address', quiet);
+			ferror.set(f[i], '重复的 MAC 地址', quiet);
 			return 0;
 		}
 	}
@@ -162,14 +162,14 @@ sg.verifyFields = function(row, quiet) {
 	if (f[3].value.indexOf('.') == -1) {
 		s = parseInt(f[3].value, 10)
 		if (isNaN(s) || (s <= 0) || (s >= 255)) {
-			ferror.set(f[3], 'Invalid IP address', quiet);
+			ferror.set(f[3], '不正确的 IP 地址', quiet);
 			return 0;
 		}
 		f[3].value = ipp + s;
 	}
 
 	if ((!isMAC0(f[0].value)) && (this.inStatic(f[3].value))) {
-		ferror.set(f[3], 'Duplicate IP address', quiet);
+		ferror.set(f[3], '重复的 IP 地址', quiet);
 		return 0;
 	}
 
@@ -181,11 +181,11 @@ REMOVE-END */
 
 	if (s.length > 0) {
 		if (s.search(/^[.a-zA-Z0-9_\- ]+$/) == -1) {
-			ferror.set(f[5], 'Invalid hostname. Only characters "A-Z 0-9 . - _" are allowed.', quiet);
+			ferror.set(f[5], '无效的主机名，仅允许字符 "A-Z 0-9 . - _".', quiet);
 			return 0;
 		}
 		if (this.existName(s)) {
-			ferror.set(f[5], 'Duplicate hostname.', quiet);
+			ferror.set(f[5], '主机名重复.', quiet);
 			return 0;
 		}
 		f[5].value = s;
@@ -193,7 +193,7 @@ REMOVE-END */
 
 	if (isMAC0(f[0].value)) {
 		if (s == '') {
-			s = 'Both MAC address and name fields must not be empty.';
+			s = 'MAC 地址和名称字段不能为空.';
 			ferror.set(f[0], s, 1);
 			ferror.set(f[5], s, quiet);
 			return 0;
@@ -258,7 +258,7 @@ sg.setup = function() {
 		{ type: 'checkbox', prefix: '<div class="centered">', suffix: '<\/div>' },
 		{ type: 'text', maxlen: 50 } ] );
 
-	this.headerSet(['MAC Address', 'Bound to', 'IP Address', 'IPTraffic', 'Hostname']);
+	this.headerSet(['MAC 地址', '绑定到', 'IP 地址', 'IP 流量', '主机名']);
 
 	var ipt = nvram.cstats_include.split(',');
 	var s = nvram.dhcpd_static.split('>');
@@ -322,11 +322,11 @@ function init()
 function toggleVisibility(whichone) {
 	if(E('sesdiv' + whichone).style.display=='') {
 		E('sesdiv' + whichone).style.display='none';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to show)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处显示)';
 		cookie.set('basic_static_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv' + whichone).style.display='';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to hide)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处隐藏)';
 		cookie.set('basic_static_' + whichone + '_vis', 1);
 	}
 }
@@ -357,38 +357,38 @@ function verifyFields(focused, quiet) {
 <input type='hidden' name='dhcpd_static_only'>
 <input type='hidden' name='cstats_include'>
 
-<div class='section-title'>Static DHCP/ARP/IPT</div>
+<div class='section-title'>静态 DHCP/ARP/IPT</div>
 <div class='section'>
 	<div class="tomato-grid" id="bs-grid"></div>
 </div>
 
 <!-- / / / -->
 
-<div class='section-title'>Options</div>
+<div class='section-title'>选项</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-{ title: 'Ignore DHCP requests from unknown devices', name: 'f_dhcpd_static_only', type: 'checkbox', value: nvram.dhcpd_static_only == '1' }
+{ title: '忽略未知设备的<br>DHCP 请求', name: 'f_dhcpd_static_only', type: 'checkbox', value: nvram.dhcpd_static_only == '1' }
 ]);
 </script>
 </div>
-<div class='section-title'>Notes <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdivnotesshowhide'>(Click here to show)</span></a></i></small></div>
+<div class='section-title'>说明 <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdivnotesshowhide'>(点击此处显示)</span></a></i></small></div>
 <div class='section' id='sesdivnotes' style='display:none'>
 
 <ul>
-<li><b>MAC Address</b> - Unique identifier associated to a network interface on this particular device.</li>
-<li><b>Bound to</b> - Enforce static ARP binding of this particular IP/MAC address pair.</li>
-<li><b>IP Address</b> - Network address assigned to this device on the local network.</li>
-<li><b>IPTraffic</b> - Keep track of bandwidth usage for this IP address.</li>
-<li><b>Hostname</b> - Human-readable nickname/label assigned to this device on the network.</li>
+<li><b>MAC 地址</b> - 与此设备的一个网络接口相关联的唯一标示符.</li>
+<li><b>绑定到</b> - 在此 IP/MAC 组合上强制静态 ARP 绑定.</li>
+<li><b>IP 地址</b> - 在本地网络上分配给这个设备的网络地址.</li>
+<li><b>IP 流量</b> - 监控此 IP 地址的流量.</li>
+<li><b>主机名</b> - 在网络上分配给这个设备的昵称/标签.</li>
 </ul>
 <ul>
-<li><small><b>Other relevant notes/hints:</b></small>
+<li><small><b>其它说明:</b></small>
 <ul>
-<li><small>To specify multiple hostnames for a device, separate them with spaces.</small></li>
-<li><small>To enable/enforce static ARP binding for a particular device, it must have only one MAC associated with that particular IP address (i.e. you can't have two MAC addresses linked to the same hostname/device in the table above).</small></li>
-<li><small>When ARP binding is enabled for a particular MAC/IP address pair, that device will always be shown as "active" in the <a href="tools-wol.asp">Wake On LAN</a> table.</small></li>
-<li><small>See also the <a href='advanced-dhcpdns.asp'>Advanced DHCP/DNS</a> settings page for more DHCP-related configuration options.</small></li>
+<li><small>如要指定多个主机设备，请用空格隔开.</small></li>
+<li><small>如要对一个特定设备 启用/执行 静态ARP绑定，它只能一个 MAC 地址对应一个 IP 地址（即在上面的表中，你不能有两个 MAC 地址链接到同一主机/设备).</small></li>
+<li><small>当对一个特定的 MAC/IP 地址对启用了 静态ARP绑定 之后，那个设备将永远在 <a href="#tools-wol.asp">网络唤醒</a> 列表中显示为 ‘活动’.</small></li>
+<li><small>也可以查看 <a href="#advanced-dhcpdns.asp">高级 DHCP/DNS </a> 设置页，那里有更多DHCP相关的配置选项.</small></li>
 </ul>
 </li>
 </ul>
@@ -399,8 +399,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan='2'>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

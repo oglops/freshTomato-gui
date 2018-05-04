@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Bandwidth: Daily</title>
+<title>[<% ident(); %>] 带宽监控：每日流量</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -75,7 +75,7 @@ function redraw()
 	if (daily_history.length > 0) {
 		ymd = getYMD(daily_history[0][0]);
 		d = new Date((new Date(ymd[0], ymd[1], ymd[2], 12, 0, 0, 0)).getTime() - ((30 - 1) * 86400000));
-		E('last-dates').innerHTML = '(' + ymdText(ymd[0], ymd[1], ymd[2]) + ' to ' + ymdText(d.getFullYear(), d.getMonth(), d.getDate()) + ')';
+		E('last-dates').innerHTML = '(' + ymdText(ymd[0], ymd[1], ymd[2]) + ' 到 ' + ymdText(d.getFullYear(), d.getMonth(), d.getDate()) + ')';
 
 		lastt = ((d.getFullYear() - 1900) << 16) | (d.getMonth() << 8) | d.getDate();
 	}
@@ -87,7 +87,7 @@ function redraw()
 	gn = 0;
 
 	grid = '<table class="bwmg" cellspacing="1">';
-	grid += makeRow('header', 'Date', 'Download', 'Upload', 'Total');
+	grid += makeRow('header', '日期', '下载', '上传', '合计');
 
 	for (i = 0; i < daily_history.length; ++i) {
 		h = daily_history[i];
@@ -143,28 +143,28 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>WAN Bandwidth - Daily</div>
+<div class='section-title'>WAN 每日流量</div>
 <div id="rstats">
 	<div id='bwm-daily-grid' style='float:left'></div>
 	<div style="float:right;text-align:right">
 
 		<table class='tomato-grid' style='width:150px'>
-			<tr class='header'><td colspan=2 style='text-align:center'>Last 30 Days<br /><span style='font-weight:normal' id='last-dates'></span></td></tr>
-			<tr class='even'><td>Down</td><td id='last-dn'>-</td></tr>
-			<tr class='odd'><td>Up</td><td id='last-up'>-</td></tr>
-			<tr class='footer'><td>Total</td><td id='last-total'>-</td></tr>
+			<tr class='header'><td colspan=2 style='text-align:center'>最近 30 天<br /><span style='font-weight:normal' id='last-dates'></span></td></tr>
+			<tr class='even'><td>下载</td><td id='last-dn'>-</td></tr>
+			<tr class='odd'><td>上传</td><td id='last-up'>-</td></tr>
+			<tr class='footer'><td>合计</td><td id='last-total'>-</td></tr>
 		</table>
 
 		<br />
 		<hr style='height:1px'>
 		<br />
 
-		<b>Date</b> <select onchange='changeDate(this, "ymd")' id='dafm'><option value=0>yyyy-mm-dd</option><option value=1>mm-dd-yyyy</option><option value=2>mmm dd, yyyy</option><option value=3>dd.mm.yyyy</option></select><br />
-		<b>Scale</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
+		<b>日期格式</b> <select onchange='changeDate(this, "ymd")' id='dafm'><option value=0>年-月-日</option><option value=1>月-日-年</option><option value=2>月 日, 年</option><option value=3>日.月.年</option></select><br />
+		<b>单位切换</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
 		<br />
-		&raquo; <a href="javascript:genData()">Data</a>
+		&raquo; <a href="javascript:genData()">数据</a>
 		<br />
-		&raquo; <a href="admin-bwm.asp">Configure</a>
+		&raquo; <a href="admin-bwm.asp">设置</a>
 		<br /><br /><br />
 
 	</div>
@@ -181,7 +181,7 @@ function init()
 
 </td></tr>
 <tr><td id='footer' colspan=2>
-	<input type='button' value='Refresh' id='refresh-button' onclick='reloadPage()'>
+	<input type='button' value='刷新' id='refresh-button' onclick='reloadPage()'>
 </td></tr>
 </table>
 </form>

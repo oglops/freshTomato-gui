@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Measuring Noise...</title>
+<title>[<% ident(); %>] 测量噪声...</title>
 <script type="text/javascript">
 function tick()
 {
@@ -58,9 +58,9 @@ input {
 
 <body onload="init()" onclick="go()">
 	<div class="div">
-		<div style="font-size:25px">Measuring radio noise floor...</div>
+		<div style="font-size:25px">测量无线本底噪声...</div>
 		<br />
-		<div>Wireless access has been temporarily disabled for <div id="sptime" style="display:inline;background:rgb(110,10,10);padding:2px 2px;border-radius:2px"></div> second(s)</div>
+		<div>无线访问暂时中断 <div id="sptime" style="display:inline;background:rgb(110,10,10);padding:2px 2px;border-radius:2px"></div> 秒</div>
 	</div>
 </body>
 </html>

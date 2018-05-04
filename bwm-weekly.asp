@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Bandwidth: Weekly</title>
+<title>[<% ident(); %>] 带宽监控：每周流量</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -36,8 +36,8 @@ if (typeof(daily_history) == 'undefined') {
 	rstats_busy = 1;
 }
 
-var weeks = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var weeksShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+var weeksShort = ['日', '一', '二', '三', '四', '五', '六'];
 var startwk = 0;
 var summary = 1;
 
@@ -102,7 +102,7 @@ function redraw()
 
 	if (summary) {
 		grid = '<table class="bwmg" cellspacing="1">';
-		grid += makeRow('header', 'Date', 'Download', 'Upload', 'Total');
+		grid += makeRow('header', '日期', '下载', '上传', '合计');
 	}
 	else {
 		grid = '';
@@ -110,11 +110,11 @@ function redraw()
 
 	function flush_block()
 	{
-		grid += '<b>' + dbeg + ' to ' + dend + '<\/b>' +
+		grid += '<b>' + dbeg + ' 到 ' + dend + '<\/b>' +
 				'<table class="bwmg" cellspacing="1">' +
-				makeRow('header', 'Date', 'Download', 'Upload', 'Total') +
+				makeRow('header', '日期', '下载', '上传', '合计') +
 				block.join('') +
-				makeRow('footer', 'Total', rescale(dl), rescale(ul), rescale(dl + ul)) +
+				makeRow('footer', '合计', rescale(dl), rescale(ul), rescale(dl + ul)) +
 				'<\/table><br />';
 	}
 
@@ -243,17 +243,17 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>WAN Bandwidth - Weekly</div>
+<div class='section-title'>WAN 每周流量</div>
 <div id="rstats">
 
 	<div id='bwm-weekly-grid' style='float:left'></div>
 	<div style="float:right;text-align:right">
-		<b>Show</b> <select onchange='changeMode(this)' id='shmode'><option value=1 selected>Summary<option value=0>Full</select><br />
-		<b>Date</b> <select onchange='changeDate(this, "ymd")' id='dafm'><option value=0>yyyy-mm-dd</option><option value=1>mm-dd-yyyy</option><option value=2>mmm dd, yyyy</option><option value=3>dd.mm.yyyy</option></select><br />
-		<b>Start</b> <select onchange='changeStart(this)' id='startwk'><option value=0 selected>Sun<option value=1>Mon<option value=2>Tue<option value=3>Wed<option value=4>Thu<option value=5>Fri<option value=6>Sat</select><br />
-		<b>Scale</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
+		<b>显示方式</b> <select onchange='changeMode(this)' id='shmode'><option value=1 selected>总和<option value=0>列表</select><br />
+		<b>日期格式</b> <select onchange='changeDate(this, "ymd")' id='dafm'><option value=0>年-月-日</option><option value=1>月-日-年</option><option value=2>月 日, 年</option><option value=3>日.月.年</option></select><br />
+		<b>每周第一天</b> <select onchange='changeStart(this)' id='startwk'><option value=0 selected>日<option value=1>一<option value=2>二<option value=3>三<option value=4>四<option value=5>五<option value=6>六</select><br />
+		<b>单位切换</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
 		<br />
-		&raquo; <a href="admin-bwm.asp">Configure</a>
+		&raquo; <a href="admin-bwm.asp">设置</a>
 		<br /><br /><br />
 	</div>
 
@@ -269,7 +269,7 @@ function init()
 
 </td></tr>
 <tr><td id='footer' colspan=2>
-	<input type='button' value='Refresh' id='refresh-button' onclick='reloadPage()'>
+	<input type='button' value='刷新' id='refresh-button' onclick='reloadPage()'>
 </td></tr>
 </table>
 </form>

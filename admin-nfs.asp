@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: NFS Server</title>
+<title>[<% ident(); %>] 系统管理: NFS 服务</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -48,9 +48,9 @@
 
 //	<% nvram("nfs_enable,nfs_exports"); %>
 
-var access = [['rw', 'Read/Write'], ['ro', 'Read only']];
-var sync = [['sync', 'Yes'], ['async', 'No']];
-var subtree = [['subtree_check', 'Yes'], ['no_subtree_check', 'No']];
+var access = [['rw', '读/写'], ['ro', '只读']];
+var sync = [['sync', '是'], ['async', '否']];
+var subtree = [['subtree_check', '是'], ['no_subtree_check', '否']];
 
 var nfsg = new TomatoGrid();
 
@@ -97,7 +97,7 @@ nfsg.setup = function()
 		{ type: 'select', options: subtree },
 		{ type: 'text', maxlen: 50 }
 	]);
-	this.headerSet(['Directory', 'IP Address/Subnet', 'Access', 'Sync', 'Subtree Check', 'Other Options']);
+	this.headerSet(['目录', 'IP 地址/子网', '访问权限', '同步', '子树检查', '其他选项']);
 	var s = nvram.nfs_exports.split('>');
 	for (var i = 0; i < s.length; ++i) {
 		var t = s[i].split('<');
@@ -162,29 +162,29 @@ function init()
 <div class='section'>
 	<script type='text/javascript'>
 	createFieldTable('', [
-		{ title: 'Enable NFS Server', name: 'f_nfs_enable', type: 'checkbox', value: nvram.nfs_enable != '0' }
+		{ title: '启用 NFS 服务器', name: 'f_nfs_enable', type: 'checkbox', value: nvram.nfs_enable != '0' }
 	]);
 	</script>
 <br />
 
-<div class='section-title'>Exports</div>
+<div class='section-title'>导出目录</div>
 <div class='section'>
 	<div class="tomato-grid" id="nfsg-grid"></div>
 	<script type='text/javascript'>nfsg.setup();</script>
 <br />
 	<ul>
-	<li>You can find more information on proper NFS configuration at the following website: <a href="http://nfs.sourceforge.net/nfs-howto/" class='new_window'><b>http://nfs.sourceforge.net</b></a>.
+	<li>你可以在此网站找到 NFS 配置的更多信息: <a href="http://nfs.sourceforge.net/nfs-howto/" class='new_window'><b>http://nfs.sourceforge.net</b></a>.
 	</ul>
 <br />
 </div>
 
 </div>
 
-<div class='section-title'>NFS Client</div>
+<div class='section-title'>NFS 客户端</div>
 <div class='section'>
 <br />
 	<ul>
-	<li>If you want to mount an NFS share from other NFS Server, you can use the mount.nfs tool via telnet/ssh.
+	<li>如果你想从其他 NFS 服务器挂载 NFS 共享, 你可以通过 telnet/ssh 使用 mount.nfs 工具.
 	</ul>
 </div>
 
@@ -193,8 +193,8 @@ function init()
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

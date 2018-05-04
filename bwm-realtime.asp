@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Bandwidth: Real-Time</title>
+<title>[<% ident(); %>] 带宽监控：实时流量</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -159,51 +159,51 @@ function init() {
 	</script>
 
 	<div id='bwm-controls'>
-		<small>(10 minute window, 2 second interval)</small><br />
+		<small>(绘图窗口(10分钟),2秒间隔)</small><br />
 		<br />
-		Avg:&nbsp;
-			<a href='javascript:switchAvg(1)' id='avg1'>Off</a>,
+		平均:&nbsp;
+			<a href='javascript:switchAvg(1)' id='avg1'>关闭</a>,
 			<a href='javascript:switchAvg(2)' id='avg2'>2x</a>,
 			<a href='javascript:switchAvg(4)' id='avg4'>4x</a>,
 			<a href='javascript:switchAvg(6)' id='avg6'>6x</a>,
 			<a href='javascript:switchAvg(8)' id='avg8'>8x</a><br />
-		Max:&nbsp;
-			<a href='javascript:switchScale(0)' id='scale0'>Uniform</a>,
-			<a href='javascript:switchScale(1)' id='scale1'>Per IF</a><br />
+		最大:&nbsp;
+			<a href='javascript:switchScale(0)' id='scale0'>一致</a>,
+			<a href='javascript:switchScale(1)' id='scale1'>每个 IF</a><br />
 		Unit:&nbsp;
 			<a href='javascript:switchUnit(0)' id='unit0'>kbit/KB</a>,
 			<a href='javascript:switchUnit(1)' id='unit1'>Mbit/MB</a><br />
-		Display:&nbsp;
-			<a href='javascript:switchDraw(0)' id='draw0'>Solid</a>,
-			<a href='javascript:switchDraw(1)' id='draw1'>Line</a><br />
-		Color:&nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br />
-		<small><a href='javascript:switchColor(1)' id='drawrev'>[reverse]</a></small><br />
+		显示:&nbsp;
+			<a href='javascript:switchDraw(0)' id='draw0'>填充</a>,
+			<a href='javascript:switchDraw(1)' id='draw1'>实线</a><br />
+		颜色:&nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br />
+		<small><a href='javascript:switchColor(1)' id='drawrev'>[颜色反转]</a></small><br />
 
 		<br /><br />
-		&nbsp; &raquo; <a href="admin-bwm.asp">Configure</a>
+		&nbsp; &raquo; <a href="admin-bwm.asp">设置</a>
 	</div>
 
 	<br /><br />
 	<table border=0 cellspacing=2 id='txt'>
 	<tr>
-		<td style='width:8%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='rx-name'>RX</b></td>
+		<td style='width:8%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='rx-name'>接收</b></td>
 		<td style='width:15%' align='right' valign='top'><span id='rx-current'></span></td>
-		<td style='width:8%' align='right' valign='top'><b>Avg</b></td>
+		<td style='width:8%' align='right' valign='top'><b>平均</b></td>
 		<td style='width:15%' align='right' valign='top' id='rx-avg'></td>
-		<td style='width:8%' align='right' valign='top'><b>Peak</b></td>
+		<td style='width:8%' align='right' valign='top'><b>最大</b></td>
 		<td style='width:15%' align='right' valign='top' id='rx-max'></td>
-		<td style='width:8%' align='right' valign='top'><b>Total</b></td>
+		<td style='width:8%' align='right' valign='top'><b>合计</b></td>
 		<td style='width:14%' align='right' valign='top' id='rx-total'></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td style='width:8%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='tx-name'>TX</b></td>
+		<td style='width:8%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='tx-name'>传送</b></td>
 		<td style='width:15%' align='right' valign='top'><span id='tx-current'></span></td>
-		<td style='width:8%' align='right' valign='top'><b>Avg</b></td>
+		<td style='width:8%' align='right' valign='top'><b>平均</b></td>
 		<td style='width:15%' align='right' valign='top' id='tx-avg'></td>
-		<td style='width:8%' align='right' valign='top'><b>Peak</b></td>
+		<td style='width:8%' align='right' valign='top'><b>最大</b></td>
 		<td style='width:15%' align='right' valign='top' id='tx-max'></td>
-		<td style='width:8%' align='right' valign='top'><b>Total</b></td>
+		<td style='width:8%' align='right' valign='top'><b>合计</b></td>
 		<td style='width:14%' align='right' valign='top' id='tx-total'></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -216,7 +216,7 @@ function init() {
 
 </td></tr>
 <tr><td id='footer' colspan=2>
-	<span id='warnwd' style='display:none'>Warning: 10 second timeout, restarting...&nbsp;</span>
+	<span id='warnwd' style='display:none'>警告:超时10秒钟,重新绘图中...&nbsp;</span>
 	<span id='dtime'></span>
 	<img src='spin.gif' id='refresh-spinner' alt='' onclick='javascript:debugTime=1'>
 </td></tr>

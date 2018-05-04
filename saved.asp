@@ -77,8 +77,8 @@ input {
     <div class="div">
         <form action="">
             <div style="padding:10px 0">
-                <div id="l1" style="display:none"><b>Changes Saved... </b> <input type="button" value="Continue" onclick="go()"></div>
-                <div id="l2" style="display:none"><b>Please Wait... </b> &nbsp;<span id="xclock" style="background:rgb(110,10,10);padding:2px 2px;border-radius:2px;visibility:hidden"></span> &nbsp;<img src="spin.gif" id="spin" style="vertical-align:bottom" alt=""></div>
+                <div id="l1" style="display:none"><b>已保存... </b> <input type="button" value="Continue" onclick="go()"></div>
+                <div id="l2" style="display:none"><b>请稍候... </b> &nbsp;<span id="xclock" style="background:rgb(110,10,10);padding:2px 2px;border-radius:2px;visibility:hidden"></span> &nbsp;<img src="spin.gif" id="spin" style="vertical-align:bottom" alt=""></div>
             </div>
         </form>
     </div>

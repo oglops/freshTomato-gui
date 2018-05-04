@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: Bandwidth Monitoring</title>
+<title>[<% ident(); %>] 系统管理: 带宽监控</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -43,7 +43,7 @@ function backupButton()
 
 	name = fixFile(E('backup-name').value);
 	if (name.length <= 1) {
-		alert('Invalid filename');
+		alert('不正确的文件名');
 		return;
 	}
 	location.href = 'bwm/' + name + '.gz?_http_id=' + nvram.http_id;
@@ -58,10 +58,10 @@ function restoreButton()
 	name = fixFile(E('restore-name').value);
 	name = name.toLowerCase();
 	if ((name.length <= 3) || (name.substring(name.length - 3, name.length).toLowerCase() != '.gz')) {
-		alert('Incorrect filename. Expecting a ".gz" file.');
+		alert('不正确的文件名. 正确的扩展名为 ".gz" .');
 		return;
 	}
-	if (!confirm('Restore data from ' + name + '?')) return;
+	if (!confirm('是否从 ' + name + '恢复?')) return;
 
 	E('restore-button').disabled = 1;
 	fields.disableAll(E('config-section'), 1);
@@ -118,7 +118,7 @@ function verifyFields(focused, quiet)
 /* JFFS2-BEGIN */
 	else if (v == '/jffs/') {
 		if (nvram.jffs2_on != '1') {
-			ferror.set(eLoc, 'JFFS2 is not enabled.', quiet);
+			ferror.set(eLoc, 'JFFS2 未启用.', quiet);
 			return 0;
 		}
 	}
@@ -126,7 +126,7 @@ function verifyFields(focused, quiet)
 /* CIFS-BEGIN */
 	else if (v.match(/^\/cifs(1|2)\/$/)) {
 		if (nvram['cifs' + RegExp.$1].substr(0, 1) != '1') {
-			ferror.set(eLoc, 'CIFS #' + RegExp.$1 + ' is not enabled.', quiet);
+			ferror.set(eLoc, 'CIFS #' + RegExp.$1 + ' 未启用.', quiet);
 			return 0;
 		}
 	}
@@ -154,11 +154,11 @@ function save()
 		path = getPath();
 		if (((E('_rstats_stime').value * 1) <= 48) &&
 			((path == '*nvram') || (path == '/jffs/'))) {
-			if (!confirm('Frequent saving to NVRAM or JFFS2 is not recommended. Continue anyway?')) return;
+			if (!confirm('不建议对 NVRAM 或 JFFS2 进行频繁的存取，是否继续?')) return;
 		}
 		if ((nvram.rstats_path != path) && (fom.rstats_path.value != path) && (path != '') && (path != '*nvram') &&
 			(path.substr(path.length - 1, 1) != '/')) {
-			if (!confirm('Note: ' + path + ' will be treated as a file. If this is a directory, please use a trailing /. Continue anyway?')) return;
+			if (!confirm('注意: ' + path + ' 将会被视为一个文件. 如果这是一个目录，请使用 / 作为路径结尾. 是否继续?')) return;
 		}
 		fom.rstats_path.value = path;
 
@@ -204,7 +204,7 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>Bandwidth Monitoring</div>
+<div class='section-title'>带宽监控设置</div>
 <div class='section' id='config-section'>
 <form id='t_fom' method='post' action='tomato.cgi'>
 <div>
@@ -229,28 +229,28 @@ default:
 	break;
 }
 createFieldTable('', [
-	{ title: 'Enable', name: 'f_rstats_enable', type: 'checkbox', value: nvram.rstats_enable == '1' },
-	{ title: 'Save History Location', multi: [
-		{ name: 'f_loc', type: 'select', options: [['','RAM (Temporary)'],['*nvram','NVRAM'],
+	{ title: '启用', name: 'f_rstats_enable', type: 'checkbox', value: nvram.rstats_enable == '1' },
+	{ title: '历史数据保存位置', multi: [
+		{ name: 'f_loc', type: 'select', options: [['','RAM (临时)'],['*nvram','NVRAM'],
 /* JFFS2-BEGIN */
 			['/jffs/','JFFS2'],
 /* JFFS2-END */
 /* CIFS-BEGIN */
 			['/cifs1/','CIFS 1'],['/cifs2/','CIFS 2'],
 /* CIFS-END */
-			['*user','Custom Path']], value: loc },
+			['*user','自定义路径']], value: loc },
 		{ name: 'f_user', type: 'text', maxlen: 48, size: 50, value: nvram.rstats_path }
 	] },
-	{ title: 'Save Frequency', indent: 2, name: 'rstats_stime', type: 'select', value: nvram.rstats_stime, options: [
-		[1,'Every Hour'],[2,'Every 2 Hours'],[3,'Every 3 Hours'],[4,'Every 4 Hours'],[5,'Every 5 Hours'],[6,'Every 6 Hours'],
-		[9,'Every 9 Hours'],[12,'Every 12 Hours'],[24,'Every 24 Hours'],[48,'Every 2 Days'],[72,'Every 3 Days'],[96,'Every 4 Days'],
-		[120,'Every 5 Days'],[144,'Every 6 Days'],[168,'Every Week']] },
-	{ title: 'Save On Shutdown', indent: 2, name: 'f_sshut', type: 'checkbox', value: nvram.rstats_sshut == '1' },
-	{ title: 'Create New File<br /><small>(Reset Data)<\/small>', indent: 2, name: 'f_new', type: 'checkbox', value: 0,
-		suffix: ' &nbsp; <b id="newmsg" style="visibility:hidden"><small>(note: enable if this is a new file)<\/small><\/b>' },
-	{ title: 'Create Backups', indent: 2, name: 'f_bak', type: 'checkbox', value: nvram.rstats_bak == '1' },
-	{ title: 'First Day Of The Month', name: 'rstats_offset', type: 'text', value: nvram.rstats_offset, maxlen: 2, size: 4 },
-	{ title: 'Excluded Interfaces', name: 'rstats_exclude', type: 'text', value: nvram.rstats_exclude, maxlen: 64, size: 50, suffix: '&nbsp;<small>(comma separated list)<\/small>' }
+	{ title: '保存频率', indent: 2, name: 'rstats_stime', type: 'select', value: nvram.rstats_stime, options: [
+		[1,'每小时'],[2,'每2小时'],[3,'每3小时'],[4,'每4小时'],[5,'每5小时'],[6,'每6小时'],
+		[9,'每9小时'],[12,'每12小时'],[24,'每天'],[48,'每两天'],[72,'每三天'],[96,'每四天'],
+		[120,'每五天'],[144,'每六天'],[168,'每周']] },
+	{ title: '关机时保存', indent: 2, name: 'f_sshut', type: 'checkbox', value: nvram.rstats_sshut == '1' },
+	{ title: '创建新文件<br /><small>(清除数据)<\/small>', indent: 2, name: 'f_new', type: 'checkbox', value: 0,
+		suffix: ' &nbsp; <b id="newmsg" style="visibility:hidden"><small>(注意：如果这是一个新文件，则启用之)<\/small><\/b>' },
+	{ title: '创建备份', indent: 2, name: 'f_bak', type: 'checkbox', value: nvram.rstats_bak == '1' },
+	{ title: '每月第一天', name: 'rstats_offset', type: 'text', value: nvram.rstats_offset, maxlen: 2, size: 4 },
+	{ title: '排除的接口', name: 'rstats_exclude', type: 'text', value: nvram.rstats_exclude, maxlen: 64, size: 50, suffix: '&nbsp;<small>(多个请用逗号分隔)<\/small>' }
 ]);
 </script>
 </div>
@@ -259,26 +259,26 @@ createFieldTable('', [
 
 <br />
 
-<div class='section-title'>Backup</div>
+<div class='section-title'>备份</div>
 <div class='section' id='backup-section'>
 	<form action=''>
 	<script type='text/javascript'>
 	W("<input type='text' size='40' maxlength='64' id='backup-name' name='backup_name' onchange='backupNameChanged()' value='tomato_rstats_" + nvram.et0macaddr.replace(/:/g, '').toLowerCase() + "'>");
 	</script>
 	<div style='display:inline'>.gz &nbsp;
-		<input type='button' name='f_backup_button' id='backup-button' onclick='backupButton()' value='Backup'>
+		<input type='button' name='f_backup_button' id='backup-button' onclick='backupButton()' value='备份'>
 	</div>
 	</form>
-	<a href='#' id='backup-link'>Link</a>
+	<a href='#' id='backup-link'>点此下载</a>
 </div>
 <br />
 
-<div class='section-title'>Restore</div>
+<div class='section-title'>恢复</div>
 <div class='section' id='restore-section'>
 	<form id='restore-form' method='post' action='bwm/restore.cgi?_http_id=<% nv(http_id); %>' encType='multipart/form-data'>
 		<div>
 			<input type='file' size='40' id='restore-name' name='restore_name'>
-			<input type='button' name='f_restore_button' id='restore-button' value='Restore' onclick='restoreButton()'>
+			<input type='button' name='f_restore_button' id='restore-button' value='恢复' onclick='restoreButton()'>
 		</div>
 	</form>
 </div>
@@ -290,8 +290,8 @@ createFieldTable('', [
 	<form action=''>
 		<div>
 			<span id='footer-msg'></span>
-			<input type='button' value='Save' id='save-button' onclick='save()'>
-			<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+			<input type='button' value='保存设置' id='save-button' onclick='save()'>
+			<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 		</div>
 	</form>
 </td></tr>

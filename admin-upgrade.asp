@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: Upgrade</title>
+<title>[<% ident(); %>] 系统管理: 固件升级</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -49,10 +49,10 @@ function upgrade()
 
 	name = fixFile(fom.file.value);
 	if (name.search(/\.(bin|trx|chk)$/i) == -1) {
-		alert('Expecting a ".bin" or ".trx" file.');
+		alert('请上传 ".bin" 或 ".trx" 文件.');
 		return;
 	}
-	if (!confirm('Are you sure you want to upgrade using ' + name + '?')) return;
+	if (!confirm('确定要使用这个文件更新 ' + name + '?')) return;
 
 	E('afu-upgrade-button').disabled = true;
 
@@ -87,24 +87,24 @@ function upgrade()
 <!-- / / / -->
 
 <div id='afu-input'>
-	<div class='section-title'>Upgrade Firmware</div>
+	<div class='section-title'>固件升级</div>
 	<div class='section'>
 		<form name='form_upgrade' method='post' action='upgrade.cgi' encType='multipart/form-data'>
 		<div id='box-input'>
-			Select the file to use:<br /><br />
-			<input type='file' name='file' size='50' style='height:25px'> <input type='button' value='Upgrade' id='afu-upgrade-button' onclick='upgrade()' style='height:25px'>
+			选择新固件:<br /><br />
+			<input type='file' name='file' size='50' style='height:25px'> <input type='button' value='升级' id='afu-upgrade-button' onclick='upgrade()' style='height:25px'>
 		</div>
 		</form>
 		<br /><form name='form_reset' action='javascript:{}'>
 		<div id='reset-input'>
-			<input type='checkbox' id='f_reset'>&nbsp;&nbsp;After flashing, erase all data in NVRAM memory
+			<input type='checkbox' id='f_reset'>&nbsp;&nbsp;升级固件后,清除 NVRAM 中的所有数据(彻底清除)
 		</div>
 		</form>
 
 		<br />
 		<br />
 		<table border=0>
-		<tr><td>Current Version:</td><td>&nbsp; <% version(1); %></td></tr>
+		<tr><td>当前版本:</td><td>&nbsp; <% version(1); %></td></tr>
 		<tr><td>Free Memory:</td><td>&nbsp; 
 			<script type='text/javascript'>
 			W(scaleSize(sysinfo.totalfreeram));
@@ -118,17 +118,17 @@ function upgrade()
 
 /* JFFS2-BEGIN */
 <div class='note-disabledw' style='display:none' id='jwarn'>
-<b>Cannot upgrade if JFFS is enabled.</b><br /><br />
-An upgrade may overwrite the JFFS partition currently in use. Before upgrading,
-please backup the contents of the JFFS partition, disable it, then reboot the router.<br /><br /><br />
+<b>JFFS 启用时不能进行固件更新.</b><br /><br />
+固件升级时有可能会重写当前正在使用的 JFFS 分区.更新固件前,
+请备份JFFS分区的内容,关闭 JFFS 并且重启路由器.<br /><br /><br />
 <a href='admin-jffs2.asp'>Disable &raquo;</a>
 </div>
 /* JFFS2-END */
 
 <div id='afu-progress' style='display:none;margin:auto'>
 	<img src='spin.gif' alt='' style='vertical-align:baseline'> <span id='afu-time'>0:00</span><br />
-	Please wait while the firmware is uploaded &amp; flashed.<br />
-	<b>Warning:</b> Do not interrupt this browser or the router!<br />
+	正在上传和刷新新固件，请稍候...<br />
+	<b>警告:</b> 要关闭 Web 浏览器或路由器!<br />
 </div>
 
 <!-- / / / -->

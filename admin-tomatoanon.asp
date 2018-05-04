@@ -10,14 +10,14 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: TomatoAnon Project</title>
+<title>[<% ident(); %>] 系统管理: TomatoAnon 项目</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
 <script type='text/javascript'>
 //	<% nvram("tomatoanon_enable,tomatoanon_answer,tomatoanon_id,tomatoanon_notify"); %>
 
-var anon_link = '&nbsp;&nbsp;<a href="http://anon.groov.pl/index.php?search=9&routerid=<% nv('tomatoanon_id'); %>" class="new_window"><i>[Checkout my router]<\/i><\/a>';
+var anon_link = '&nbsp;&nbsp;<a href="http://anon.groov.pl/index.php?search=9&routerid=<% nv('tomatoanon_id'); %>" class="new_window"><i>[查看我的路由器]<\/i><\/a>';
 
 function verifyFields(focused, quiet)
 {
@@ -64,56 +64,57 @@ function init()
 <input type='hidden' name='_nextpage' value='admin-tomatoanon.asp'>
 <input type='hidden' name='_service' value='tomatoanon-restart'>
 <input type='hidden' name='tomatoanon_notify'>
-<div class='section-title'>About TomatoAnon Project</div>
+<div class='section-title'>关于 TomatoAnon 项目</div>
 <div class="fields"><div class="about">
-<b>Hello,</b><br />
+<b>您好,</b><br />
 <br />
-I would like to present you with a new project I've been working on, called TomatoAnon.<br />
-The TomatoAnon script will send (to a database) information about your router's model and installed version of Tomato.<br />
-The information submitted is 100% anonymous and will ONLY be used for statistical purposes.<br />
-<b>This script does NOT send any private or personal information whatsoever (like MAC`s, IP`s etc)!</b><br />
-Script is fully open, and written in bash. Anyone is free to look at the content that is submitted to the database.<br />
+我想向您介绍一个我正在开发的新项目，名为 TomatoAnon。<br />
+TomatoAnon 脚本将向在线数据库发送有关您的路由器型号和已安装的 Tomato 版本的信息.<br />
+提交的信息是100％匿名的，只用于统计目的.<br />
+<b>此脚本不会收集或传输任何私人或个人信息（例如 MAC 地址，IP 地址等）!</b><br />
+TomatoAnon 脚本是完全开放的，并且用 bash 编写。 每个人都可以自由地查看所收集并传输到数据库的信息.<br />
 <br />
-The submitted results can be viewed on the <a href="http://anon.groov.pl" class="new_window"><b>http://anon.groov.pl</b></a> page.<br />
-This information may help you when choosing the best and most popular router available in your country.<br />
-You can check which version of Tomato is most commonly used and which one is the most stable.<br />
+收集的数据可以在 <a href="http://anon.groov.pl/" target="_blank"><b>TomatoAnon 统计</b></a> 页面查看.<br />
+这些信息可以帮助您选择您所在国家或地区可用的最佳和最受欢迎的路由器.<br />
+您可以在此找到每个路由器最常用和最稳定的 Tomato 版本<br />
 <br />
-If you don't agree with this script, or do not wish to use it, you can simply disable it.<br />
-You can always re-enable it at any time.<br />
+如果您不希望提供数据或对正在收集的数据不舒服的情况下，可以禁用 TomatoAnon 脚本.<br />
+当然您也可以随时重新启用它.
 <br />
-The following data is sent by TomatoAnon:<br />
- - MD5SUM of WAN+LAN MAC addresses - this will identify a router. Ex: 1c1dbd4202d794251ec1acf1211bb2c8<br />
- - Model of router. Ex: Asus RT-N66U<br />
- - Installed version of Tomato. Ex: 102 K26 USB<br />
- - Builtype. Ex: Mega-VPN-64K<br />
- - Uptime of your router. Ex: 3 days<br />
-That`s it !!<br />
 <br />
-Thank you for reading and please make the right choice to help this project.<br />
+以下数据由 TomatoAnon 收集和传输:<br />
+ - WAN+LAN MAC 地址的 MD5SUM - 用来区分路由器. 如: 1c1dbd4202d794251ec1acf1211bb2c8<br />
+ - 路由器型号. 如: Asus RT-N66U<br />
+ - 当前安装的 Tomato 版本. 如: 102 K26 USB<br />
+ - 编译类型. 如: Mega-VPN-64K<br />
+ - 路由器开机时间. 如: 3 天<br />
+这就是全部的数据了 !!<br />
 <br />
-<b>Best Regards!</b>
+Thank you for reading and please make the right choice to help this project.<br />.<br />感谢您的阅读，请做出正确的选择来帮助这个项目Thank you for reading and please make the right choice to help this project.<br />.<br />
+<br />
+<b>谨此致意!</b>
 </div></div>
 <br />
 <br />
-<div class='section-title'>TomatoAnon Settings <script type='text/javascript'>W(anon_link);</script></div>
+<div class='section-title'>TomatoAnon 设置 <script type='text/javascript'>W(anon_link);</script></div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Do you know what TomatoAnon doing ?', name: 'tomatoanon_answer', type: 'select', options: [ ['0','No, i don`t. Have to read all information, before i will make a choice'], ['1','Yes, i do and want to make a choice'] ], value: nvram.tomatoanon_answer, suffix: ' '},
-	{ title: 'Do you want enable TomatoAnon ?', name: 'tomatoanon_enable', type: 'select', options: [ ['-1','I`m not sure right now'], ['1','Yes, i`m sure i do'], ['0','No, i definitely wont enable it'] ], value: nvram.tomatoanon_enable, suffix: ' '}
+	{ title: '你了解 TomatoAnon<br>功能了吗', name: 'tomatoanon_answer', type: 'select', options: [ ['0','不, 我不清楚. 我需要阅读上述信息并作出明智的决定.'], ['1','是的, 我已了解并作出决定.'] ], value: nvram.tomatoanon_answer, suffix: ' '},
+	{ title: '是否要启用<br>TomatoAnon ?', name: 'tomatoanon_enable', type: 'select', options: [ ['-1','我现在不确定'], ['1','是的, 我确定启用它'], ['0','不, 我不想启用它'] ], value: nvram.tomatoanon_enable, suffix: ' '}
 ]);
 </script>
 </div>
 
-<div class='section-title'>Tomato Update Notification System</div>
+<div class='section-title'>Tomato 更新通知系统</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-{ title: 'Enable', name: 'f_tomatoanon_notify', type: 'checkbox', value: nvram.tomatoanon_notify == '1' }
+{ title: '启用', name: 'f_tomatoanon_notify', type: 'checkbox', value: nvram.tomatoanon_notify == '1' }
 ]);
 </script>
 <ul>
-	<li>When new tomato version will be available, you will be notified about this on status-overview page.
+	<li>当有可更新的 Tomato 版本时，将在“系统状态”页面通知您.
 </ul>
 </div>
 </div>
@@ -123,8 +124,8 @@ createFieldTable('', [
 	<form action=''>
 		<div>
 			<span id='footer-msg'></span>
-			<input type='button' value='Save' id='save-button' onclick='save()'>
-			<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+			<input type='button' value='保存设置' id='save-button' onclick='save()'>
+			<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 		</div>
 	</form>
 </td></tr>

@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Status: Device List</title>
+<title>[<% ident(); %>] 系统状态：连接设备列表</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -124,7 +124,7 @@ function deleteLease(a, ip)
 	}
 
 	a = E(a);
-	a.innerHTML = 'deleting...';
+	a.innerHTML = '删除中...';
 
 	xob.onCompleted = function(text, xml) {
 		a.innerHTML = '...';
@@ -221,7 +221,7 @@ dg.populate = function()
 	for (i = dhcpd_lease.length - 1; i >= 0; --i) {
 		a = dhcpd_lease[i];
 		e = get(a[2], a[1]);
-		e.lease = '<small><a href="javascript:deleteLease(\'L' + i + '\',\'' + a[1] + '\')" title="Delete Lease" id="L' + i + '">' + a[3] + '<\/a><\/small>';
+		e.lease = '<small><a href="javascript:deleteLease(\'L' + i + '\',\'' + a[1] + '\')" title="删除租约" id="L' + i + '">' + a[3] + '<\/a><\/small>';
 		e.name = a[0];
 		e.ifname = '';
 	}
@@ -286,12 +286,12 @@ dg.populate = function()
 		b = e.mac;
 		if (e.mac.match(/^(..):(..):(..)/)) {
 			b += '<br /><small>' +
-				'<a href="http://api.macvendors.com/' + RegExp.$1 + '-' + RegExp.$2 + '-' + RegExp.$3 + '" class="new_window" title="OUI Search">[oui]<\/a> ' +
-				'<a href="javascript:addStatic(' + i + ')" title="Static Lease...">[static]<\/a> ' +
-				'<a href="javascript:addbwlimit(' + i + ')" title="BW Limiter">[bwlimit]<\/a>';
+				'<a href="http://api.macvendors.com/' + RegExp.$1 + '-' + RegExp.$2 + '-' + RegExp.$3 + '" class="new_window" title="OUI 搜索">[oui]<\/a> ' +
+				'<a href="javascript:addStatic(' + i + ')" title="静态租约...">[静态]<\/a> ' +
+				'<a href="javascript:addbwlimit(' + i + ')" title="带宽限速">[限速]<\/a>';
 
 			if (e.rssi != '') {
-				b += ' <a href="javascript:addWF(' + i + ')" title="Wireless Filter...">[wfilter]<\/a>';
+				b += ' <a href="javascript:addWF(' + i + ')" title="无线客户端过滤...">[wfilter]<\/a>';
 			}
 			b += '<\/small>';
 		}
@@ -326,7 +326,7 @@ dg.populate = function()
 dg.setup = function()
 {
 	this.init('dev-grid', 'sort');
-	this.headerSet(['Interface', 'MAC Address', 'IP Address', 'Name', 'RSSI &nbsp; &nbsp; ', 'Quality', 'TX/RX Rate&nbsp;', 'Lease &nbsp; &nbsp; ']);
+	this.headerSet(['接口', 'MAC地址', 'IP地址', '名称', '信号强度', '信号质量', '发送/接收速率', '剩余租约']);
 	this.populate();
 	this.sort(2);
 }
@@ -364,7 +364,7 @@ function InNewWindow () {
 
 <!-- / / / -->
 
-<div class='section-title'>Device List</div>
+<div class='section-title'>联机设备列表</div>
 <div class='section'>
 	<div id="dev-grid" class="tomato-grid"></div>
 
@@ -376,8 +376,8 @@ for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 		if (wl_sunit(uidx)<0) {
 			var a = '';
 			if ((nvram['wl'+u+'_mode'] == 'ap') || (nvram['wl'+u+'_mode'] == 'wds'))
-				a = '&nbsp;&nbsp;&nbsp; <input type="button" value="Measure" onclick="javascript:window.location=\'wlmnoise.cgi?_http_id=' + nvram.http_id + '&_wl_unit=' + u +'\'">';
-			f.push( { title: '<b>Noise Floor (' + wl_ifaces[uidx][0] + ')&nbsp;:<\/b>',
+				a = '&nbsp;&nbsp;&nbsp; <input type="button" value="测量" onclick="javascript:window.location=\'wlmnoise.cgi?_http_id=' + nvram.http_id + '&_wl_unit=' + u +'\'">';
+			f.push( { title: '<b>本底噪声 (' + wl_ifaces[uidx][0] + ')&nbsp;:<\/b>',
 				prefix: '<span id="noise'+uidx+'">',
 				custom: wlnoise[uidx],
 				suffix: '<\/span>&nbsp;<small>dBm<\/small>' + a } );

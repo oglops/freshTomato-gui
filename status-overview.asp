@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Status: Overview</title>
+<title>[<% ident(); %>] 系统状态：状态总览</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -126,7 +126,7 @@ function ethstates()
 	if (port == "disabled") { return 0; }
 
 	var state, state1, state2;
-	var code = '<div class="section-title">Ethernet Ports State<\/div>';
+	var code = '<div class="section-title">网络接口状态<\/div>';
 	code += '<table class="fields"><tr>';
 	var v = 0;
 	for (uidx = 1; uidx <= nvram.mwan_num; ++uidx){
@@ -143,15 +143,15 @@ function ethstates()
 
 	if (port == "DOWN") {
 		state = '<img id="eth_off" src="eth_off.png"><br />';
-		state2 = port.replace("DOWN","Unplugged");
+		state2 = port.replace("断开","Unplugged");
 	} else if ((port == "1000FD") || (port == "1000HD")) {
 		state = '<img id="eth_1000" src="eth_1000.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	} else {
 		state = '<img id="eth_100" src="eth_100.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	}
 	if (stats.lan_desc == '1') {
 		code += '<td class="title indent2" style="text-align:center">' + state + state2 + '<\/td>';
@@ -162,15 +162,15 @@ function ethstates()
 	port = etherstates.port1;
 	if (port == "DOWN") {
 		state = '<img id="eth_off" src="eth_off.png"><br />';
-		state2 = port.replace("DOWN","Unplugged");
+		state2 = port.replace("DOWN","断开");
 	} else if ((port == "1000FD") || (port == "1000HD")) {
 		state = '<img id="eth_1000" src="eth_1000.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	} else {
 		state = '<img id="eth_100" src="eth_100.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	}
 	if (stats.lan_desc == '1') {
 		code += '<td class="title indent2" style="text-align:center">' + state + state2 + '<\/td>';
@@ -181,15 +181,15 @@ function ethstates()
 	port = etherstates.port2;
 	if (port == "DOWN") {
 		state = '<img id="eth_off" src="eth_off.png"><br />';
-		state2 = port.replace("DOWN","Unplugged");
+		state2 = port.replace("DOWN","断开");
 	} else if ((port == "1000FD") || (port == "1000HD")) {
 		state = '<img id="eth_1000" src="eth_1000.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	} else {
 		state = '<img id="eth_100" src="eth_100.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	}
 	if (stats.lan_desc == '1') {
 		code += '<td class="title indent2" style="text-align:center">' + state + state2 + '<\/td>';
@@ -200,15 +200,15 @@ function ethstates()
 	port = etherstates.port3;
 	if (port == "DOWN") {
 		state = '<img id="eth_off" src="eth_off.png"><br />';
-		state2 = port.replace("DOWN","Unplugged");
+		state2 = port.replace("DOWN","断开");
 	} else if ((port == "1000FD") || (port == "1000HD")) {
 		state = '<img id="eth_1000" src="eth_1000.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	} else {
 		state = '<img id="eth_100" src="eth_100.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	}
 	if (stats.lan_desc == '1') {
 		code += '<td class="title indent2" style="text-align:center">' + state + state2 + '<\/td>';
@@ -219,15 +219,15 @@ function ethstates()
 	port = etherstates.port4;
 	if (port == "DOWN") {
 		state = '<img id="eth_off" src="eth_off.png"><br />';
-		state2 = port.replace("DOWN","Unplugged");
+		state2 = port.replace("DOWN","断开");
 	} else if ((port == "1000FD") || (port == "1000HD")) {
 		state = '<img id="eth_1000" src="eth_1000.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	} else {
 		state = '<img id="eth_100" src="eth_100.gif"><br />';
-		state1 = port.replace("HD","M Half");
-		state2 = state1.replace("FD","M Full");
+		state1 = port.replace("HD","M 半双工");
+		state2 = state1.replace("FD","M 全双工");
 	}
 	if (stats.lan_desc == '1') {
 		code += '<td class="title indent2" style="text-align:center">' + state + state2 + '<\/td>';
@@ -236,7 +236,7 @@ function ethstates()
 	}
 
 	code += '<td class="content"> <\/td><\/tr>';
-	code += '<tr><td class="title indent1" colspan="7" align="right">&raquo; <a href="basic-network.asp">Configure<\/a><\/td><\/tr><\/table><\/div>';
+	code += '<tr><td class="title indent1" colspan="7" align="right">&raquo; <a href="basic-network.asp">设置<\/a><\/td><\/tr><\/table><\/div>';
 	E("ports").innerHTML = code;
 }
 
@@ -245,8 +245,8 @@ function anon_update()
 	update = anonupdate.update;
 	if (update == "no") { return 0; }
 
-	var code = '<div class="section-title" style="text-align:center">!! Attention !!<\/div>';
-	code += '<div class="fields" style="text-align:center">Newer version of Tomato ARM ' + update + ' is now available. <a class="new_window" href="https://exotic.se/tomato-arm">Click here to download<\/a>.<\/div>';
+	var code = '<div class="section-title" style="text-align:center">!! 注意 !!<\/div>';
+	code += '<div class="fields" style="text-align:center">新版本的 Tomato ARM ' + 更新 + ' 现在已经发布. <a class="new_window" href="https://exotic.se/tomato-arm">点击此处下载<\/a>.<\/div>';
 	code += '<\/div>';
 	E("nversion").style.display = "block";
 	E("nversion").innerHTML = code;
@@ -289,7 +289,7 @@ function show()
 
 	for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 		if (wl_sunit(uidx)<0) {
-			c('radio'+uidx, wlstats[uidx].radio ? 'Enabled' : '<b>Disabled<\/b>');
+			c('radio'+uidx, wlstats[uidx].radio ? '启用' : '<b>禁用<\/b>');
 			c('rate'+uidx, wlstats[uidx].rate);
 			if (show_radio[uidx]) {
 				E('b_wl'+uidx+'_enable').disabled = wlstats[uidx].radio;
@@ -359,11 +359,11 @@ function init()
 function toggleVisibility(whichone) {
 	if (E('sesdiv_' + whichone).style.display == '') {
 		E('sesdiv_' + whichone).style.display = 'none';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(show)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(显示)';
 		cookie.set('status_overview_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv_' + whichone).style.display='';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(hide)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(隐藏)';
 		cookie.set('status_overview_' + whichone + '_vis', 1);
 	}
 }
@@ -386,33 +386,33 @@ function toggleVisibility(whichone) {
 <div class='section' id='nversion' style='display:none'></div>
 
 <div style='display:none' id='att1'>
-<div class='section-title' style="text-align:center">!! Attention !!</div>
-<div class='fields' style="text-align:center">You did not configure <b>TomatoAnon project</b> setting.
-<br />Please go to <a href='admin-tomatoanon.asp'>TomatoAnon configuration page</a> and make a choice.</div>
+<div class='section-title' style="text-align:center">!! 注意 !!</div>
+<div class='fields' style="text-align:center">您还没有配置 <b>TomatoAnon 项目</b> setting.
+<br />请到 <a href='admin-tomatoanon.asp'>TomatoAnon 页面</a> 进行配置.</div>
 <br />
 </div>
 
-<div class='section-title'>System <small><i><a href='javascript:toggleVisibility("system");'><span id='sesdiv_system_showhide'>(hide)</span></a></i></small></div>
+<div class='section-title'>系统状态 <small><i><a href='javascript:toggleVisibility("system");'><span id='sesdiv_system_showhide'>(隐藏)</span></a></i></small></div>
 <div class='section' id='sesdiv_system'>
 <script type='text/javascript'>
 var a = nvstat.free / nvstat.size * 100.0;
 createFieldTable('', [
-	{ title: 'Name', text: nvram.router_name },
-	{ title: 'Model', text: nvram.t_model_name },
-	{ title: 'Chipset', text: stats.systemtype },
-	{ title: 'CPU Frequency', text: stats.cpumhz, suffix: ' <small>(dual-core)<\/small>' },
-	{ title: 'Flash Size', text: stats.flashsize },
+	{ title: '设备名称', text: nvram.router_name },
+	{ title: '设备型号', text: nvram.t_model_name },
+	{ title: '芯片组', text: stats.systemtype },
+	{ title: 'CPU 频率', text: stats.cpumhz, suffix: ' <small>(dual-core)<\/small>' },
+	{ title: 'Flash 容量', text: stats.flashsize },
 	null,
-	{ title: 'Time', rid: 'time', text: stats.time },
-	{ title: 'Uptime', rid: 'uptime', text: stats.uptime },
-	{ title: 'CPU Usage', rid: 'cpupercent', text: stats.cpupercent },
-	{ title: 'CPU Load <small>(1 / 5 / 15 mins)<\/small>', rid: 'cpu', text: stats.cpuload },
-	{ title: 'Total / Free Memory', rid: 'memory', text: stats.memory },
-	{ title: 'Total / Free Swap', rid: 'swap', text: stats.swap, hidden: (stats.swap == '') },
-	{ title: 'Total / Free NVRAM', text: scaleSize(nvstat.size) + ' / ' + scaleSize(nvstat.free) + ' <small>(' + (a).toFixed(2) + '%)<\/small>' },
+	{ title: '时间', rid: 'time', text: stats.time },
+	{ title: '开机时间', rid: 'uptime', text: stats.uptime },
+	{ title: 'CPU 使用率', rid: 'cpupercent', text: stats.cpupercent },
+	{ title: 'CPU 负载 <small>(1 / 5 / 15 mins)<\/small>', rid: 'cpu', text: stats.cpuload },
+	{ title: '全部/剩余内存', rid: 'memory', text: stats.memory },
+	{ title: '全部/剩余 Swap', rid: 'swap', text: stats.swap, hidden: (stats.swap == '') },
+	{ title: '全部/剩余 NVRAM', text: scaleSize(nvstat.size) + ' / ' + scaleSize(nvstat.free) + ' <small>(' + (a).toFixed(2) + '%)<\/small>' },
 	null,
-	{ title: 'CPU Temperature', rid: 'temps', text: stats.cputemp + 'C'},
-	{ title: 'Wireless Temperature', rid: 'wlsense', text: stats.wlsense }
+	{ title: 'CPU 温度', rid: 'temps', text: stats.cputemp + 'C'},
+	{ title: '无线温度', rid: 'wlsense', text: stats.wlsense }
 ]);
 </script>
 </div>
@@ -423,23 +423,23 @@ createFieldTable('', [
 <script type='text/javascript'>
 for (var uidx = 1; uidx <= nvram.mwan_num; ++uidx) {
 	var u = (uidx>1) ? uidx : '';
-	W('<div class=\'section-title\' id=\'wan'+u+'-title\'>WAN'+u+' <small><i><a href=\'javascript:toggleVisibility("wan' + u + '");\'><span id=\'sesdiv_wan' +u + '_showhide\'>(hide)<\/span><\/a><\/i><\/small><\/div>');
+	W('<div class=\'section-title\' id=\'wan'+u+'-title\'>WAN'+u+' <small><i><a href=\'javascript:toggleVisibility("wan' + u + '");\'><span id=\'sesdiv_wan' +u + '_showhide\'>(隐藏)<\/span><\/a><\/i><\/small><\/div>');
 	W('<div class=\'section\' id=\'sesdiv_wan'+u+'\'>');
 	createFieldTable('', [
-		{ title: 'MAC Address', text: nvram['wan'+u+'_hwaddr'] },
-		{ title: 'Connection Type', text: { 'dhcp':'DHCP', 'static':'Static IP', 'pppoe':'PPPoE', 'pptp':'PPTP', 'l2tp':'L2TP', 'ppp3g':'3G Modem', 'lte':'4G/LTE' }[nvram['wan'+u+'_proto']] || '-' },
-		{ title: 'IP Address', rid: 'wan'+u+'ip', text: stats.wanip[uidx-1] },
-		{ title: 'Subnet Mask', rid: 'wan'+u+'netmask', text: stats.wannetmask[uidx-1] },
-		{ title: 'Gateway', rid: 'wan'+u+'gateway', text: stats.wangateway[uidx-1] },
+		{ title: 'MAC 地址', text: nvram['wan'+u+'_hwaddr'] },
+		{ title: 'WAN 连接方式', text: { 'dhcp':'DHCP', 'static':'Static IP', 'pppoe':'PPPoE', 'pptp':'PPTP', 'l2tp':'L2TP', 'ppp3g':'3G Modem', 'lte':'4G/LTE' }[nvram['wan'+u+'_proto']] || '-' },
+		{ title: 'IP 地址', rid: 'wan'+u+'ip', text: stats.wanip[uidx-1] },
+		{ title: '子网掩码', rid: 'wan'+u+'netmask', text: stats.wannetmask[uidx-1] },
+		{ title: '网关', rid: 'wan'+u+'gateway', text: stats.wangateway[uidx-1] },
 /* IPV6-BEGIN */
-	{ title: 'IPv6 Address', rid: 'ip6_wan', text: stats.ip6_wan, hidden: (stats.ip6_wan == '') },
+	{ title: 'IPv6 地址', rid: 'ip6_wan', text: stats.ip6_wan, hidden: (stats.ip6_wan == '') },
 /* IPV6-END */
 		{ title: 'DNS', rid: 'wan'+u+'dns', text: stats.dns[uidx-1] },
 		{ title: 'MTU', text: nvram['wan'+u+'_run_mtu'] },
 		null,
-		{ title: 'Status', rid: 'wan'+u+'status', text: stats.wanstatus[uidx-1] },
-		{ title: 'Connection Uptime', rid: 'wan'+u+'uptime', text: stats.wanuptime[uidx-1] },
-		{ title: 'Remaining Lease Time', rid: 'wan'+u+'lease', text: stats.wanlease[uidx-1], ignore: !show_dhcpc[uidx-1] }
+		{ title: '状态', rid: 'wan'+u+'status', text: stats.wanstatus[uidx-1] },
+		{ title: '已连接时间', rid: 'wan'+u+'uptime', text: stats.wanuptime[uidx-1] },
+		{ title: '剩余租约时间', rid: 'wan'+u+'lease', text: stats.wanlease[uidx-1], ignore: !show_dhcpc[uidx-1] }
 	]);
 	W('<span id=\'b'+u+'_dhcpc\' style=\'display:none\'>');
 	W('<input type=\'button\' class=\'controls\' onclick=\'dhcpc("renew","wan'+u+'")\' value=\'Renew\'> &nbsp;');
@@ -451,7 +451,7 @@ for (var uidx = 1; uidx <= nvram.mwan_num; ++uidx) {
 }
 </script>
 
-<div class='section-title'>LAN <small><i><a href='javascript:toggleVisibility("lan");'><span id='sesdiv_lan_showhide'>(hide)</span></a></i></small></div>
+<div class='section-title'>LAN <small><i><a href='javascript:toggleVisibility("lan");'><span id='sesdiv_lan_showhide'>(隐藏)</span></a></i></small></div>
 <div class='section' id='sesdiv_lan'>
 <script type='text/javascript'>
 
@@ -495,7 +495,7 @@ for (var i = 0 ; i <= MAX_BRIDGE_ID ; i++) {
 			s += '<b>br' + i + '<\/b> (LAN' + j + ') - ' + nvram['dhcpd' + j + '_startip'] + ' - ' + nvram['dhcpd' + j + '_endip'];
 		} else {
 			s += ((s.length>0)&&(s.charAt(s.length-1) != ' ')) ? '<br />' : '';
-			s += '<b>br' + i + '<\/b> (LAN' + j + ') - Disabled';
+			s += '<b>br' + i + '<\/b> (LAN' + j + ') - 禁用';
 		}
 		t += ((t.length>0)&&(t.charAt(t.length-1) != ' ')) ? '<br />' : '';
 		t += '<b>br' + i + '<\/b> (LAN' + j + ') - ' + nvram['lan' + j + '_ipaddr'] + '/' + numberOfBitsOnNetMask(nvram['lan' + j + '_netmask']);
@@ -504,12 +504,12 @@ for (var i = 0 ; i <= MAX_BRIDGE_ID ; i++) {
 }
 
 createFieldTable('', [
-	{ title: 'Router MAC Address', text: nvram.et0macaddr },
-	{ title: 'Router IP Addresses', text: t },
-	{ title: 'Gateway', text: nvram.lan_gateway, ignore: nvram.wan_proto != 'disabled' },
+	{ title: '路由器 MAC 地址', text: nvram.et0macaddr },
+	{ title: '路由器 IP 地址', text: t },
+	{ title: '网关', text: nvram.lan_gateway, ignore: nvram.wan_proto != 'disabled' },
 /* IPV6-BEGIN */
-	{ title: 'Router IPv6 Address', rid: 'ip6_lan', text: stats.ip6_lan, hidden: (stats.ip6_lan == '') },
-	{ title: 'IPv6 Link-local Address', rid: 'ip6_lan_ll', text: stats.ip6_lan_ll, hidden: (stats.ip6_lan_ll == '') },
+	{ title: '路由器 IPv6 地址', rid: 'ip6_lan', text: stats.ip6_lan, hidden: (stats.ip6_lan == '') },
+	{ title: 'IPv6 连接-本地地址', rid: 'ip6_lan_ll', text: stats.ip6_lan_ll, hidden: (stats.ip6_lan_ll == '') },
 /* IPV6-END */
 	{ title: 'DNS', rid: 'dns', text: stats.dns, ignore: nvram.wan_proto != 'disabled' },
 	{ title: 'DHCP', text: s }
@@ -524,10 +524,10 @@ for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 //	u = wl_unit(uidx);
 REMOVE-END */
 	u = wl_fface(uidx);
-	W('<div class=\'section-title\' id=\'wl'+u+'-title\'>Wireless');
+	W('<div class=\'section-title\' id=\'wl'+u+'-title\'>无线网络状态');
 	if (wl_ifaces.length > 0)
 		W(' (' + wl_display_ifname(uidx) + ')');
-	W(' <small><i><a href=\'javascript:toggleVisibility("wl_' + u + '");\'><span id=\'sesdiv_wl_' +u + '_showhide\'>(hide)<\/span><\/a><\/i><\/small>');
+	W(' <small><i><a href=\'javascript:toggleVisibility("wl_' + u + '");\'><span id=\'sesdiv_wl_' +u + '_showhide\'>(隐藏)<\/span><\/a><\/i><\/small>');
 	W('<\/div>');
 	W('<div class=\'section\' id=\'sesdiv_wl_'+u+'\'>');
 	sec = auth[nvram['wl'+u+'_security_mode']] + '';
@@ -537,28 +537,28 @@ REMOVE-END */
 	if ((nvram['wl'+u+'_mode'] == 'ap') && (nvram['wl'+u+'_wds_enable'] * 1)) wmode += ' + WDS';
 
 	createFieldTable('', [
-		{ title: 'MAC Address', text: nvram['wl'+u+'_hwaddr'] },
-		{ title: 'Wireless Mode', text: wmode },
-		{ title: 'Wireless Network Mode', text: bgmo[nvram['wl'+u+'_net_mode']], ignore: (wl_sunit(uidx)>=0) },
-		{ title: 'Interface Status', rid: 'ifstatus'+uidx, text: wlstats[uidx].ifstatus },
-		{ title: 'Radio', rid: 'radio'+uidx, text: (wlstats[uidx].radio == 0) ? '<b>Disabled<\/b>' : 'Enabled', ignore: (wl_sunit(uidx)>=0) },
+		{ title: 'MAC 地址', text: nvram['wl'+u+'_hwaddr'] },
+		{ title: '无线模式', text: wmode },
+		{ title: '无线工作模式', text: bgmo[nvram['wl'+u+'_net_mode']], ignore: (wl_sunit(uidx)>=0) },
+		{ title: '接口状态', rid: 'ifstatus'+uidx, text: wlstats[uidx].ifstatus },
+		{ title: 'Radio', rid: 'radio'+uidx, text: (wlstats[uidx].radio == 0) ? '<b>禁用<\/b>' : '启用', ignore: (wl_sunit(uidx)>=0) },
 /* REMOVE-BEGIN */
 //	{ title: 'SSID', text: (nvram['wl'+u+'_ssid'] + ' <small><i>' + ((nvram['wl'+u+'_mode'] != 'ap') ? '' : ((nvram['wl'+u+'_closed'] == 0) ? '(Broadcast Enabled)' : '(Broadcast Disabled)')) + '<\/i><\/small>') },
 /* REMOVE-END */
 		{ title: 'SSID', text: nvram['wl'+u+'_ssid'] },
-		{ title: 'Broadcast', text: (nvram['wl'+u+'_closed'] == 0) ? 'Enabled' : '<b>Disabled<\/b>', ignore: (nvram['wl'+u+'_mode'] != 'ap') },
-		{ title: 'Security', text: sec },
-		{ title: 'Channel', rid: 'channel'+uidx, text: stats.channel[uidx], ignore: (wl_sunit(uidx)>=0) },
-		{ title: 'Channel Width', rid: 'nbw'+uidx, text: wlstats[uidx].nbw, ignore: ((!nphy) || (wl_sunit(uidx)>=0)) },
-		{ title: 'Interference Level', rid: 'interference'+uidx, text: stats.interference[uidx], hidden: ((stats.interference[uidx] == '') || (wl_sunit(uidx)>=0)) },
-		{ title: 'Rate', rid: 'rate'+uidx, text: wlstats[uidx].rate, ignore: (wl_sunit(uidx)>=0) },
+		{ title: 'Broadcast', text: (nvram['wl'+u+'_closed'] == 0) ? 'Enabled' : '<b>禁用<\/b>', ignore: (nvram['wl'+u+'_mode'] != 'ap') },
+		{ title: '安全设置', text: sec },
+		{ title: '频道', rid: 'channel'+uidx, text: stats.channel[uidx], ignore: (wl_sunit(uidx)>=0) },
+		{ title: '频道带宽', rid: 'nbw'+uidx, text: wlstats[uidx].nbw, ignore: ((!nphy) || (wl_sunit(uidx)>=0)) },
+		{ title: '干扰水平', rid: 'interference'+uidx, text: stats.interference[uidx], hidden: ((stats.interference[uidx] == '') || (wl_sunit(uidx)>=0)) },
+		{ title: '无线速率', rid: 'rate'+uidx, text: wlstats[uidx].rate, ignore: (wl_sunit(uidx)>=0) },
 		{ title: 'RSSI', rid: 'rssi'+uidx, text: wlstats[uidx].rssi || '', ignore: ((!wlstats[uidx].client) || (wl_sunit(uidx)>=0)) },
-		{ title: 'Noise', rid: 'noise'+uidx, text: wlstats[uidx].noise || '', ignore: ((!wlstats[uidx].client) || (wl_sunit(uidx)>=0)) },
-		{ title: 'Signal Quality', rid: 'qual'+uidx, text: stats.qual[uidx] || '', ignore: ((!wlstats[uidx].client) || (wl_sunit(uidx)>=0)) }
+		{ title: '背景噪声', rid: 'noise'+uidx, text: wlstats[uidx].noise || '', ignore: ((!wlstats[uidx].client) || (wl_sunit(uidx)>=0)) },
+		{ title: '信号质量', rid: 'qual'+uidx, text: stats.qual[uidx] || '', ignore: ((!wlstats[uidx].client) || (wl_sunit(uidx)>=0)) }
 	]);
 
-	W('<input type=\'button\' class=\'controls\' onclick=\'wlenable('+uidx+', 1)\' id=\'b_wl'+uidx+'_enable\' value=\'Enable\' style=\'display:none\'>');
-	W('<input type=\'button\' class=\'controls\' onclick=\'wlenable('+uidx+', 0)\' id=\'b_wl'+uidx+'_disable\' value=\'Disable\' style=\'display:none\'>');
+	W('<input type=\'button\' class=\'controls\' onclick=\'wlenable('+uidx+', 1)\' id=\'b_wl'+uidx+'_enable\' value=\'启用\' style=\'display:none\'>');
+	W('<input type=\'button\' class=\'controls\' onclick=\'wlenable('+uidx+', 0)\' id=\'b_wl'+uidx+'_disable\' value=\'禁用\' style=\'display:none\'>');
 	W('<\/div>');
 }
 </script>

@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] IP Traffic: View Graphs</title>
+<title>[<% ident(); %>] IP流量: 图形查看</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -313,7 +313,7 @@ function init() {
 
 <!-- / / / -->
 
-<div class="section-title">Connections Distribution (TCP/UDP)</div>
+<div class="section-title">连接分布图 (TCP/UDP)</div>
 <div id="cstats">
 
 	<div class="section">
@@ -343,7 +343,7 @@ function init() {
 
 <!-- / / / -->
 
-	<div class="section-title">Bandwidth Distribution (Inbound)</div>
+	<div class="section-title">带宽分布 (入站)</div>
 	<div class="section">
 		<table border=0 width="100%">
 			<tr><td>
@@ -375,7 +375,7 @@ function init() {
 
 <!-- / / / -->
 
-	<div class="section-title">Bandwidth Distribution (Outbound)</div>
+	<div class="section-title">带宽分布 (出站)</div>
 	<div class="section">
 		<table border=0 width="100%">
 			<tr><td>

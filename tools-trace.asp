@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Tools: Trace</title>
+<title>[<% ident(); %>] 实用工具：路由追踪</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -46,7 +46,7 @@ var tracedata = '';
 var tg = new TomatoGrid();
 tg.setup = function() {
 	this.init('ttr-grid');
-	this.headerSet(['Hop', 'Address', 'Min (ms)', 'Max (ms)', 'Avg (ms)', '+/- (ms)']);
+	this.headerSet(['跃点', '地址', '最小(ms)', '最大(ms)', '平均(ms)', '＋/－(ms)']);
 }
 tg.populate = function() {
 	var seq = 1;
@@ -198,20 +198,20 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>Traceroute</div>
+<div class='section-title'>路由追踪</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Address', name: 'f_addr', type: 'text', maxlen: 64, size: 32, value: '', suffix: ' <input type="button" value="Trace" onclick="trace()" id="traceb">' },
-	{ title: 'Maximum Hops', name: 'f_hops', type: 'text', maxlen: 2, size: 4, value: '20' },
-	{ title: 'Maximum Wait Time', name: 'f_wait', type: 'text', maxlen: 2, size: 4, value: '3', suffix: ' <small>(seconds per hop)<\/small>' }
+	{ title: '地址', name: 'f_addr', type: 'text', maxlen: 64, size: 32, value: '', suffix: ' <input type="button" value="追踪" onclick="trace()" id="traceb">' },
+	{ title: '最大跃点数 Hops', name: 'f_hops', type: 'text', maxlen: 2, size: 4, value: '20' },
+	{ title: '最大等待时间', name: 'f_wait', type: 'text', maxlen: 2, size: 4, value: '3', suffix: ' <small>(每跳秒数)<\/small>' }
 ]);
 </script>
 </div>
 
 <div style='visibility:hidden' id='trace-error'></div>
 
-<div style='visibility:hidden;text-align:right' id='wait'>Please wait... <img src='spin.gif' alt='' style='vertical-align:top'></div>
+<div style='visibility:hidden;text-align:right' id='wait'>请稍候... <img src='spin.gif' alt='' style='vertical-align:top'></div>
 
 <div id="ttr-grid" class="tomato-grid"></div>
 

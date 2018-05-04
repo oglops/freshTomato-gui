@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Forwarding: Triggered</title>
+<title>[<% ident(); %>] 端口转发：端口触发</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -64,7 +64,7 @@ tg.sortCompare = function(a, b) {
 }
 
 tg.dataToView = function(data) {
-	return [data[0] ? 'On' : '', ['TCP', 'UDP', 'Both'][data[1] - 1], data[2], data[3], data[4]];
+	return [data[0] ? '是' : '', ['TCP', 'UDP', 'TCP / UDP'][data[1] - 1], data[2], data[3], data[4]];
 }
 
 tg.fieldValuesToData = function(row) {
@@ -99,7 +99,7 @@ tg.setup = function() {
 		{ type: 'text', maxlen: 16 },
 		{ type: 'text', maxlen: 16 },
 		{ type: 'text', maxlen: 32 }]);
-	this.headerSet(['On', 'Protocol', 'Trigger Ports', 'Forwarded Ports', 'Description']);
+	this.headerSet(['开启', '协议', '触发端口', '转发端口', '描述']);
 	var nv = nvram.trigforward.split('>');
 	for (var i = 0; i < nv.length; ++i) {
 		var r;
@@ -157,7 +157,7 @@ function init()
 
 <input type='hidden' name='trigforward'>
 
-<div class='section-title'>Triggered Port Forwarding</div>
+<div class='section-title'>触发式端口转发</div>
 <div class='section'>
 	<div class="tomato-grid" id="tg-grid"></div>
 	<script type='text/javascript'>tg.setup();</script>
@@ -166,10 +166,10 @@ function init()
 <div class='section-title'>Notes</div>
 <div class='section'>
     <ul>
-		<li>Use "-" to specify a range of ports (200-300).</li>
-		<li>Trigger Ports are the initial LAN to WAN "trigger".</li>
-		<li>Forwarded Ports are the WAN to LAN ports that are opened if the "trigger" is activated.</li>
-		<li>These ports are automatically closed after a few minutes of inactivity.</li>
+		<li>使用 "-" 指定端口范围 (200-300).</li>
+		<li>触发端口是第一个 LAN 到 WAN 的"触发器".</li>
+		<li>被转发的端口是 WAN 到 LAN 的端口，它们是否开启取决于"触发器"的激活状态.</li>
+		<li>这些端口将会在停止使用的几分钟后自动关闭.</li>
     </ul>
 </div>
 
@@ -178,8 +178,8 @@ function init()
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

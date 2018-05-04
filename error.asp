@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Error</title>
+<title>[<% ident(); %>] 错误</title>
 <style type="text/css">
 body {
     background:rgb(0,0,0) url(tomatousb_bg.png);
@@ -35,10 +35,10 @@ input {
         <form action="">
             <div style="padding:10px 0">
 				<script type='text/javascript'>
-				// <% resmsg('Unknown error'); %>
+				// <% resmsg('未知错误'); %>
 				document.write(resmsg);
 				</script>&nbsp;
-				<input type="button" value="Back" onclick="history.go(-1)">
+				<input type="button" value="返回" onclick="history.go(-1)">
             </div>
         </form>
     </div>

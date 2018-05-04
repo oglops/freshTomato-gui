@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: Firewall</title>
+<title>[<% ident(); %>] 高级设置: 防火墙设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -50,7 +50,7 @@ function verifyFields(focused, quiet)
 		E('_f_multicast_lan3').checked = false;
 
 	if ((enable_mcast) && (!E('_f_multicast_lan').checked) && (!E('_f_multicast_lan1').checked) && (!E('_f_multicast_lan2').checked) && (!E('_f_multicast_lan3').checked)) {
-		ferror.set('_f_multicast', 'IGMPproxy must be enabled in least one LAN bridge', quiet);
+		ferror.set('_f_multicast', '至少需要在一个局域网网桥上启用 IGMPproxy', quiet);
 		return 0;
 	} else {
 		ferror.clear('_f_multicast');
@@ -125,18 +125,18 @@ function save()
 <input type='hidden' name='udpxy_clients'>
 <input type='hidden' name='udpxy_port'>
 
-<div class='section-title'>Firewall</div>
+<div class='section-title'>防火墙设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Respond to ICMP ping', name: 'f_icmp', type: 'checkbox', value: nvram.block_wan == '0' },
-	{ title: 'Limits per second', name: 'f_icmp_limit', type: 'checkbox', value: nvram.block_wan_limit != '0' },
-	{ title: 'ICMP', indent: 2, name: 'f_icmp_limit_icmp', type: 'text', maxlen: 3, size: 3, suffix: ' <small> request per second<\/small>', value: fixInt(nvram.block_wan_limit_icmp || 1, 1, 300, 5) },
-	{ title: 'Traceroute', indent: 2, name: 'f_icmp_limit_traceroute', type: 'text', maxlen: 3, size: 3, suffix: ' <small> request per second<\/small>', value: fixInt(nvram.block_wan_limit_tr || 5, 1, 300, 5) },
+	{ title: '允许回应 ICMP Ping', name: 'f_icmp', type: 'checkbox', value: nvram.block_wan == '0' },
+	{ title: '每秒限制', name: 'f_icmp_limit', type: 'checkbox', value: nvram.block_wan_limit != '0' },
+	{ title: 'ICMP', indent: 2, name: 'f_icmp_limit_icmp', type: 'text', maxlen: 3, size: 3, suffix: ' <small> 每秒响应次数<\/small>', value: fixInt(nvram.block_wan_limit_icmp || 1, 1, 300, 5) },
+	{ title: 'Traceroute', indent: 2, name: 'f_icmp_limit_traceroute', type: 'text', maxlen: 3, size: 3, suffix: ' <small> 每秒响应次数<\/small>', value: fixInt(nvram.block_wan_limit_tr || 5, 1, 300, 5) },
 	null,
-	{ title: 'Enable SYN cookies', name: 'f_syncookies', type: 'checkbox', value: nvram.ne_syncookies != '0' },
-	{ title: 'Enable DSCP Fix', name: 'f_DSCP_fix_enable', type: 'checkbox', value: nvram.DSCP_fix_enable != '0', suffix: ' <small>Fixes Comcast incorrect DSCP<\/small>' },
-	{ title: 'IPv6 IPSec Passthrough', name: 'f_ipv6_ipsec', type: 'checkbox', value: nvram.ipv6_ipsec != '0' }
+	{ title: '启用 SYN cookies', name: 'f_syncookies', type: 'checkbox', value: nvram.ne_syncookies != '0' },
+	{ title: '启用 DSCP Fix', name: 'f_DSCP_fix_enable', type: 'checkbox', value: nvram.DSCP_fix_enable != '0', suffix: ' <small>修复 Comcast 不正确的 DSCP<\/small>' },
+	{ title: 'IPv6 安全通道', name: 'f_ipv6_ipsec', type: 'checkbox', value: nvram.ipv6_ipsec != '0' }
 ]);
 </script>
 </div>
@@ -145,26 +145,26 @@ createFieldTable('', [
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'NAT loopback', name: 'nf_loopback', type: 'select', options: [[0,'All'],[1,'Forwarded Only'],[2,'Disabled']], value: fixInt(nvram.nf_loopback, 0, 2, 1) },
-	{ title: 'NAT target', name: 'ne_snat', type: 'select', options: [[0,'MASQUERADE'],[1,'SNAT']], value: nvram.ne_snat }
+	{ title: 'NAT 回环', name: 'nf_loopback', type: 'select', options: [[0,'所有'],[1,'仅转发'],[2,'关闭']], value: fixInt(nvram.nf_loopback, 0, 2, 1) },
+	{ title: 'NAT 目标', name: 'ne_snat', type: 'select', options: [[0,'MASQUERADE'],[1,'SNAT']], value: nvram.ne_snat }
 ]);
 </script>
 </div>
 
-<div class='section-title'>Multicast</div>
+<div class='section-title'>组播</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Enable IGMPproxy', name: 'f_multicast', type: 'checkbox', value: nvram.multicast_pass == '1' },
+	{ title: '启用 IGMPproxy', name: 'f_multicast', type: 'checkbox', value: nvram.multicast_pass == '1' },
 	{ title: 'LAN', indent: 2, name: 'f_multicast_lan', type: 'checkbox', value: (nvram.multicast_lan == '1') },
 	{ title: 'LAN1', indent: 2, name: 'f_multicast_lan1', type: 'checkbox', value: (nvram.multicast_lan1 == '1') },
 	{ title: 'LAN2', indent: 2, name: 'f_multicast_lan2', type: 'checkbox', value: (nvram.multicast_lan2 == '1') },
 	{ title: 'LAN3', indent: 2, name: 'f_multicast_lan3', type: 'checkbox', value: (nvram.multicast_lan3 == '1') },
 	null,
-	{ title: 'Enable Udpxy', name: 'f_udpxy_enable', type: 'checkbox', value: (nvram.udpxy_enable == '1') },
-	{ title: 'Enable client statistics', indent: 2, name: 'f_udpxy_stats', type: 'checkbox', value: (nvram.udpxy_stats == '1') },
-	{ title: 'Max clients', indent: 2, name: 'f_udpxy_clients', type: 'text', maxlen: 4, size: 6, value: fixInt(nvram.udpxy_clients || 3, 1, 5000, 3) },
-	{ title: 'Udpxy port', indent: 2, name: 'f_udpxy_port', type: 'text', maxlen: 5, size: 7, value: fixPort(nvram.udpxy_port, 4022) }
+	{ title: '启用 Udpxy', name: 'f_udpxy_enable', type: 'checkbox', value: (nvram.udpxy_enable == '1') },
+	{ title: '启用客户端统计', indent: 2, name: 'f_udpxy_stats', type: 'checkbox', value: (nvram.udpxy_stats == '1') },
+	{ title: '最大客户端数量', indent: 2, name: 'f_udpxy_clients', type: 'text', maxlen: 4, size: 6, value: fixInt(nvram.udpxy_clients || 3, 1, 5000, 3) },
+	{ title: 'Udpxy 端口', indent: 2, name: 'f_udpxy_port', type: 'text', maxlen: 5, size: 7, value: fixPort(nvram.udpxy_port, 4022) }
 
 ]);
 </script>
@@ -175,8 +175,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

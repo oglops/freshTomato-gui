@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: Routing</title>
+<title>[<% ident(); %>] 高级设置: 路由表设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -54,7 +54,7 @@ ara.setup = function() {
 	var i, a;
 
 	this.init('ara-grid', 'sort');
-	this.headerSet(['Destination', 'Gateway / Next Hop', 'Subnet Mask', 'Metric', 'Interface']);
+	this.headerSet(['目标 IP', '网关', '子网掩码', '跃点数', '网络接口']);
 	for (i = 0; i < activeroutes.length; ++i) {
 		a = activeroutes[i];
 		if (a[0] == nvram.lan_ifname) a[0] += ' (LAN)';
@@ -92,7 +92,7 @@ ars.setup = function() {
 /* MULTIWAN-END */
 									] }, { type: 'text', maxlen: 32 }]);
 
-	this.headerSet(['Destination', 'Gateway', 'Subnet Mask', 'Metric', 'Interface', 'Description']);
+	this.headerSet(['目标 IP', '网关', '子网掩码', '跃点数', '网络接口', '描述']);
 	var routes = nvram.routes_static.split('>');
 	for (var i = 0; i < routes.length; ++i) {
 		var r;
@@ -254,21 +254,21 @@ function init()
 <input type='hidden' name='dr_wan4_rx'>
 /* MULTIWAN-END */
 
-<div class='section-title'>Current Routing Table</div>
+<div class='section-title'>当前路由表</div>
 <div class='section'>
 	<div class="tomato-grid" id="ara-grid"></div>
 </div>
 
-<div class='section-title'>Static Routing Table</div>
+<div class='section-title'>静态路由表</div>
 <div class='section'>
 	<div class="tomato-grid" id="ars-grid"></div>
 </div>
 
-<div class='section-title'>Miscellaneous</div>
+<div class='section-title'>其它设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Mode', name: 'wk_mode', type: 'select', options: [['gateway','Gateway'],['router','Router']], value: nvram.wk_mode },
+	{ title: '模式', name: 'wk_mode', type: 'select', options: [['gateway','网关'],['router','路由']], value: nvram.wk_mode },
 /* ZEBRA-BEGIN */
 	{ title: 'RIPv1 &amp; v2' },
 	{ title: 'LAN', indent: 2, name: 'f_dr_lan', type: 'checkbox', value: ((nvram.dr_lan_rx != '0') && (nvram.dr_lan_rx != '')) },
@@ -284,9 +284,9 @@ createFieldTable('', [
 
 /* ZEBRA-END */
 /* EMF-BEGIN */
-	{ title: 'Efficient Multicast Forwarding', name: 'f_emf', type: 'checkbox', value: nvram.emf_enable != '0' },
+	{ title: '高效组播转发', name: 'f_emf', type: 'checkbox', value: nvram.emf_enable != '0' },
 /* EMF-END */
-	{ title: 'DHCP Routes', name: 'f_dhcp_routes', type: 'checkbox', value: nvram.dhcp_routes != '0' },
+	{ title: 'DHCP 路由', name: 'f_dhcp_routes', type: 'checkbox', value: nvram.dhcp_routes != '0' },
 ]);
 </script>
 </div>
@@ -297,8 +297,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

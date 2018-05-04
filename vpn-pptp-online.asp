@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] VPN：PPTP Online</title>
+<title>[<% ident(); %>] VPN设置：PPTP在线用户</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -88,7 +88,7 @@ function disconnect(a, pid) {
 		return;
 	}
 	a = E(a);
-	a.innerHTML = 'Disconnecting...';
+	a.innerHTML = '断开中...';
 
 	xob.onCompleted = function(text, xml) {
 		a.innerHTML = '';
@@ -182,7 +182,7 @@ dg.populate = function() {
 
 dg.setup = function() {
 	this.init('dev-grid', 'sort');
-	this.headerSet(['Interface', 'Username', 'Online Since', 'VPN IP Address', 'Source IP Address', 'Action']);
+	this.headerSet(['接口', '用户名', '上线时间', 'VPN IP 地址', '源 IP 地址', '操作']);
 	this.populate();
 	this.sort(1);
 }
@@ -234,12 +234,12 @@ function init() {
 <tr id='body'><td id='navi'><script type='text/javascript'>navi()</script></td>
 <td id='content'>
 <div id='ident'><% ident(); %></div>
-<div class='section-title'>PPTP Users Online</div>
+<div class='section-title'>PPTP 在线用户</div>
 <div class='section'>
 	<div id="dev-grid" class="tomato-grid"></div>
 </div>
 <div style="float:right;text-align:right">
-&raquo; <a href="vpn-pptp-server.asp">Configure</a>
+&raquo; <a href="vpn-pptp-server.asp">设置</a>
 </div>
 </td></tr>
 <tr><td id='footer' colspan=2><script type='text/javascript'>genStdRefresh(1,1,'ref.toggle()');</script></td></tr>

@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] QoS: View Details</title>
+<title>[<% ident(); %>] QoS: 详细内容</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -65,7 +65,7 @@
 
 //	<% nvram('qos_classnames,lan_ipaddr,lan1_ipaddr,lan2_ipaddr,lan3_ipaddr,lan_netmask,lan1_netmask,lan2_netmask,lan3_netmask,t_hidelr'); %>
 
-var Unclassified = ['Unclassified'];
+var Unclassified = ['未分类'];
 var classNames = nvram.qos_classnames.split(' ');
 var abc = Unclassified.concat(classNames);
 
@@ -237,7 +237,7 @@ grid.setName = function(ip, name) {
 				data[cols[j]] = name + ((ip.indexOf(':') != -1) ? '<br />' : ' ') + '<small>(' + ip + ')<\/small>';
 				row.setRowData(data);
 				if (E('_f_shortcuts').checked)
-					data[cols[j]] = data[cols[j]] + ' <small><a href="javascript:addExcludeList(\'' + ip + '\')" title="Exclude from List">[Hide]<\/a><\/small>';
+					data[cols[j]] = data[cols[j]] + ' <small><a href="javascript:addExcludeList(\'' + ip + '\')" title="从列表中排除">[隐藏]<\/a><\/small>';
 				row.cells[cols[j]].innerHTML = data[cols[j]];
 				row.style.cursor = 'default';
 			}
@@ -247,7 +247,7 @@ grid.setName = function(ip, name) {
 
 grid.setup = function() {
 	this.init('grid', 'sort');
-	this.headerSet(['Protocol', 'Source', 'S Port', 'Destination', 'D Port', 'Class', 'Rule', 'Bytes Out', 'Bytes In']);
+	this.headerSet(['协议', '源地址', '源端口', '目标地址', '目标端口', '应用分类', '规则', '出站流量', '入站流量']);
 }
 
 var ref = new TomatoRefresh('update.cgi', '', 0, 'qos_detailed');
@@ -358,9 +358,9 @@ ref.refresh = function(text) {
 			}
 			if (E('_f_shortcuts').checked) {
 				if (cache[ip] == null) {
-					b[cols[j]] = b[cols[j]] + ' <small><a href="javascript:addToResolveQueue(\'' + ip + '\')" title="Resolve the hostname of this address">[resolve]<\/a><\/small>';
+					b[cols[j]] = b[cols[j]] + ' <small><a href="javascript:addToResolveQueue(\'' + ip + '\')" title="解析此主机 IP">[解析]<\/a><\/small>';
 				}
-				b[cols[j]] = b[cols[j]] + ' <small><a href="javascript:addExcludeList(\'' + ip + '\')" title="Filter out this IP">[hide]<\/a><\/small>';
+				b[cols[j]] = b[cols[j]] + ' <small><a href="javascript:addExcludeList(\'' + ip + '\')" title="过滤此 IP">[隐藏]<\/a><\/small>';
 			}
 		}
 
@@ -380,9 +380,9 @@ ref.refresh = function(text) {
 
 	if (resolveCB) resolve();
 	if (numconnshown != numconntotal)
-		E('numtotalconn').innerHTML='<small><i>(showing ' + numconnshown + ' out of ' + numconntotal + ' connections)<\/i><\/small>';
+		E('numtotalconn').innerHTML='<small><i>(显示 ' + numconnshown + ' 出站 ' + numconntotal + ' 连接数)<\/i><\/small>';
 	else
-		E('numtotalconn').innerHTML='<small><i>(' + numconntotal + ' connections)<\/i><\/small>';
+		E('numtotalconn').innerHTML='<small><i>(' + numconntotal + ' 连接数)<\/i><\/small>';
 }
 
 function addExcludeList(address) {
@@ -428,7 +428,7 @@ function init() {
 		toggleVisibility("filters");
 	}
 
-	if (viewClass != -1) E('stitle').innerHTML = 'View Details: ' + abc[viewClass] + ' <span id="numtotalconn"><\/span>';
+	if (viewClass != -1) E('stitle').innerHTML = '详细内容: ' + abc[viewClass] + ' <span id="numtotalconn"><\/span>';
 
 	E('_f_shortcuts').checked = (((c = cookie.get('qos_detailed_shortcuts')) != null) && (c == '1'));
 
@@ -460,11 +460,11 @@ function dofilter() {
 function toggleVisibility(whichone) {
 	if(E('sesdiv' + whichone).style.display=='') {
 		E('sesdiv' + whichone).style.display='none';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to show)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处显示)';
 		cookie.set('qos_details_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv' + whichone).style.display='';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to hide)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处隐藏)';
 		cookie.set('qos_details_' + whichone + '_vis', 1);
 	}
 }
@@ -507,26 +507,26 @@ function verifyFields(focused, quiet)
 
 <!-- / / / -->
 
-<div class='section-title' id='stitle' onclick='document.location="qos-graphs.asp"' style='cursor:pointer'>View Details: <span id='numtotalconn'></span></div>
+<div class='section-title' id='stitle' onclick='document.location="qos-graphs.asp"' style='cursor:pointer'>连接查看: <span id='numtotalconn'></span></div>
 <div class='section'>
 	<div id="grid" class="tomato-grid" style="float:left"></div>
-<div id='loading'><br /><b>Loading...</b></div>
+<div id='loading'><br /><b>载入中...</b></div>
 </div>
 
 <!-- / / / -->
 
-<div class='section-title'>Filters: <small><i><a href='javascript:toggleVisibility("filters");'><span id='sesdivfiltersshowhide'>(Toggle Visibility)</span></a></i></small></div>
+<div class='section-title'>过滤器: <small><i><a href='javascript:toggleVisibility("filters");'><span id='sesdivfiltersshowhide'>(点击显示)</span></a></i></small></div>
 <div class='section' id='sesdivfilters' style='display:none'>
 <script type='text/javascript'>
 	var c;
 	c = [];
-	c.push({ title: 'Show only these IPs', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-	c.push({ title: 'Exclude these IPs', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-	c.push({ title: 'Exclude gateway traffic', name: 'f_excludegw', type: 'checkbox', value: ((nvram.t_hidelr) == '1' ? 1 : 0) });
-	c.push({ title: 'Exclude IPv4 broadcast', name: 'f_excludebcast', type: 'checkbox' });
-	c.push({ title: 'Exclude IPv4 multicast', name: 'f_excludemcast', type: 'checkbox' });
-	c.push({ title: 'Auto resolve addresses', name: 'f_autoresolve', type: 'checkbox' });
-	c.push({ title: 'Show shortcuts', name: 'f_shortcuts', type: 'checkbox' });
+	c.push({ title: '仅包含这些 IP', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(逗号分隔列表)<\/small>' });
+	c.push({ title: '不包含这些 IP', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(逗号分隔列表<\/small>' });
+	c.push({ title: '不包含网关流量', name: 'f_excludegw', type: 'checkbox', value: ((nvram.t_hidelr) == '1' ? 1 : 0) });
+	c.push({ title: '不包含 IPv4 广播', name: 'f_excludebcast', type: 'checkbox' });
+	c.push({ title: '不包括 IPv4 组播', name: 'f_excludemcast', type: 'checkbox' });
+	c.push({ title: '自动解析地址', name: 'f_autoresolve', type: 'checkbox' });
+	c.push({ title: '显示快捷键', name: 'f_shortcuts', type: 'checkbox' });
 	createFieldTable('',c);
 </script>
 </div>

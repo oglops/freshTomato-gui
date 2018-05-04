@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Tinc Mesh VPN</title>
+<title>[<% ident(); %>] VPN 设置: Tinc Mesh VPN</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -62,12 +62,12 @@ textarea
 
 //  <% nvram("tinc_wanup,tinc_name,tinc_devicetype,tinc_mode,tinc_vpn_netmask,tinc_private_rsa,tinc_private_ed25519,tinc_custom,tinc_hosts,tinc_firewall,tinc_manual_firewall,tinc_manual_tinc_up,tinc_poll,tinc_tinc_up,tinc_tinc_down,tinc_host_up,tinc_host_down,tinc_subnet_up,tinc_subnet_down"); %>
 
-var tinc_compression = [['0','0 - None'],['1','1 - Fast zlib'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9 - Best zlib'],['10','10 - Fast lzo'],['11','11 - Best lzo']];
+var tinc_compression = [['0','0 - 无'],['1','1 - 快速 zlib'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9 - 最好 zlib'],['10','10 - 快速 lzo'],['11','11 - 最好 lzo']];
 var th = new TomatoGrid();
 var cmd = null;
 var cmdresult = '';
 
-tabs = [['config', 'Config'],['hosts', 'Hosts'],['scripts', 'Scripts'],['keys', 'Generate Keys'],['status', 'Status']];
+tabs = [['config', '配置'],['hosts', '主机'],['scripts', '脚本'],['keys', '生成密钥'],['status', '状态']];
 changed = 0;
 tincup = parseInt ('<% psup("tincd"); %>');
 
@@ -83,7 +83,7 @@ th.setup = function() {
 		{ type: 'textarea', proxy: "_host_ed25519_key" },
 		{ type: 'textarea', proxy: "_host_custom" }
 	]);
-	this.headerSet(['ConnectTo', 'Name', 'Address', 'Port', 'Compression', 'Subnet']);
+	this.headerSet(['连接至', '名称', '地址', '端口', '压缩', '子网']);
 	var nv = nvram.tinc_hosts.split('>');
 	for (var i = 0; i < nv.length; ++i) {
 		var t = nv[i].split('<');
@@ -123,10 +123,10 @@ th.verifyFields = function(row, quiet) {
 	var f = fields.getAll(row);
 
 	if (f[1].value == "") {
-		ferror.set(f[1], "Host Name is required.", quiet); return 0 ; }
+		ferror.set(f[1], "必须有主机名称.", quiet); return 0 ; }
 	else {  ferror.clear(f[1]) }
 	if (f[0].checked && f[2].value == "") {
-		ferror.set(f[2], "Address must be supplied when ConnectTo is checked.", quiet); return 0 ; }
+		ferror.set(f[2], "'连接至'启用时必须提供地址.", quiet); return 0 ; }
 	else {  ferror.clear(f[2]) }
 	if (!f[3].value == "" ) {
 		if (!v_port(f[3], quiet)) return 0 ;
@@ -134,17 +134,17 @@ th.verifyFields = function(row, quiet) {
 	
 	if(E('_tinc_devicetype').value == 'tun'){
 		if ((!v_subnet(f[5], 1)) && (!v_ip(f[5], 1))) {
-			ferror.set(f[5], "Invalid Subnet or IP address.", quiet); return 0 ; }
+			ferror.set(f[5], "无效的子网或IP地址.", quiet); return 0 ; }
 		else {  ferror.clear(f[5]) }
 	}
 	else if (E('_tinc_devicetype').value == 'tap'){
 		if (f[5].value != '') {
-			ferror.set(f[5], "Subnet is left blank when using the TAP Interface Type.", quiet); return 0 ; }
+			ferror.set(f[5], "使用TAP接口类型时子网将被留空.", quiet); return 0 ; }
 		else {  ferror.clear(f[5]) }
 	}
 
 	if (E('_host_ed25519_key').value == "") {
-		ferror.set(E('_host_ed25519_key'), "Ed25519 Public Key is required.", quiet); return 0 ; }
+		ferror.set(E('_host_ed25519_key'), "Ed25519 公钥必须填写.", quiet); return 0 ; }
 	else {  ferror.clear(E('_host_ed25519_key')) }
 
 	return 1;
@@ -208,11 +208,11 @@ function verifyFields(focused, quiet)
 
 	// Element Verification
 	if (E('_tinc_name').value == "" && E('_f_tinc_wanup').checked) {
-		ferror.set(E('_tinc_name'), "Host Name is required when 'Start With WAN' is checked.", quiet); return 0 ; }
+		ferror.set(E('_tinc_name'), "'同WAN一起启动'启用时主机名称必须填写.", quiet); return 0 ; }
 	else {  ferror.clear(E('_tinc_name')) }
 
 	if (E('_tinc_private_ed25519').value == "" && E('_tinc_custom').value == "" && E('_f_tinc_wanup').checked) {
-		ferror.set(E('_tinc_private_ed25519'), "Ed25519 Private Key is required when 'Start With WAN' is checked.", quiet); return 0 ; }
+		ferror.set(E('_tinc_private_ed25519'), "'同WAN一起启动'启用时 Ed25519 私钥必须填写.", quiet); return 0 ; }
 	else {  ferror.clear(E('_tinc_private_ed25519')) }
 
 	if (!v_netmask('_tinc_vpn_netmask', quiet)) return 0;
@@ -232,7 +232,7 @@ function verifyFields(focused, quiet)
 	}
 
 	if (!hostdefined && E('_f_tinc_wanup').checked) {
-		ferror.set(E('_tinc_name'), "Host Name \"" + E('_tinc_name').value + "\" must be defined in the hosts area when 'Start With WAN' is checked.", quiet); return 0 ; }
+		ferror.set(E('_tinc_name'), "'同WAN一起启动'启用时主机名称 \"" + E('_tinc_name').value + "\" 必须被定义在主机选项中.", quiet); return 0 ; }
 	else {  ferror.clear(E('_tinc_name')) };
 
 	return 1;
@@ -442,7 +442,7 @@ function toggle(service, isup)
 	changed = 1;
 
 	if (changed) {
-		if (!confirm("Unsaved changes will be lost. Continue anyway?")) return;
+		if (!confirm("未保存的设置将会丢失. 继续?")) return;
 	}
 
 	E('_' + service + '_button1').disabled = true;
@@ -499,11 +499,11 @@ function earlyInit()
 function toggleVisibility(whichone) {
 	if (E('sesdiv_' + whichone).style.display == '') {
 		E('sesdiv_' + whichone).style.display = 'none';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to show)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处显示)';
 		cookie.set('vpn_tinc_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv_' + whichone).style.display='';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to hide)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处隐藏)';
 		cookie.set('vpn_tinc_' + whichone + '_vis', 1);
 	}
 }
@@ -529,7 +529,7 @@ function toggleVisibility(whichone) {
 <input type='hidden' name='_service' value=''>
 
 <div class='section-title' style='float:right' id='version'></div>
-<div class='section-title'>Tinc Configuration</div>
+<div class='section-title'>Tinc 配置</div>
 
 
 <script type='text/javascript'>
@@ -542,20 +542,19 @@ function toggleVisibility(whichone) {
 	W('<input type=\'hidden\' name=\'tinc_wanup\'>');
 	W('<div class=\'section\'>');
 	createFieldTable('', [
-		{ title: 'Start With WAN ', name: 'f_tinc_wanup', type: 'checkbox', value: (nvram.tinc_wanup == 1) },
-		{ title: 'Interface Type', name: 'tinc_devicetype', type: 'select', options: [['tun','TUN'],['tap','TAP']], value: nvram.tinc_devicetype },
-		{ title: 'Mode', name: 'tinc_mode', type: 'select', options: [['switch','Switch'],['hub','Hub']], value: nvram.tinc_mode },
-		{ title: 'VPN Netmask', name: 'tinc_vpn_netmask', type: 'text', maxlen: 15, size: 25, value: nvram.tinc_vpn_netmask,  suffix: ' <small>The netmask for the entire VPN network.<\/small>' },
-		{ title: 'Host Name', name: 'tinc_name', type: 'text', maxlen: 30, size: 25, value: nvram.tinc_name, suffix: ' <small>Must also be defined in the \'Hosts\' area.<\/small>' },
+		{ title: '同 WAN 一起启动', name: 'f_tinc_wanup', type: 'checkbox', value: (nvram.tinc_wanup == 1) },
+		{ title: '接口类型', name: 'tinc_devicetype', type: 'select', options: [['tun','TUN'],['tap','TAP']], value: nvram.tinc_devicetype },
+		{ title: '形式', name: 'tinc_mode', type: 'select', options: [['switch','交换机'],['hub','集线器']], value: nvram.tinc_mode },
+		{ title: 'VPN 子网掩码', name: 'tinc_vpn_netmask', type: 'text', maxlen: 15, size: 25, value: nvram.tinc_vpn_netmask,  suffix: ' <small>子网掩码将用于全部VPN网络.<\/small>' },
+		{ title: '主机名称', name: 'tinc_name', type: 'text', maxlen: 30, size: 25, value: nvram.tinc_name, suffix: ' <small>必须被定义在\'主机\'选项中.<\/small>' },
 		{ title: 'Poll Interval', name: 'tinc_poll', type: 'text', maxlen: 4, size: 5, value: nvram.tinc_poll, suffix: '&nbsp;<small>(in minutes, 0 to disable)<\/small>' },
-		{ title: 'Ed25519 Private Key', name: 'tinc_private_ed25519', type: 'textarea', value: nvram.tinc_private_ed25519 },
-		{ title: 'RSA Private Key *', name: 'tinc_private_rsa', type: 'textarea', value: nvram.tinc_private_rsa },
-		{ title: 'Custom', name: 'tinc_custom', type: 'textarea', value: nvram.tinc_custom }
+		{ title: 'RSA 私钥 *', name: 'tinc_private_rsa', type: 'textarea', value: nvram.tinc_private_rsa },
+		{ title: '自定义', name: 'tinc_custom', type: 'textarea', value: nvram.tinc_custom }
 	]);
 
-	W('<small><b style=\'font-size: 1.5em\'>*<\/b> Only required to create legacy connections with tinc1.0 nodes.<\/small>');
+	W('<small><b style=\'font-size: 1.5em\'>*<\/b> tinc1.0 节点仅需要创建传统的连接.<\/small>');
 	W('<\/div>');
-	W('<input type="button" value="' + (tincup ? 'Stop' : 'Start') + ' Now" onclick="toggle(\'tinc\', tincup)" id="_tinc_button1">');
+	W('<input type="button" value="' + (tincup ? '停止' : '启动') + ' " onclick="toggle(\'tinc\', tincup)" id="_tinc_button1">');
 	W('<\/div>');
 	// -------- END CONFIG TAB -----------
 
@@ -571,28 +570,28 @@ function toggleVisibility(whichone) {
 	th.setup();
 
 	createFieldTable('', [
-		{ title: 'Ed25519 Public Key', name: 'host_ed25519_key', type: 'textarea' },
-		{ title: 'RSA Public Key *', name: 'host_rsa_key', type: 'textarea' },
-		{ title: 'Custom', name: 'host_custom', type: 'textarea' }
+		{ title: 'Ed25519 公钥', name: 'host_ed25519_key', type: 'textarea' },
+		{ title: 'RSA 公钥 *', name: 'host_rsa_key', type: 'textarea' },
+		{ title: '自定义', name: 'host_custom', type: 'textarea' }
 	]);
 
-	W('<small><b style=\'font-size: 1.5em\'>*<\/b> Only required to create legacy connections with tinc1.0 nodes.<\/small>');
+	W('<small><b style=\'font-size: 1.5em\'>*<\/b> tinc1.0节点仅需要创建传统的连接.<\/small>');
 	W('<\/div>');
-	W('<input type="button" value="' + (tincup ? 'Stop' : 'Start') + ' Now" onclick="toggle(\'tinc\', tincup)" id="_tinc_button2">');
+	W('<input type="button" value="' + (tincup ? '停止' : '启动') + ' " onclick="toggle(\'tinc\', tincup)" id="_tinc_button2">');
 
 	W('<br />');
 	W('<br />');
 
-	W('<div class=\'section-title\'>Notes <small><i><a href=\'javascript:toggleVisibility(\"hosts\");\'><span id=\'sesdiv_hosts_showhide\'>(Click here to show)<\/span><\/a><\/i><\/small><\/div>');
+	W('<div class=\'section-title\'>说明 <small><i><a href=\'javascript:toggleVisibility(\"hosts\");\'><span id=\'sesdiv_hosts_showhide\'>(点击此处显示)<\/span><\/a><\/i><\/small><\/div>');
 	W('<div class=\'section\' id=\'sesdiv_hosts\' style=\'display:none\'>');
 	W('<ul>');
-	W('<li><b>ConnectTo<\/b> - Tinc will try to establish a meta-connection to the host. Requires the Address field');
-	W('<li><b>Name<\/b> - Name of the host. There must be an entry for this host.');
-	W('<li><b>Address<\/b> <i>(optional)<\/i> - Must resolve to the external IP address where the host can be reached.');
-	W('<li><b>Port<\/b> <i>(optional)<\/i> - The port the host listens on. If empty the default value (655) is used.');
-	W('<li><b>Compression<\/b> - The level of compression used for UDP packets. Possible values are ');
-	W('0 (off), 1 (fast zlib) and any integer up to 9 (best zlib), 10 (fast lzo) and 11 (best lzo).');
-	W('<li><b>Subnet<\/b> - The subnet which the host will serve.');
+	W('<li><b>连接至<\/b> - Tinc 将尝试创建一个元连接到主机.需要地址字段');
+	W('<li><b>名称<\/b> - 主机的名称.必须填写主机名称.');
+	W('<li><b>地址<\/b> <i>(可选)<\/i> - 解析得到的外部IP地址必须在主机能达到的范围内.');
+	W('<li><b>端口<\/b> <i>(可选)<\/i> - 主机的监听端口.如果未指定则使用默认值(655).');
+	W('<li><b>压缩<\/b> - UDP 包使用的压缩等级.使用合理的值 ');
+	W('0 (关闭), 1 (快速 zlib) and any integer up to 9 (最好 zlib), 10 (快速 lzo) and 11 (最好 lzo).');
+	W('<li><b>Subnet<\/b> - 主机提供的子网.');
 	W('<\/ul>');
 	W('<\/div>');
 
@@ -608,19 +607,19 @@ function toggleVisibility(whichone) {
 	W('<div class=\'section\'>');
 
 	createFieldTable('', [
-		{ title: 'Firewall Rules', name: 'tinc_manual_firewall', type: 'select', options: [['0','Automatic'],['1','Additional'],['2','Manual']], value: nvram.tinc_manual_firewall },
-		{ title: 'Firewall', name: 'tinc_firewall', type: 'textarea', value: nvram.tinc_firewall },
-		{ title: 'tinc-up creation', name: 'tinc_manual_tinc_up', type: 'select', options: [['0','Automatic'],['1','Manual']], value: nvram.tinc_manual_tinc_up },
-		{ title: 'tinc-up', name: 'tinc_tinc_up', type: 'textarea', value: nvram.tinc_tinc_up },
-		{ title: 'tinc-down', name: 'tinc_tinc_down', type: 'textarea', value: nvram.tinc_tinc_down },
-		{ title: 'host-up', name: 'tinc_host_up', type: 'textarea', value: nvram.tinc_host_up },
-		{ title: 'host-down', name: 'tinc_host_down', type: 'textarea', value: nvram.tinc_host_down },
-		{ title: 'subnet-up', name: 'tinc_subnet_up', type: 'textarea', value: nvram.tinc_subnet_up },
-		{ title: 'subnet-down', name: 'tinc_subnet_down', type: 'textarea', value: nvram.tinc_subnet_down }
+		{ title: '防火墙规则', name: 'tinc_manual_firewall', type: 'select', options: [['0','自动'],['1','附加的'],['2','手动']], value: nvram.tinc_manual_firewall },
+		{ title: '防火墙', name: 'tinc_firewall', type: 'textarea', value: nvram.tinc_firewall },
+		{ title: 'tinc 启动模式', name: 'tinc_manual_tinc_up', type: 'select', options: [['0','自动'],['1','手动']], value: nvram.tinc_manual_tinc_up },
+		{ title: 'tinc 启动', name: 'tinc_tinc_up', type: 'textarea', value: nvram.tinc_tinc_up },
+		{ title: 'tinc 关闭', name: 'tinc_tinc_down', type: 'textarea', value: nvram.tinc_tinc_down },
+		{ title: '主机启动', name: 'tinc_host_up', type: 'textarea', value: nvram.tinc_host_up },
+		{ title: '主机关闭', name: 'tinc_host_down', type: 'textarea', value: nvram.tinc_host_down },
+		{ title: '子网建立', name: 'tinc_subnet_up', type: 'textarea', value: nvram.tinc_subnet_up },
+		{ title: '子网取消', name: 'tinc_subnet_down', type: 'textarea', value: nvram.tinc_subnet_down }
 	]);
 
 	W('<\/div>');
-	W('<input type="button" value="' + (tincup ? 'Stop' : 'Start') + ' Now" onclick="toggle(\'tinc\', tincup)" id="_tinc_button3">');
+	W('<input type="button" value="' + (tincup ? '停止' : '启动') + ' " onclick="toggle(\'tinc\', tincup)" id="_tinc_button3">');
 	W('<\/div>');
 	// -------- END SCRIPTS TAB -----------
 
@@ -632,15 +631,15 @@ function toggleVisibility(whichone) {
 	W('<div class=\'section\'>');
 
 	createFieldTable('', [
-		{ title: 'Ed25519 Private Key', name: 'ed25519_private_key', type: 'textarea', value: "" },
-		{ title: 'Ed25519 Public Key', name: 'ed25519_public_key', type: 'textarea', value: "" },
-		{ title: 'RSA Private Key', name: 'rsa_private_key', type: 'textarea', value: "" },
-		{ title: 'RSA Public Key', name: 'rsa_public_key', type: 'textarea', value: "" }
+		{ title: 'Ed25519 私钥', name: 'ed25519_private_key', type: 'textarea', value: "" },
+		{ title: 'Ed25519 公钥', name: 'ed25519_public_key', type: 'textarea', value: "" },
+		{ title: 'RSA 私钥', name: 'rsa_private_key', type: 'textarea', value: "" },
+		{ title: 'RSA 公钥', name: 'rsa_public_key', type: 'textarea', value: "" }
 	]);
 
 	W('<\/div>');
-	W('<div style=\'float:left\'><input type=\'button\' value=\'Generate Keys\' onclick=\'generateKeys()\' id=\'execb\'><\/div>');
-	W('<div style=\"visibility:hidden;text-align:right\" id=\"generateWait\">Please wait... <img src=\'spin.gif\' style=\"vertical-align:top\"><\/div>');
+	W('<div style=\'float:left\'><input type=\'button\' value=\'生成密钥\' onclick=\'generateKeys()\' id=\'execb\'><\/div>');
+	W('<div style=\"visibility:hidden;text-align:right\" id=\"generateWait\">请稍等... <img src=\'spin.gif\' style=\"vertical-align:top\"><\/div>');
 	W('<\/div>');
 
 	// -------- END KEY TAB -----------
@@ -653,22 +652,22 @@ function toggleVisibility(whichone) {
 	W('<br />');
 
 	W('<div class=\'section\'>');
-	W('Tinc is currently '+(!tincup ? 'stopped.' : 'running.')+' ');
-	W('<input type="button" value="' + (tincup ? 'Stop' : 'Start') + ' Now" onclick="toggle(\'tinc\', tincup)" id="_tinc_button4">');
+	W('Tinc 目前 '+(!tincup ? '未运行.' : '正在运行.')+' ');
+	W('<input type="button" value="' + (tincup ? '停止' : '启动') + ' " onclick="toggle(\'tinc\', tincup)" id="_tinc_button4">');
 	W('<\/div>');
 
 	W('<div class=\'section\'>');
 
-	W('<div style=\'float:left\'><input type=\'button\' value=\'Edges\' onclick=\'updateStatus(\"edges\")\' id=\'edges\' style=\"width:85px\"><\/div>');
-	W('<div style=\'float:left\'><input type=\'button\' value=\'Subnets\' onclick=\'updateStatus(\"subnets\")\' id=\'subnets\' style=\"width:85px\"><\/div>');
-	W('<div style=\'float:left\'><input type=\'button\' value=\'Connections\' onclick=\'updateStatus(\"connections\")\' id=\'connections\' style=\"width:85px\"><\/div>');
-	W('<div style=\'float:left\'><input type=\'button\' value=\'Nodes\' onclick=\'updateStatus(\"nodes\")\' id=\'nodes\' style=\"width:85px\"><\/div>');
-	W('<div style=\"visibility:hidden;text-align:right\" id=\"statusWait\">Please wait... <img src=\'spin.gif\' style=\"vertical-align:top\"><\/div>');
+	W('<div style=\'float:left\'><input type=\'button\' value=\'边缘服务器\' onclick=\'updateStatus(\"edges\")\' id=\'edges\' style=\"width:85px\"><\/div>');
+	W('<div style=\'float:left\'><input type=\'button\' value=\'子网\' onclick=\'updateStatus(\"subnets\")\' id=\'subnets\' style=\"width:85px\"><\/div>');
+	W('<div style=\'float:left\'><input type=\'button\' value=\'连接\' onclick=\'updateStatus(\"connections\")\' id=\'connections\' style=\"width:85px\"><\/div>');
+	W('<div style=\'float:left\'><input type=\'button\' value=\'节点\' onclick=\'updateStatus(\"nodes\")\' id=\'nodes\' style=\"width:85px\"><\/div>');
+	W('<div style=\"visibility:hidden;text-align:right\" id=\"statusWait\">请稍等... <img src=\'spin.gif\' style=\"vertical-align:top\"><\/div>');
 
 	W('<\/div>');
 
 	W('<div class=\'section\'>');
-	W('<input type=\'button\' value=\'Info\' onclick=\'updateStatus(\"info\")\' id=\'info\' style=\"width:85px\">');
+	W('<input type=\'button\' value=\'信息\' onclick=\'updateStatus(\"info\")\' id=\'info\' style=\"width:85px\">');
 	W('<select id=\'hostselect\' style=\"width:170px\"><\/select>');
 	W('<\/div>');
 
@@ -681,8 +680,8 @@ function toggleVisibility(whichone) {
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

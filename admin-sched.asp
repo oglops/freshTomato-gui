@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Scheduler</title>
+<title>[<% ident(); %>] 系统管理: 定时任务</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -34,7 +34,7 @@ textarea {
 
 //	<% nvram("sch_rboot,sch_rcon,sch_c1,sch_c1_cmd,sch_c2,sch_c2_cmd,sch_c3,sch_c3_cmd,sch_c4,sch_c4_cmd,sch_c5,sch_c5_cmd"); %>
 
-var dowNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var dowNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 var dowLow = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var scheds = []
 
@@ -47,9 +47,9 @@ for (i = 15; i < 1440; i += 15) {
 tm.push([1439, timeString(1439)]);
 
 tm.push(
-	[-1, 'Every minute'], [-3, 'Every 3 minutes'], [-5, 'Every 5 minutes'], [-15, 'Every 15 minutes'], [-30, 'Every 30 minutes'],
-	[-60, 'Every hour'], [-(12 * 60), 'Every 12 hours'], [-(24 * 60), 'Every 24 hours'],
-	['e', 'Every...']);
+	[-1, '每分钟'], [-3, '每3分钟'], [-5, '每5分钟'], [-15, '每15分钟'], [-30, '每30分钟'],
+	[-60, '每小时'], [-(12 * 60), '每12小时'], [-(24 * 60), '每24小时'],
+	['e', '每隔...']);
 
 /* REMOVE-BEGIN
 
@@ -92,24 +92,24 @@ function makeSched(key, custom)
 	}
 
 	a = [
-		{ title: 'Enabled', name: key + 'enabled', type: 'checkbox', value: v[1] == '1' },
-		{ title: 'Time', multi: [
+		{ title: '启用', name: key + 'enabled', type: 'checkbox', value: v[1] == '1' },
+		{ title: '时间', multi: [
 			{ name: key + 'time', type: 'select', options: t, value: oe ? 'e' : v[2] },
 			{ name: key + 'every', type: 'text', maxlen: 10, size: 10, value: (v[2] < 0) ? -v[2] : 30,
-				prefix: ' ', suffix: ' <small id="_' + key + 'mins"><i>minutes<\/i><\/small>' } ] },
-		{ title: 'Days', multi: [
-			{ name: key + 'sun', type: 'checkbox', suffix: ' Sun &nbsp; ', value: w & 1 },
-			{ name: key + 'mon', type: 'checkbox', suffix: ' Mon &nbsp; ', value: w & 2 },
-			{ name: key + 'tue', type: 'checkbox', suffix: ' Tue &nbsp; ', value: w & 4 },
-			{ name: key + 'wed', type: 'checkbox', suffix: ' Wed &nbsp; ', value: w & 8 },
-			{ name: key + 'thu', type: 'checkbox', suffix: ' Thu &nbsp; ', value: w & 16 },
-			{ name: key + 'fri', type: 'checkbox', suffix: ' Fri &nbsp; ', value: w & 32 },
-			{ name: key + 'sat', type: 'checkbox', suffix: ' Sat &nbsp; &nbsp;', value: w & 64 },
-			{ name: key + 'everyday', type: 'checkbox', suffix: ' Everyday', value: (w & 0x7F) == 0x7F } ] }
+				prefix: ' ', suffix: ' <small id="_' + key + 'mins"><i>分钟<\/i><\/small>' } ] },
+		{ title: '天', multi: [
+			{ name: key + 'sun', type: 'checkbox', suffix: ' 星期日 &nbsp; ', value: w & 1 },
+			{ name: key + 'mon', type: 'checkbox', suffix: ' 星期一 &nbsp; ', value: w & 2 },
+			{ name: key + 'tue', type: 'checkbox', suffix: ' 星期二 &nbsp; ', value: w & 4 },
+			{ name: key + 'wed', type: 'checkbox', suffix: ' 星期三 &nbsp; ', value: w & 8 },
+			{ name: key + 'thu', type: 'checkbox', suffix: ' 星期四 &nbsp; ', value: w & 16 },
+			{ name: key + 'fri', type: 'checkbox', suffix: ' 星期五 &nbsp; ', value: w & 32 },
+			{ name: key + 'sat', type: 'checkbox', suffix: ' 星期六 &nbsp; &nbsp;', value: w & 64 },
+			{ name: key + 'everyday', type: 'checkbox', suffix: ' 每天', value: (w & 0x7F) == 0x7F } ] }
 	];
 
 	if (custom) {
-		a.push({ title: 'Command', name: 'sch_' + key + 'cmd', type: 'textarea', value: nvram['sch_' + key + 'cmd' ] });
+		a.push({ title: '命令', name: 'sch_' + key + 'cmd', type: 'textarea', value: nvram['sch_' + key + 'cmd' ] });
 	}
 
 	createFieldTable('', a);
@@ -259,49 +259,49 @@ function init()
 <input type='hidden' name='sch_c4' value=''>
 <input type='hidden' name='sch_c5' value=''>
 
-<div class='section-title'>Reboot</div>
+<div class='section-title'>重启路由器</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('rboot');
 </script>
 </div>
 
-<div class='section-title'>Reconnect</div>
+<div class='section-title'>重新连接</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('rcon');
 </script>
 </div>
 
-<div class='section-title'>Custom 1</div>
+<div class='section-title'>自定义 1</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('c1', 1);
 </script>
 </div>
 
-<div class='section-title'>Custom 2</div>
+<div class='section-title'>自定义 2</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('c2', 1);
 </script>
 </div>
 
-<div class='section-title'>Custom 3</div>
+<div class='section-title'>自定义 3</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('c3', 1);
 </script>
 </div>
 
-<div class='section-title'>Custom 4</div>
+<div class='section-title'>自定义 4</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('c4', 1);
 </script>
 </div>
 
-<div class='section-title'>Custom 5</div>
+<div class='section-title'>自定义 5</div>
 <div class='section'>
 <script type='text/javascript'>
 makeSched('c5', 1);
@@ -313,8 +313,8 @@ makeSched('c5', 1);
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>
