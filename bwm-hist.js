@@ -1,5 +1,5 @@
 
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
 var snames = [' KB', ' MB', ' GB'];
 var scale = 2;
 
@@ -49,22 +49,22 @@ function cmpHist(a, b)
 function checkRstats()
 {
 	if (nvram.rstats_enable != '1') {
-		W('<div class="note-disabled"><b>Bandwidth monitoring disabled.<\/b><br /><br /><a href="admin-bwm.asp">Enable &raquo;<\/a><\/div>');
+		W('<div class="note-disabled"><b>带宽监控已禁用.<\/b><br /><br /><a href="admin-bwm.asp">开启 &raquo;<\/a><\/div>');
 		E('rstats').style.display = 'none';
 	}
 	else if (rstats_busy) {
-		W('<div class="note-warning">The rstats program is not responding or is busy. Try reloading after a few seconds.<\/div>');
+		W('<div class="note-warning">rstat 程序没有响应或正忙,请几秒钟后尝试重新加载.<\/div>');
 	}
 }
 
 function checkCstats()
 {
 	if (nvram.cstats_enable != '1') {
-		W('<div class="note-disabled"><b>IP Traffic monitoring disabled.<\/b><br /><br /><a href="admin-iptraffic.asp">Enable &raquo;<\/a><\/div>');
+		W('<div class="note-disabled"><b>IP 流量监控已禁用.<\/b><br /><br /><a href="admin-iptraffic.asp">开启 &raquo;<\/a><\/div>');
 		E('cstats').style.display = 'none';
 	}
 	else if (cstats_busy) {
-		W('<div class="note-warning">The cstats program is not responding or is busy. Try reloading after a few seconds.<\/div>');
+		W('<div class="note-warning">cstat 程序没有响应或正忙,请几秒钟后尝试重新加载.<\/div>');
 	}
 }
 

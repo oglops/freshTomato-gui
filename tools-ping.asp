@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Tools: Ping</title>
+<title>[<% ident(); %>] 实用工具: Ping</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -46,7 +46,7 @@ var pingdata = '';
 var pg = new TomatoGrid();
 pg.setup = function() {
 	this.init('tp-grid');
-	this.headerSet(['Seq', 'Address', 'RX Bytes', 'TTL', 'RTT (ms)', '+/- (ms)']);
+	this.headerSet(['序号', '地址', '接收字节', '生存期限TTL', '响应时间RTT(ms)', '＋/－(ms)']);
 }
 pg.populate = function()
 {
@@ -102,10 +102,10 @@ REMOVE-END */
 			resolv[RegExp.$2] = RegExp.$1;
 		}
 		else if (buf[i].match(/^(\d+) packets.+, (\d+) packets.+, (\d+%)/)) {
-			stats = '   Packets: ' + RegExp.$1 + ' transmitted, ' + RegExp.$2 + ' received, ' + RegExp.$3 + ' lost<br />';
+			stats = '   封包丢失率: ' + RegExp.$1 + ' 发送, ' + RegExp.$2 + ' 接收, ' + RegExp.$3 + ' 丢失率<br />';
 		}
 		else if (buf[i].match(/^round.+ (\d+\.\d+)\/(\d+\.\d+)\/(\d+\.\d+)/)) {
-			stats = 'Round-Trip: ' + RegExp.$1 + ' min, ' + RegExp.$2 + ' avg, ' + RegExp.$3 + ' max (ms)<br />' + stats;
+			stats = '平均变化量: ' + RegExp.$1 + ' 最小, ' + RegExp.$2 + ' 平均, ' + RegExp.$3 + ' 最大 (ms)<br />' + stats;
 		}
 	}
 
@@ -159,7 +159,7 @@ function ping()
 		pg.populate();
 	}
 	pinger.onError = function(x) {
-		alert('error: ' + x);
+		alert('错误: ' + x);
 		spin(0);
 	}
 
@@ -203,15 +203,15 @@ function init()
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Address', name: 'f_addr', type: 'text', maxlen: 64, size: 32, value: '',
+	{ title: '地址', name: 'f_addr', type: 'text', maxlen: 64, size: 32, value: '',
 		suffix: ' <input type="button" value="Ping" onclick="ping()" id="pingb">' },
-	{ title: 'Ping Count', name: 'f_count', type: 'text', maxlen: 2, size: 7, value: '5' },
-	{ title: 'Packet Size', name: 'f_size', type: 'text', maxlen: 5, size: 7, value: '56', suffix: ' <small>(bytes)<\/small>' }
+	{ title: 'Ping 次数', name: 'f_count', type: 'text', maxlen: 2, size: 7, value: '5' },
+	{ title: '包大小', name: 'f_size', type: 'text', maxlen: 5, size: 7, value: '56', suffix: ' <small>(字节)<\/small>' }
 ]);
 </script>
 </div>
 
-<div style="visibility:hidden;text-align:right" id="wait">Please wait... <img src='spin.gif' alt="" style="vertical-align:top"></div>
+<div style="visibility:hidden;text-align:right" id="wait">请稍候... <img src='spin.gif' alt="" style="vertical-align:top"></div>
 
 <div id="tp-grid" class="tomato-grid"></div>
 <pre id='stats'></pre>

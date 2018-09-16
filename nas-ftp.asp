@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] NAS: FTP Server</title>
+<title>[<% ident(); %>] NAS: FTP 服务器</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -84,29 +84,29 @@ aftg.verifyFields = function(row, quiet)
 	s = f[0].value.trim().replace(/\s+/g, ' ');
 	if (s.length > 0) {
 		if (s.search(/^[a-zA-Z0-9_\-]+$/) == -1) {
-			ferror.set(f[0], 'Invalid user name. Only characters "A-Z 0-9 - _" are allowed.', quiet);
+			ferror.set(f[0], '无效的用户名. 仅支持\"A-Z 0-9 . - _\"等字符.', quiet);
 			return 0;
 		}
 		if (this.existName(s)) {
-			ferror.set(f[0], 'Duplicate user name.', quiet);
+			ferror.set(f[0], '用户名已存在.', quiet);
 			return 0;
 		}
 		if (s == 'root' || s == 'admin') {
-			ferror.set(f[0], 'User names "root" and "admin" are not allowed.', quiet);
+			ferror.set(f[0], '不允许使用 "root" 和 "admin" 作为用户名.', quiet);
 			return 0;
 		}
 		f[0].value = s;
 	}
 
 	if (!v_length(f[1], quiet, 1)) return 0;
-	if (!v_nodelim(f[1], quiet, 'Password', 1)) return 0;
+	if (!v_nodelim(f[1], quiet, '密码', 1)) return 0;
 	if (f[2].value == 'Private') {
 		f[3].value = '';
 		f[3].disabled = true;
 	}
 	else {
 		f[3].disabled = false;
-		if (!v_nodelim(f[3], quiet, 'Root Directory', 1) || !v_path(f[3], quiet, 0)) return 0;
+		if (!v_nodelim(f[3], quiet, '根目录', 1) || !v_path(f[3], quiet, 0)) return 0;
 	}
 
 	return 1;
@@ -129,10 +129,10 @@ aftg.setup = function()
 	this.init('aft-grid', 'sort', 50, [
 		{ type: 'text', maxlen: 50 },
 		{ type: 'password', maxlen: 50, peekaboo: 1 },
-		{ type: 'select', options: [['Read/Write', 'Read/Write'],['Read Only', 'Read Only'],['View Only', 'View Only'],['Private', 'Private']] },
+		{ type: 'select', options: [['Read/Write', '读 / 写'],['Read Only', '只读'],['View Only', '只能查看'],['Private', '个人目录']] },
 		{ type: 'text', maxlen: 128 }
 	]);
-	this.headerSet(['User Name', 'Password', 'Access', 'Root Directory*']);
+	this.headerSet(['用户名', '密码', '访问权限', '根目录*']);
 
 	var s = nvram.ftp_users.split('>');
 	for (var i = 0; i < s.length; ++i) {
@@ -257,98 +257,98 @@ function init()
 <input type='hidden' name='ftp_sip'>
 <input type='hidden' name='ftp_limit'>
 
-<div class='section-title'>FTP Server Configuration</div>
+<div class='section-title'>FTP 服务器设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Enable FTP Server', name: 'ftp_enable', type: 'select',
-		options: [['0', 'No'],['1', 'Yes, WAN and LAN'],['2', 'Yes, LAN only']],
+	{ title: '启用 FTP 服务器', name: 'ftp_enable', type: 'select',
+		options: [['0', '否'],['1', '是( WAN / LAN 都能访问'],['2', '是(仅 LAN 能访问)']],
 		value: nvram.ftp_enable },
-	{ title: 'FTP Port', indent: 2, name: 'ftp_port', type: 'text', maxlen: 5, size: 7, value: fixPort(nvram.ftp_port, 21) },
-	{ title: 'Allowed Remote<br />Address(es)', indent: 2, name: 'f_ftp_sip', type: 'text', maxlen: 512, size: 64, value: nvram.ftp_sip,
-		suffix: '<br /><small>(optional; ex: "1.1.1.1", "1.1.1.0/24", "1.1.1.1 - 2.2.2.2" or "me.example.com")<\/small>' },
-	{ title: 'Anonymous Users Access', name: 'ftp_anonymous', type: 'select',
-		options: [['0', 'Disabled'],['1', 'Read/Write'],['2', 'Read Only'],['3', 'Write Only']],
+	{ title: 'FTP 端口', indent: 2, name: 'ftp_port', type: 'text', maxlen: 5, size: 7, value: fixPort(nvram.ftp_port, 21) },
+	{ title: '允许访问的远程地址', indent: 2, name: 'f_ftp_sip', type: 'text', maxlen: 512, size: 64, value: nvram.ftp_sip,
+		suffix: '<br /><small>("空白" 不限制,可单一IP或范围;例: "1.1.1.1", "1.1.1.0/24", "1.1.1.1 - 2.2.2.2" or "me.example.com")<\/small>' },
+	{ title: '匿名用户访问', name: 'ftp_anonymous', type: 'select',
+		options: [['0', '关闭'],['1', '读 / 写'],['2', '只读'],['3', '只写']],
 		value: nvram.ftp_anonymous },
-	{ title: 'Allow Admin Login*', name: 'f_ftp_super', type: 'checkbox',
-		suffix: ' <small>Allows users to connect with admin account.<\/small>',
+	{ title: '允许管理员访问*', name: 'f_ftp_super', type: 'checkbox',
+		suffix: ' <small>允许用户使用 admin 账户连接.<\/small>',
 		value: nvram.ftp_super == 1 },
-	{ title: 'Log FTP requests and responses', name: 'f_log_ftp', type: 'checkbox',
+	{ title: '记录 FTP 请求和响应日志', name: 'f_log_ftp', type: 'checkbox',
 		value: nvram.log_ftp == 1 }
 ]);
 </script>
-<small><br />*&nbsp;Avoid using this option when FTP server is enabled for WAN. IT PROVIDES FULL ACCESS TO THE ROUTER FILE SYSTEM!</small>
+<small><br />*&nbsp;当 FTP 服务器可以从 WAN 访问时尽量不要选择此选项，因为该选项将允许从 WAN 访问路由器文件系统！</small>
 </div>
 
-<div class='section-title'>Directories</div>
+<div class='section-title'>目录</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Anonymous Root Directory*', name: 'ftp_anonroot', type: 'text', maxlen: 256, size: 32, 
-		suffix: ' <small>(for anonymous connections)<\/small>',
+	{ title: '匿名用户根目录*', name: 'ftp_anonroot', type: 'text', maxlen: 256, size: 32, 
+		suffix: ' <small>(所有用户都能访问)<\/small>',
 		value: nvram.ftp_anonroot },
-	{ title: 'Public Root Directory*', name: 'ftp_pubroot', type: 'text', maxlen: 256, size: 32,
-		suffix: ' <small>(for authenticated users access, if not specified for the user)<\/small>',
+	{ title: '公共根目录*', name: 'ftp_pubroot', type: 'text', maxlen: 256, size: 32,
+		suffix: ' <small>(如果不是特殊用户，已验证身份的用户都可以访问)<\/small>',
 		value: nvram.ftp_pubroot },
-	{ title: 'Private Root Directory**', name: 'ftp_pvtroot', type: 'text', maxlen: 256, size: 32,
-		suffix: ' <small>(for authenticated users access in private mode)<\/small>',
+	{ title: '私有根目录*', name: 'ftp_pvtroot', type: 'text', maxlen: 256, size: 32,
+		suffix: ' <small>(只允许所属用户访问)<\/small>',
 		value: nvram.ftp_pvtroot },
-	{ title: 'Directory Listings', name: 'ftp_dirlist', type: 'select',
-		options: [['0', 'Enabled'],['1', 'Disabled'],['2', 'Disabled for Anonymous']],
-		suffix: ' <small>(always enabled for Admin)<\/small>',
+	{ title: '列出目录列表', name: 'ftp_dirlist', type: 'select',
+		options: [['0', '启用'],['1', '关闭'],['2', '对匿名用户关闭']],
+		suffix: ' <small>(总是对 Admin 启用)<\/small>',
 		value: nvram.ftp_dirlist }
 ]);
 </script>
 <small>
-<br />*&nbsp;&nbsp;When no directory is specified, /mnt is used as a root directory.
-<br />**&nbsp;In private mode, the root directory is the directory under the "Private Root Directory" with the name matching the name of the user.
+<br />*&nbsp;&nbsp;如果没有指定用户目录，/mnt将会被作为根目录.
+<br />**&nbsp;如用户的访问权限为私有目录模式，该用户的私有目录为"私有根目录"下跟用户名同名的目录.
 </small>
 </div>
 
-<div class='section-title'>Limits</div>
+<div class='section-title'>访问限制设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Maximum Users Allowed to Log in', name: 'ftp_max', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>(0 - unlimited)<\/small>',
+	{ title: '最大登录用户数', name: 'ftp_max', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>(0 - 无限制)<\/small>',
 		value: nvram.ftp_max },
-	{ title: 'Maximum Connections from the same IP', name: 'ftp_ipmax', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>(0 - unlimited)<\/small>',
+	{ title: '来自同一 IP 的最大连接数', name: 'ftp_ipmax', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>(0 - 无限制)<\/small>',
 		value: nvram.ftp_ipmax },
-	{ title: 'Maximum Bandwidth for Anonymous Users', name: 'ftp_anonrate', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>KBytes/sec (0 - unlimited)<\/small>',
+	{ title: '匿名用户带宽限制', name: 'ftp_anonrate', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>KBytes/sec (0 - 无限制)<\/small>',
 		value: nvram.ftp_anonrate },
-	{ title: 'Maximum Bandwidth for Authenticated Users', name: 'ftp_rate', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>KBytes/sec (0 - unlimited)<\/small>',
+	{ title: '认证用户带宽限制', name: 'ftp_rate', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>KBytes/sec (0 - 无限制)<\/small>',
 		value: nvram.ftp_rate },
-	{ title: 'Idle Timeout', name: 'ftp_staytimeout', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>seconds (0 - no timeout)<\/small>',
+	{ title: '连接空闲超时设置', name: 'ftp_staytimeout', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>seconds (0 - 永不超时)<\/small>',
 		value: nvram.ftp_staytimeout },
-	{ title: 'Limit Connection Attempts', name: 'f_limit', type: 'checkbox',
+	{ title: '最大尝试连接次数', name: 'f_limit', type: 'checkbox',
 		value: ftplimit[0] != 0 },
 	{ title: '', indent: 2, multi: [
-		{ name: 'f_limit_hit', type: 'text', maxlen: 4, size: 6, suffix: '&nbsp; <small>every<\/small> &nbsp;', value: ftplimit[1] },
-		{ name: 'f_limit_sec', type: 'text', maxlen: 4, size: 6, suffix: '&nbsp; <small>seconds<\/small>', value: ftplimit[2] }
+		{ name: 'f_limit_hit', type: 'text', maxlen: 4, size: 6, suffix: '&nbsp; <small>次<\/small> &nbsp;', value: ftplimit[1] },
+		{ name: 'f_limit_sec', type: 'text', maxlen: 4, size: 6, suffix: '&nbsp; <small>秒<\/small>', value: ftplimit[2] }
 	] }
 ]);
 </script>
 </div>
 
-<div class='section-title'>Custom Configuration</div>
+<div class='section-title'>自定义配置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: '<a href="http://vsftpd.beasts.org/vsftpd_conf.html" class="new_window">Vsftpd<\/a><br />Custom Configuration', name: 'ftp_custom', type: 'textarea', value: nvram.ftp_custom }
+	{ title: '<a href="http://vsftpd.beasts.org/vsftpd_conf.html" class="new_window">Vsftpd<\/a><br />自定义配置', name: 'ftp_custom', type: 'textarea', value: nvram.ftp_custom }
 ]);
 </script>
 </div>
 
-<div class='section-title'>User Accounts</div>
+<div class='section-title'>用户帐户</div>
 <div class='section'>
 	<div class="tomato-grid" id="aft-grid"></div>
 	<script type='text/javascript'>aftg.setup();</script>
 <small>
-*&nbsp;&nbsp;When no Root Directory is specified for the user, the default "Public Root Directory" is used.
+*&nbsp;&nbsp;如果没有为用户设置根目录, 则使用公共根目录.
 </small>
 </div>
 
@@ -357,8 +357,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

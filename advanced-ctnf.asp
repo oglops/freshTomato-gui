@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: Conntrack / Netfilter</title>
+<title>[<% ident(); %>] 高级设置: 连接追踪/包过滤</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -45,9 +45,9 @@ function check()
 			conntrack = [];
 		}
 		for (i = 1; i < 13; ++i) {
-			E('count' + i).innerHTML = '&nbsp; <small>('+ ((conntrack[i] || 0) * 1) + ' in this state)<\/small>';
+			E('count' + i).innerHTML = '&nbsp; <small>('+ ((conntrack[i] || 0) * 1) + ' 个连接处于该状态)<\/small>';
 		}
-		E('count0').innerHTML = '(' + ((conntrack[0] || 0) * 1) + ' connections currently tracked)';
+		E('count0').innerHTML = '(' + ((conntrack[0] || 0) * 1) + ' 个连接目前使用中)';
 		checker = null;
 		timer.start(3000);
 	}
@@ -81,7 +81,7 @@ function expireTimer()
 	}
 	else {
 		setTimeout(expireTimer, 1000);
-		e.value = 'Expire Scheduled... ' + expireTime;
+		e.value = '正在清除... ' + expireTime;
 	}
 }
 
@@ -197,32 +197,32 @@ function save()
 <input type='hidden' name='nf_sip'>
 /* LINUX26-END */
 
-<div class='section-title'>Connections</div>
+<div class='section-title'>连接数</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Maximum Connections', name: 'ct_max', type: 'text', maxlen: 6, size: 8,
-		suffix: '&nbsp; <a href="javascript:clicked()" id="count0">[ count current... ]<\/a> <img src="spin.gif" style="vertical-align:bottom;padding-left:10px;visibility:hidden" id="spin" onclick="clicked()">',
+	{ title: '最大连接数', name: 'ct_max', type: 'text', maxlen: 6, size: 8,
+		suffix: '&nbsp; <a href="javascript:clicked()" id="count0">[ 查看当前连接数... ]<\/a> <img src="spin.gif" style="vertical-align:bottom;padding-left:10px;visibility:hidden" id="spin" onclick="clicked()">',
 		value: fixInt(nvram.ct_max || 4096, 128, 300000, 4096) }
 /* LINUX26-BEGIN */
-	,{ title: 'Hash Table Size', name: 'ct_hashsize', type: 'text', maxlen: 6, size: 8, value: nvram.ct_hashsize || 1023 }
+	,{ title: '哈希表大小', name: 'ct_hashsize', type: 'text', maxlen: 6, size: 8, value: nvram.ct_hashsize || 1023 }
 /* LINUX26-END */
 ]);
 </script>
 <br />
-<input type='button' value='Drop Idle' onclick='expireClicked()' id='expire'>
+<input type='button' value='断开空闲连接' onclick='expireClicked()' id='expire'>
 <br /><br />
 </div>
 
 
-<div class='section-title'>TCP Timeout</div>
+<div class='section-title'>TCP 超时设置 (单位：秒)</div>
 <div class='section'>
 <script type='text/javascript'>
 if ((v = nvram.ct_tcp_timeout.match(/^(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)$/)) == null) {
 	v = [0,0,1200,120,60,120,120,10,60,30,0];
 }
-titles = ['-', 'None', 'Established', 'SYN Sent', 'SYN Received', 'FIN Wait', 'Time Wait', 'Close', 'Close Wait', 'Last ACK', 'Listen'];
-f = [{ title: ' ', text: '<small>(seconds)<\/small>' }];
+titles = ['-', '无', '已建立连接超时', 'SYN发送超时', 'SYN接收超时', 'FIN等待超时', '时间等待超时', '关闭连接超时', '关闭等待超时', '最后响应超时', '侦听连接超时'];
+f = [{ title: ' ', text: '<small>(秒)<\/small>' }];
 for (i = 1; i < 11; ++i) {
 	f.push({ title: titles[i], name: ('f_tcp_' + (i - 1)),
 		type: 'text', maxlen: 6, size: 8, value: v[i],
@@ -233,35 +233,35 @@ createFieldTable('', f);
 </script>
 </div>
 
-<div class='section-title'>UDP Timeout</div>
+<div class='section-title'>UDP超时设置 (单位：秒)</div>
 <div class='section'>
 <script type='text/javascript'>
 if ((v = nvram.ct_udp_timeout.match(/^(\d+)\s+(\d+)$/)) == null) {
 	v = [0,30,180];
 }
 createFieldTable('', [
-	{ title: ' ', text: '<small>(seconds)<\/small>' },
-	{ title: 'Unreplied', name: 'f_udp_0', type: 'text', maxlen: 6, size: 8, value: v[1], suffix: '<span id="count11"><\/span>' },
-	{ title: 'Assured', name: 'f_udp_1', type: 'text', maxlen: 6, size: 8, value: v[2], suffix: '<span id="count12"><\/span>' }
+	{ title: ' ', text: '<small>(秒)<\/small>' },
+	{ title: '未答复超时', name: 'f_udp_0', type: 'text', maxlen: 6, size: 8, value: v[1], suffix: '<span id="count11"><\/span>' },
+	{ title: '未确认超时', name: 'f_udp_1', type: 'text', maxlen: 6, size: 8, value: v[2], suffix: '<span id="count12"><\/span>' }
 ]);
 </script>
 </div>
 
-<div class='section-title'>Other Timeouts</div>
+<div class='section-title'>其它超时设置 (单位：秒)</div>
 <div class='section'>
 <script type='text/javascript'>
 if ((v = nvram.ct_timeout.match(/^(\d+)\s+(\d+)$/)) == null) {
 	v = [0,600,30];
 }
 createFieldTable('', [
-	{ title: ' ', text: '<small>(seconds)<\/small>' },
-	{ title: 'Generic', name: 'f_ct_0', type: 'text', maxlen: 6, size: 8, value: v[1] },
-	{ title: 'ICMP', name: 'f_ct_1', type: 'text', maxlen: 6, size: 8, value: v[2] }
+	{ title: ' ', text: '<small>(秒)<\/small>' },
+	{ title: '通用超时', name: 'f_ct_0', type: 'text', maxlen: 6, size: 8, value: v[1] },
+	{ title: 'ICMP 超时', name: 'f_ct_1', type: 'text', maxlen: 6, size: 8, value: v[2] }
 ]);
 </script>
 </div>
 
-<div class='section-title'>Tracking / NAT Helpers</div>
+<div class='section-title'>追踪/NAT 增强模块</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
@@ -276,21 +276,21 @@ createFieldTable('', [
 </script>
 </div>
 
-<div class='section-title'>Miscellaneous</div>
+<div class='section-title'>其它设置</div>
 <div class='section'>
 <script type='text/javascript'>
 v = [];
 for (i = -5; i <= 5; ++i) {
 	v.push([i + '', i ? ((i > 0) ? '+' : '') + i : 'None']);
 }
-v.push(['', 'Custom']);
+v.push(['', '自定义']);
 
 createFieldTable('', [
-	{ title: 'TTL Adjust', multi: [
+	{ title: 'TTL 调整', multi: [
 		{ name: 'f_nf_ttl', type: 'select', options: v, value: nvram.nf_ttl.substr(0, 2) == 'c:' ? '' : nvram.nf_ttl },
 		{ name: 'f_ttl_val', type: 'text', maxlen: 3, size: 6, value: nvram.nf_ttl.substr(0, 2) == 'c:' ?  nvram.nf_ttl.substr(2, 5) : '' }
 	] },
-	{ title: 'Inbound Layer 7', name: 'f_l7in', type: 'checkbox', value: nvram.nf_l7in != '0' }
+	{ title: '下行 Layer7 应用层过滤', name: 'f_l7in', type: 'checkbox', value: nvram.nf_l7in != '0' }
 ]);
 </script>
 </div>
@@ -300,8 +300,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] NAS: UPS Monitor</title>
+<title>[<% ident(); %>] NAS: UPS 监控</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -101,11 +101,11 @@ function clientSideInclude(id, url) {
 	<div id="upsmonitor">
 
 		<input type='hidden' name='_nextpage' value='nas-ups.asp'>
-		<div class='section-title' id="ups-status-section">APC UPS Status</div>
+		<div class='section-title' id="ups-status-section">APC UPS 状态</div>
 		<div class='section'>
 			<span id="ups-status"></span>
 		</div>
-		<div class='section-title' id="ups-data-section">APC UPS Response</div>
+		<div class='section-title' id="ups-data-section">APC UPS 响应</div>
 		<div class='section'>
 			<span id="ups-data"></span>
 		</div>

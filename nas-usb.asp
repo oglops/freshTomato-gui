@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] NAS: USB Support</title>
+<title>[<% ident(); %>] NAS: USB 支持</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -77,13 +77,13 @@ function umountHost(a, host)
 	}
 
 	a = E(a);
-	a.innerHTML = 'Please wait...';
+	a.innerHTML = '请稍等...';
 
 	xob.onCompleted = function(text, xml) {
 		eval(text);
 		if (usb.length == 1) {
 			if (usb[0] != 0)
-				ferror.set(a, 'The device is busy. Please make sure no applications are using it, and try again.', 0);
+				ferror.set(a, 'USB 设备繁忙.请确认没有任何程序访问 USB 设备后重试.', 0);
 		}
 		xob = null;
 		_forceRefresh();
@@ -107,13 +107,13 @@ function mountHost(a, host)
 	}
 
 	a = E(a);
-	a.innerHTML = 'Please wait...';
+	a.innerHTML = '请稍等...';
 
 	xob.onCompleted = function(text, xml) {
 		eval(text);
 		if (usb.length == 1) {
 			if (usb[0] == 0)
-				ferror.set(a, 'Failed to mount. Verify the device is plugged in, and try again.', 0);
+				ferror.set(a, 'USB 设备挂载失败.请确认 USB 设备已正确插入后重试.', 0);
 		}
 		xob = null;
 		_forceRefresh();
@@ -200,13 +200,13 @@ dg.populate = function()
 			s = '&nbsp<br /><small>&nbsp<\/small>';
 		else {
 			if (xob)
-				s = ((e.is_mounted == 0) ? 'No' : 'Yes') + '<br /><small>Please wait...<\/small>';
+				s = ((e.is_mounted == 0) ? '否' : '是') + '<br /><small>请稍等...<\/small>';
 			else if (e.is_mounted == 0)
-				s = 'No<br /><small><a href="javascript:mountHost(\'L' + i + '\',\'' + e.host + '\')" title="Mount all Partitions of Storage Device" id="L' + i + '">[ Mount ]<\/a><\/small>';
+				s = 'No<br /><small><a href="javascript:mountHost(\'L' + i + '\',\'' + e.host + '\')" title="挂载 USB 设备的所有分区" id="L' + i + '">[ 挂载 ]<\/a><\/small>';
 			else
-				s = 'Yes<br /><small><a href="javascript:umountHost(\'L' + i + '\',\'' + e.host + '\')" title="Safely Remove Storage Device" id="L' + i + '">[ Unmount ]<\/a><\/small>';
+				s = 'Yes<br /><small><a href="javascript:umountHost(\'L' + i + '\',\'' + e.host + '\')" title="安全卸载 USB 设备的所有分区" id="L' + i + '">[ 卸载 ]<\/a><\/small>';
 		}
-		desc = (e.vendor + ' ' + e.product).trim() + '<small>'; // + (e.serial == '' ? '' : '<br />Serial No: ' + e.serial);
+		desc = (e.vendor + ' ' + e.product).trim() + '<small>'; // + (e.serial == '' ? '' : '<br />序列号: ' + e.serial);
 		if (e.discs) {
 			for (j = 0; j <= e.discs.length - 1; ++j) {
 				d = e.discs[j];
@@ -214,12 +214,12 @@ dg.populate = function()
 				for (k = 0; k <= parts.length - 1; ++k) {
 					p = parts[k];
 					if (p) {
-						desc = desc + '<br />Partition \'' + p[0] + '\'' + (p[3] != '' ? ' ' + p[3] : '') +
+						desc = desc + '<br />分区 \'' + p[0] + '\'' + (p[3] != '' ? ' ' + p[3] : '') +
 							((p[5] != 0) ? ' (' + doScaleSize(p[5], 0) + 
-							((p[1] == 1) ? ' / ' + doScaleSize(p[6], 0) + ' free' : '') +
-							')' : '') + ' is ' +
-							((p[1] != 0) ? '' : 'not ') + ((p[3] == 'swap') ? 'active' : 'mounted') +
-							((p[2] != '') ? ' on ' + p[2] : '');
+							((p[1] == 1) ? ' / ' + doScaleSize(p[6], 0) + ' 空闲' : '') +
+							')' : '') + ' ' +
+							((p[1] != 0) ? '' : '没有被 ') + ((p[3] == 'swap') ? '激活' : '挂载') +
+							((p[2] != '') ? ' 到 ' + p[2] : '');
 					}
 				}
 			}
@@ -234,7 +234,7 @@ dg.populate = function()
 dg.setup = function()
 {
 	this.init('dev-grid', 'sort');
-	this.headerSet(['Type', 'Host', 'Description', 'Mounted?']);
+	this.headerSet(['类型', '主机', '产品名称', '已挂载?']);
 	this.populate();
 	this.sort(1);
 }
@@ -378,24 +378,24 @@ function submit_complete()
 <input type='hidden' name='usb_apcupsd'>
 /* UPS-END */
 
-<div class='section-title'>USB Support</div>
+<div class='section-title'>USB 设置</div>
 <div class='section'>
 <script type='text/javascript'>
 
 createFieldTable('', [
-	{ title: 'Core USB Support', name: 'f_usb', type: 'checkbox', value: nvram.usb_enable == 1 },
-	{ title: 'USB 3.0 Support', indent: 2, name: 'f_usb3', type: 'checkbox', value: nvram.usb_usb3 == 1 },
-	{ title: 'USB 2.0 Support', indent: 2, name: 'f_usb2', type: 'checkbox', value: nvram.usb_usb2 == 1 },
-	{ title: 'USB 1.1 Support', indent: 2, multi: [
+	{ title: '启用 USB 功能', name: 'f_usb', type: 'checkbox', value: nvram.usb_enable == 1 },
+	{ title: 'USB 3.0 支持', indent: 2, name: 'f_usb3', type: 'checkbox', value: nvram.usb_usb3 == 1 },
+	{ title: 'USB 2.0 支持', indent: 2, name: 'f_usb2', type: 'checkbox', value: nvram.usb_usb2 == 1 },
+	{ title: 'USB 1.1 支持', indent: 2, multi: [
 		{ suffix: '&nbsp; OHCI &nbsp;&nbsp;&nbsp;', name: 'f_ohci', type: 'checkbox', value: nvram.usb_ohci == 1 },
 		{ suffix: '&nbsp; UHCI &nbsp;',	name: 'f_uhci', type: 'checkbox', value: nvram.usb_uhci == 1 }
 	] },
 	null,
-	{ title: 'USB Printer Support', name: 'f_print', type: 'checkbox', value: nvram.usb_printer == 1 },
-		{ title: 'Bidirectional copying', indent: 2, name: 'f_bprint', type: 'checkbox', value: nvram.usb_printer_bidirect == 1 },
+	{ title: 'USB 打印机支持', name: 'f_print', type: 'checkbox', value: nvram.usb_printer == 1 },
+		{ title: '双向复制', indent: 2, name: 'f_bprint', type: 'checkbox', value: nvram.usb_printer_bidirect == 1 },
 	null,
-	{ title: 'USB Storage Support', name: 'f_storage', type: 'checkbox', value: nvram.usb_storage == 1 },
-		{ title: 'File Systems Support', indent: 2, multi: [
+	{ title: 'USB 存储支持', name: 'f_storage', type: 'checkbox', value: nvram.usb_storage == 1 },
+		{ title: '文件系统支持', indent: 2, multi: [
 			{ suffix: '&nbsp; Ext2 / Ext3 / Ext4 &nbsp;&nbsp;&nbsp;', name: 'f_ext4', type: 'checkbox', value: nvram.usb_fs_ext4 == 1 },
 /* NTFS-BEGIN */
 			{ suffix: '&nbsp; NTFS &nbsp;&nbsp;&nbsp;', name: 'f_ntfs', type: 'checkbox', value: nvram.usb_fs_ntfs == 1 },
@@ -417,31 +417,31 @@ createFieldTable('', [
 /* PARAGON-END */
 		], value: nvram.usb_ntfs_driver },
 /* NTFS-END */
-		{ title: 'Automount', indent: 2, name: 'f_automount', type: 'checkbox',
-			suffix: '&nbsp; <small>Automatically mount all partitions to sub-directories in <i>/mnt<\/i>.<\/small>', value: nvram.usb_automount == 1 },
-	{ title: 'Run after mounting', indent: 2, name: 'script_usbmount', type: 'textarea', value: nvram.script_usbmount },
-	{ title: 'Run before unmounting', indent: 2, name: 'script_usbumount', type: 'textarea', value: nvram.script_usbumount },
+		{ title: '自动挂载', indent: 2, name: 'f_automount', type: 'checkbox',
+			suffix: '&nbsp; <small>自动挂载所有分区到 <i>/mnt<\/i>的子目录下.<\/small>', value: nvram.usb_automount == 1 },
+	{ title: '挂载后运行脚本', indent: 2, name: 'script_usbmount', type: 'textarea', value: nvram.script_usbmount },
+	{ title: '卸载前运行脚本', indent: 2, name: 'script_usbumount', type: 'textarea', value: nvram.script_usbumount },
 	null,
 /* LINUX26-BEGIN */
-	{ title: 'HDD Spindown', name: 'f_idle_enable', type: 'checkbox',
-		suffix: '&nbsp; <small>Spin down each HDD when idle. No need to use with flash drive.<\/small>', value: nvram.idle_enable == 1 },
-	{ title: '3G/4G Modem Support', name: 'f_usb_3g', type: 'checkbox',
-		suffix: '&nbsp; <small>Before disconnecting Modem from USB port, remember to uncheck box. If modem used usbserial module, you have to reboot router before unplug modem.<\/small>', value: nvram.usb_3g == 1 },
+	{ title: '启用硬盘休眠', name: 'f_idle_enable', type: 'checkbox',
+		suffix: '&nbsp; <small>当硬盘空闲时进入休眠状态.对闪存设备不需要设置此选项.<\/small>', value: nvram.idle_enable == 1 },
+	{ title: '3G/4G 上网卡支持', name: 'f_usb_3g', type: 'checkbox',
+		suffix: '&nbsp; <small>断开上网卡前请禁用该功能.如果上网卡使用串口USB模块,断开前必须重启路由器.<\/small>', value: nvram.usb_3g == 1 },
 /* LINUX26-END */
 /* UPS-BEGIN */
-	{ title: 'Run APCUPSD Deamon', name: 'f_usb_apcupsd', type: 'checkbox',
-		suffix: '&nbsp; <small>Required by UPS Monitor (APC Uninterruptible Power Supply)<\/small>', value: nvram.usb_apcupsd == 1 },
+	{ title: '运行 APCUPSD 服务', name: 'f_usb_apcupsd', type: 'checkbox',
+		suffix: '&nbsp; <small>UPS 监视器需要此服务 (APC 不间断应急电源)<\/small>', value: nvram.usb_apcupsd == 1 },
 /* UPS-END */
-	{ title: 'Hotplug script<br /><small>(called when any USB device is attached or removed)<\/small>', name: 'script_usbhotplug', type: 'textarea', value: nvram.script_usbhotplug },
+	{ title: 'Hotplug 脚本<br /><small>(设备连接或移除时执行)<\/small>', name: 'script_usbhotplug', type: 'textarea', value: nvram.script_usbhotplug },
 	null,
-	{ text: '<small>Some of the changes will take effect only after a restart.<\/small>' }
+	{ text: '<small>某些设置只有在重启路由器后才会生效.<\/small>' }
 ]);
 </script>
 </div>
 
 <!-- / / / -->
 
-<div class='section-title'>Attached Devices</div>
+<div class='section-title'>已连接设备</div>
 <div class='section'>
 	<div id="dev-grid" class="tomato-grid"></div>
 <div id='usb-controls'>
@@ -455,8 +455,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

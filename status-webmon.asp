@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Status: Web Usage</title>
+<title>[<% ident(); %>] 系统状态: 网站记录</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -58,7 +58,7 @@ function clearLog(clear)
 	xob = new XmlHttp();
 	xob.onCompleted = function(text, xml) {
 		xob = null;
-		E('clear' + clear).innerHTML = '&raquo; <a href="javascript:clearLog(' + clear + ')">Clear<\/a>';
+		E('clear' + clear).innerHTML = '&raquo; <a href="javascript:clearLog(' + clear + ')">清除<\/a>';
 		if (!ref.running) ref.once = 1;
 		ref.start();
 	}
@@ -67,7 +67,7 @@ function clearLog(clear)
 	}
 
 	xob.post('webmon.cgi', 'clear=' + clear);
-	E('clear' + clear).innerHTML = 'Please wait... <img src="spin.gif" style="vertical-align:top">';
+	E('clear' + clear).innerHTML = '请稍等... <img src="spin.gif" style="vertical-align:top">';
 }
 
 function resolve()
@@ -293,7 +293,7 @@ var dg = new WMGrid();
 
 dg.setup = function() {
 	this.init('dom-grid', 'sort');
-	this.headerSet(['Last Access Time', 'IP Address', 'Domain Name']);
+	this.headerSet(['最后访问时间', '源IP地址', '目标域名']);
 	this.sort(0);
 }
 
@@ -305,7 +305,7 @@ var sg = new WMGrid();
 
 sg.setup = function() {
 	this.init('srh-grid', 'sort');
-	this.headerSet(['Search Time', 'IP Address', 'Search Criteria']);
+	this.headerSet(['搜索时间', '源IP 地址', '关键字']);
 	this.sort(0);
 }
 
@@ -380,30 +380,30 @@ function earlyInit()
 <div id="webmonoff" class="section-title">Web Usage</div>
 <div id='webmon' style='display:none'>
 	<div id='webmon-domains'>
-		<div class='section-title'>Recently Visited Web Sites</div>
+		<div class='section-title'>最近访问过的网站</div>
 		<div class='section'>
 			<div id="dom-grid" class="tomato-grid" style="float:left"></div>
-			&raquo; <a href="webmon_recent_domains?_http_id=<% nv(http_id) %>">Download</a>
+			&raquo; <a href="webmon_recent_domains?_http_id=<% nv(http_id) %>">下载</a>
 			<div style="float:right;text-align:right;margin-right:5px" id="clear1">
-				&raquo; <a href="javascript:clearLog(1)">Clear</a>
+				&raquo; <a href="javascript:clearLog(1)">清除</a>
 			</div>
 		</div>
 	</div>
 
 	<div id='webmon-searches'>
-		<div class='section-title'>Recent Web Searches</div>
+		<div class='section-title'>最近的搜索关键字</div>
 		<div class='section'>
 			<div id="srh-grid" class="tomato-grid" style="float:left"></div>
-			&raquo; <a href="webmon_recent_searches?_http_id=<% nv(http_id) %>">Download</a>
+			&raquo; <a href="webmon_recent_searches?_http_id=<% nv(http_id) %>">下载</a>
 			<div style="float:right;text-align:right;margin-right:5px" id="clear2">
-				&raquo; <a href="javascript:clearLog(2)">Clear</a>
+				&raquo; <a href="javascript:clearLog(2)">清除</a>
 			</div>
 		</div>
 	</div>
 
 	<div id='webmon-controls'>
 		<div id='webmon-mc'>
-			Show up to&nbsp;
+			显示最近&nbsp;
 			<a href='javascript:switchMaxCount(10);' id='mc10'>10,</a>
 			<a href='javascript:switchMaxCount(50);' id='mc50'>50,</a>
 			<a href='javascript:switchMaxCount(100);' id='mc100'>100,</a>
@@ -412,10 +412,10 @@ function earlyInit()
 			<a href='javascript:switchMaxCount(1000);' id='mc1000'>1000,</a>
 			<a href='javascript:switchMaxCount(2000);' id='mc2000'>2000,</a>
 			<a href='javascript:switchMaxCount(5000);' id='mc5000'>5000,</a>
-			<a href='javascript:switchMaxCount(0);' id='mc0'>All</a>&nbsp;
-			<small>available entries</small>
+			<a href='javascript:switchMaxCount(0);' id='mc0'>所有</a>&nbsp;
+			<small>有效的条目</small>
 		</div>
-		&raquo; <a href="admin-log.asp">Web Monitor Configuration</a>
+		&raquo; <a href="admin-log.asp">网站记录设置</a>
 		<br /><br />
 	</div>
 </div>
@@ -424,7 +424,7 @@ function earlyInit()
 
 <script type='text/javascript'>
 if (!(nvram.log_wm == '1' && (nvram.log_wmdmax != '0' || nvram.log_wmsmax != '0'))) {
-	W('<div class="note-disabled"><b>Web Monitoring disabled.<\/b><br /><br /><a href="admin-log.asp">Enable &raquo;<\/a><\/div>\n');
+	W('<div class="note-disabled"><b>网站记录已禁用.<\/b><br /><br /><a href="admin-log.asp">启用 &raquo;<\/a><\/div>\n');
 }
 </script>
 

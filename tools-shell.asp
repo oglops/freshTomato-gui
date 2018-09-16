@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Tools: System Commands</title>
+<title>[<% ident(); %>] 实用工具: 系统命令</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -112,18 +112,18 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>Execute System Commands</div>
+<div class='section-title'>执行系统命令</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Command', name: 'f_cmd', type: 'textarea', wrap: 'off', value: '' }
+	{ title: '执行命令', name: 'f_cmd', type: 'textarea', wrap: 'off', value: '' }
 ]);
 </script>
-<div style='float:left'><input type='button' value='Execute' onclick='execute()' id='execb'></div>
+<div style='float:left'><input type='button' value='执行' onclick='execute()' id='execb'></div>
 <script type='text/javascript'>genStdRefresh(1,5,'ref.toggle()');</script>
 </div>
 
-<div style="visibility:hidden;text-align:right" id="wait">Please wait... <img src='spin.gif' alt='' style="vertical-align:top"></div>
+<div style="visibility:hidden;text-align:right" id="wait">请稍候... <img src='spin.gif' alt='' style="vertical-align:top"></div>
 <pre id='result'></pre>
 
 <!-- / / / -->

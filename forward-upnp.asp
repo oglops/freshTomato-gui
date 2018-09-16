@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Forwarding: UPnP / NAT-PMP</title>
+<title>[<% ident(); %>] 端口转发: UPnP / NAT-PMP 设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -74,7 +74,7 @@ ug.rpDel = function(e) {
 
 ug.setup = function() {
 	this.init('upnp-grid', 'sort delete');
-	this.headerSet(['External', 'Internal', 'Internal Address', 'Protocol', 'Description']);
+	this.headerSet(['外部端口', '内部端口', '内部地址', '协议', '描述']);
 	ug.populate();
 }
 
@@ -94,7 +94,7 @@ ug.populate = function() {
 				}
 			}
 			for (j = 0; j < 5; ++j) {
-				row.cells[j].title = 'Click to delete';
+				row.cells[j].title = '点击删除';
 			}
 		}
 		this.sort(2);
@@ -104,7 +104,7 @@ ug.populate = function() {
 
 function deleteAll()
 {
-	if (!confirm('Delete all entries?')) return;
+	if (!confirm('确认删除所有入口?')) return;
 	submitDelete('*', '0');
 }
 
@@ -148,7 +148,7 @@ REMOVE-END */
 		E('_f_upnp_lan3').checked = false;
 	if ((enable) && (!E('_f_upnp_lan').checked) && (!E('_f_upnp_lan1').checked) && (!E('_f_upnp_lan2').checked) && (!E('_f_upnp_lan3').checked)) {
 		if ((E('_f_enable_natpmp').checked) || (E('_f_enable_upnp').checked)) {
-			var m = 'NAT-PMP or UPnP should be enabled in least one LAN bridge. You may continue but remember to configure an access to UPnP service by Custom Configuration';
+			var m = 'NAT-PMP 或 UPnP 应该在至少一个LAN网桥中启用.您可以继续,但是请记得在自定义配置中设置一个到UPnP服务的入口';
 			ferror.set('_f_enable_natpmp', m, quiet);
 			ferror.set('_f_enable_upnp', m, 1);
 			ferror.set('_f_upnp_lan', m, 1);
@@ -237,37 +237,37 @@ REMOVE-END */
 <input type='hidden' name='upnp_lan2'>
 <input type='hidden' name='upnp_lan3'>
 
-<div class='section-title'>Forwarded Ports</div>
+<div class='section-title'>已转发端口</div>
 <div class='section'>
 	<div id="upnp-grid" class="tomato-grid"></div>
-	<div style='width: 100%; text-align: right'><input type='button' value='Delete All' onclick='deleteAll()' id='upnp-delete-all'> <input type='button' value='Refresh' onclick='javascript:reloadPage();'></div>
+	<div style='width: 100%; text-align: right'><input type='button' value='全部删除' onclick='deleteAll()' id='upnp-delete-all'> <input type='button' value='刷新' onclick='javascript:reloadPage();'></div>
 </div>
 
-<div class='section-title'>Settings</div>
+<div class='section-title'>设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Enable UPnP', name: 'f_enable_upnp', type: 'checkbox', value: (nvram.upnp_enable & 1) },
-	{ title: 'Enable NAT-PMP', name: 'f_enable_natpmp', type: 'checkbox', value: (nvram.upnp_enable & 2) },
+	{ title: '启用 UPnP', name: 'f_enable_upnp', type: 'checkbox', value: (nvram.upnp_enable & 1) },
+	{ title: '启用 NAT-PMP', name: 'f_enable_natpmp', type: 'checkbox', value: (nvram.upnp_enable & 2) },
 /* REMOVE-BEGIN
 	!!TB - additional miniupnp settings
 REMOVE-END */
-	{ title: 'Inactive Rules Cleaning', name: 'f_upnp_clean', type: 'checkbox', value: (nvram.upnp_clean == '1') },
-	{ title: 'Cleaning Interval', indent: 2, name: 'upnp_clean_interval', type: 'text', maxlen: 5, size: 7,
-		suffix: ' <small>seconds<\/small>', value: nvram.upnp_clean_interval },
-	{ title: 'Cleaning Threshold', indent: 2, name: 'upnp_clean_threshold', type: 'text', maxlen: 4, size: 7,
-		suffix: ' <small>redirections<\/small>', value: nvram.upnp_clean_threshold },
-	{ title: 'Secure Mode', name: 'f_upnp_secure', type: 'checkbox',
-		suffix: ' <small>(when enabled, UPnP clients are allowed to add mappings only to their IP)<\/small>',
+	{ title: '自动删除无效规则', name: 'f_upnp_clean', type: 'checkbox', value: (nvram.upnp_clean == '1') },
+	{ title: '删除间隔', indent: 2, name: 'upnp_clean_interval', type: 'text', maxlen: 5, size: 7,
+		suffix: ' <small>秒<\/small>', value: nvram.upnp_clean_interval },
+	{ title: '删除阈值', indent: 2, name: 'upnp_clean_threshold', type: 'text', maxlen: 4, size: 7,
+		suffix: ' <small>重定向<\/small>', value: nvram.upnp_clean_threshold },
+	{ title: '安全模式', name: 'f_upnp_secure', type: 'checkbox',
+		suffix: ' <small>(当启用时，UPnP 客户端只能添加到自己的 IP 的映射)<\/small>',
 		value: (nvram.upnp_secure == '1') },
-	{ title: 'Enabled on' },
+	{ title: '在以下 LAN 端口启用' },
 	{ title: 'LAN', indent: 2, name: 'f_upnp_lan', type: 'checkbox', value: (nvram.upnp_lan == '1') },
 	{ title: 'LAN1', indent: 2, name: 'f_upnp_lan1', type: 'checkbox', value: (nvram.upnp_lan1 == '1') },
 	{ title: 'LAN2', indent: 2, name: 'f_upnp_lan2', type: 'checkbox', value: (nvram.upnp_lan2 == '1') },
 	{ title: 'LAN3', indent: 2, name: 'f_upnp_lan3', type: 'checkbox', value: (nvram.upnp_lan3 == '1') },
-	{ title: 'Show In My Network Places',  name: 'f_upnp_mnp',  type: 'checkbox',  value: (nvram.upnp_mnp == '1')},
+	{ title: '在网上邻居中显示',  name: 'f_upnp_mnp',  type: 'checkbox',  value: (nvram.upnp_mnp == '1')},
 	null,
-	{ title: 'Miniupnpd<\/a><br />Custom configuration', name: 'upnp_custom', type: 'textarea', value: nvram.upnp_custom }
+	{ title: 'Miniupnpd<\/a><br />自定义设置', name: 'upnp_custom', type: 'textarea', value: nvram.upnp_custom }
 ]);
 </script>
 </div>
@@ -278,8 +278,8 @@ REMOVE-END */
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

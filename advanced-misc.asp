@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: Miscellaneous</title>
+<title>[<% ident(); %>] 高级设置: 其它设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -77,26 +77,26 @@ function save()
 <input type='hidden' name='ctf_disable'>
 <!-- CTF-END -->
 
-<div class='section-title'>Miscellaneous</div>
+<div class='section-title'>其它设置</div>
 <div class='section'>
 <script type='text/javascript'>
 a = [];
-for (i = 3; i <= 20; ++i) a.push([i, i + ' seconds']);
+for (i = 3; i <= 20; ++i) a.push([i, i + ' 秒']);
 createFieldTable('', [
-	{ title: 'Boot Wait Time *', name: 'wait_time', type: 'select', options: a, value: fixInt(nvram.wait_time, 3, 20, 3) },
-	{ title: 'WAN Port Speed *', name: 'wan_speed', type: 'select', options: [[0,'10Mb Full'],[1,'10Mb Half'],[2,'100Mb Full'],[3,'100Mb Half'],[4,'Auto']], value: nvram.wan_speed },
+	{ title: '启动等待时间 *', name: 'wait_time', type: 'select', options: a, value: fixInt(nvram.wait_time, 3, 20, 3) },
+	{ title: 'WAN 口速率 *', name: 'wan_speed', type: 'select', options: [[0,'10Mb 全双工'],[1,'10Mb 半双工'],[2,'100Mb 全双工'],[3,'100Mb 半双工'],[4,'自动选择']], value: nvram.wan_speed },
 	null,
 /* CTF-BEGIN */
-	{ title: 'CTF (Cut-Through Forwarding)', name: 'f_ctf_disable', type: 'checkbox', value: nvram.ctf_disable != '1' },
+	{ title: 'CTF (直通转发)', name: 'f_ctf_disable', type: 'checkbox', value: nvram.ctf_disable != '1' },
 	null,
 /* CTF-END */
-	{ title: 'Enable Jumbo Frames *', name: 'f_jumbo_frame_enable', type: 'checkbox', value: nvram.jumbo_frame_enable != '0', hidden: !et1000 },
-	{ title: 'Jumbo Frame Size *', name: 'jumbo_frame_size', type: 'text', maxlen: 4, size: 6, value: fixInt(nvram.jumbo_frame_size, 1, 9720, 2000),
-		suffix: ' <small>Bytes (range: 1 - 9720; default: 2000)<\/small>', hidden: !et1000 }
+	{ title: '启用巨型帧 *', name: 'f_jumbo_frame_enable', type: 'checkbox', value: nvram.jumbo_frame_enable != '0', hidden: !et1000 },
+	{ title: '巨型帧大小 *', name: 'jumbo_frame_size', type: 'text', maxlen: 4, size: 6, value: fixInt(nvram.jumbo_frame_size, 1, 9720, 2000),
+		suffix: ' <small>字节数 (范围: 1 - 9720; 默认: 2000)<\/small>', hidden: !et1000 }
 ]);
 </script>
 <br />
-<small>* Not all models support these options.</small>
+<small>* 不是所有的路由都支持这些选项.</small>
 </div>
 
 
@@ -106,8 +106,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

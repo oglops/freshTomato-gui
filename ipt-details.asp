@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] IP Traffic: Details</title>
+<title>[<% ident(); %>] IP 流量: 传输速率</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -203,10 +203,10 @@ grid.populate = function() {
 
 		if (E('_f_shortcuts').checked) {
 			h = h + '<br /><small>';
-			h = h + '<a href="javascript:viewQosDetail(' + i + ')" title="View QoS Details">[qosdetails]<\/a>';
-			h = h + '<a href="javascript:viewQosCTrates(' + i + ')" title="View transfer rates per connection">[qosrates]<\/a>';
-			h = h + '<a href="javascript:viewIptHistory(' + i + ')" title="View IP Traffic History">[history]<\/a>';
-			h = h + '<a href="javascript:addExcludeList(' + i + ')" title="Filter out this address">[hide]<\/a>';
+			h = h + '<a href="javascript:viewQosDetail(' + i + ')" title="查看 QoS 细节">[qosdetails]<\/a>';
+			h = h + '<a href="javascript:viewQosCTrates(' + i + ')" title="查看每个连接的传输率">[qosrates]<\/a>';
+			h = h + '<a href="javascript:viewIptHistory(' + i + ')" title="查看 IP 流量历史">[history]<\/a>';
+			h = h + '<a href="javascript:addExcludeList(' + i + ')" title="过滤此 IP 地址">[hide]<\/a>';
 			h = h + '<\/small>';
 		}
 
@@ -227,7 +227,7 @@ grid.populate = function() {
 
 	grid.resort();
 	grid.recolor();
-	grid.footerSet([ 'Total ' + ('<small><i>(' + ((hostslisted.length > 0) ? (hostslisted.length + ' hosts') : 'no data') + ')<\/i><\/small>'),
+	grid.footerSet([ '所有 ' + ('<small><i>(' + ((hostslisted.length > 0) ? (hostslisted.length + ' 主机') : '无数据') + ')<\/i><\/small>'),
 	rescale((rx/1024).toFixed(2)).toString(),
 	rescale((tx/1024).toFixed(2)).toString(),
 	tcpi.toFixed(0).toString() + '/' + tcpo.toFixed(0).toString(),
@@ -308,7 +308,7 @@ grid.dataToView = function(data) {
 
 grid.setup = function() {
 	this.init('grid', 'sort');
-	this.headerSet(['Host', 'Download (bytes/s)', 'Upload (bytes/s)', 'TCP IN/OUT (pkt/s)', 'UDP IN/OUT (pkt/s)', 'ICMP IN/OUT (pkt/s)', 'TCP Connections', 'UDP Connections']);
+	this.headerSet(['IP 地址', '下载速率 (bytes/s)', '上传速率 (bytes/s)', 'TCP 进/出 (pkt/s)', 'UDP 进/出 (pkt/s)', 'ICMP 进/出 (pkt/s)', 'TCP 连接数', 'UDP 连接数']);
 }
 
 function init() {
@@ -425,11 +425,11 @@ function verifyFields(focused, quiet) {
 function toggleVisibility(whichone) {
 	if(E('sesdiv' + whichone).style.display=='') {
 		E('sesdiv' + whichone).style.display='none';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to show)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处显示)';
 		cookie.set('ipt_details_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv' + whichone).style.display='';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to hide)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处隐藏)';
 		cookie.set('ipt_details_' + whichone + '_vis', 1);
 	}
 }
@@ -450,31 +450,31 @@ function toggleVisibility(whichone) {
 
 <!-- / / / -->
 
-<div class='section-title'>IP Traffic - Transfer Rates</div>
+<div class='section-title'>IP 流量监控 - 传输速率</div>
 <div id='cstats'>
 	<div class='section'>
 		<div id="grid" class="tomato-grid" style="float:left"></div>
 
-		<div id='loading'><br /><b>Loading...</b></div>
+		<div id='loading'><br /><b>载入中...</b></div>
 	</div>
 
 <!-- / / / -->
 
-	<div class='section-title'>Options <small><i><a href='javascript:toggleVisibility("options");'><span id='sesdivoptionsshowhide'>(Click here to show)</span></a></i></small></div>
+	<div class='section-title'>可选项 <small><i><a href='javascript:toggleVisibility("options");'><span id='sesdivoptionsshowhide'>(点击此处显示)</span></a></i></small></div>
 	<div class='section' id='sesdivoptions' style='display:none'>
 		<script type='text/javascript'>
 		var c;
 		c = [];
-		c.push({ title: 'Only these IPs', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-		c.push({ title: 'Exclude these IPs', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-		c.push({ title: 'Scale', name: 'f_scale', type: 'select', options: [['0', 'KB'], ['1', 'MB'], ['2', 'GB']] });
-		c.push({ title: 'Ignore inactive hosts', name: 'f_onlyactive', type: 'checkbox' });
-		c.push({ title: 'Show hostnames', name: 'f_hostnames', type: 'checkbox' });
-		c.push({ title: 'Show shortcuts', name: 'f_shortcuts', type: 'checkbox' });
+		c.push({ title: '仅包含这些 IP', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(用逗号分隔列表)<\/small>' });
+		c.push({ title: '不包含这些 IP', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(用逗号分隔列表)<\/small>' });
+		c.push({ title: '单位', name: 'f_scale', type: 'select', options: [['0', 'KB'], ['1', 'MB'], ['2', 'GB']] });
+		c.push({ title: '忽略不活动的地址', name: 'f_onlyactive', type: 'checkbox' });
+		c.push({ title: '显示主机名', name: 'f_hostnames', type: 'checkbox' });
+		c.push({ title: '显示快捷键', name: 'f_shortcuts', type: 'checkbox' });
 		createFieldTable('',c);
 		</script>
 		<div style="float:right;text-align:right">
-			&raquo; <a href="admin-iptraffic.asp">Configure</a>
+			&raquo; <a href="admin-iptraffic.asp">设置</a>
 		</div>
 	</div>
 

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Rebooting...</title>
+<title>[<% ident(); %>] 重启...</title>
 <script type="text/javascript">
 var n = 130 + parseInt('0<% nv("wait_time"); %>');
 function tick() {
@@ -69,7 +69,7 @@ input {
         <form action="">
             <div style="display:none;border-bottom:1px solid #aaa;margin:auto auto 5px;padding:0 0 5px;font-weight:bold" id="msg"></div>
             <div id="but" style="display:inline-block">
-                Please wait while the router reboots... &nbsp;
+                请等待路由器重启... &nbsp;
                 <input type="button" value="" id="continue" onclick="go()" disabled="disabled">
             </div>
         </form>
