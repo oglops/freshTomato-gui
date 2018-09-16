@@ -159,9 +159,11 @@ ifneq ($(TCONFIG_IPV6),y)
 endif
 
 # Only include the Transmission binary path select if Transmission binaries is configured in.
+# Also only then (when libcurl is included), let to choose curl as a connection checker.
 ifneq ($(TCONFIG_BBT),y)
 	sed -i $(INSTALLDIR)/www/nas-bittorrent.asp -e "/BBT-BEGIN/,/BBT-END/d"
 	sed -i $(INSTALLDIR)/www/about.asp -e "/BBT-BEGIN/,/BBT-END/d"
+	sed -i $(INSTALLDIR)/www/basic-network.asp -e "/BBT-BEGIN/,/BBT-END/d"
 endif
 
 # Only include the Transmission pages if Transmission is configured in.
@@ -297,6 +299,11 @@ else
 	sed -i $(INSTALLDIR)/www/about.asp -e "/DNSCRYPT-BEGIN/,/DNSCRYPT-END/d"
 endif
 
+# Only include the stubby option if is compiled in
+ifneq ($(TCONFIG_STUBBY),y)
+	sed -i $(INSTALLDIR)/www/basic-network.asp -e "/STUBBY-BEGIN/,/STUBBY-END/d"
+endif
+
 # clean up
 	cd $(INSTALLDIR)/www && \
 	for F in $(wildcard *.asp *.js *.jsx *.html); do \
@@ -327,6 +334,7 @@ endif
 		-e "/SNMP-BEGIN/d"	-e "/SNMP-END/d"\
 		-e "/HFS-BEGIN/d"	-e "/HFS-END/d"\
 		-e "/DNSCRYPT-BEGIN/d"	-e "/DNSCRYPT-END/d"\
+		-e "/STUBBY-BEGIN/d"	-e "/STUBBY-END/d"\
 		-e "/DNSSEC-BEGIN/d"	-e "/DNSSEC-END/d"\
 		-e "/TOR-BEGIN/d"	-e "/TOR-END/d"\
 		-e "/TINC-BEGIN/d"	-e "/TINC-END/d"\
