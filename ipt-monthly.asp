@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] IP Traffic: Monthly History</title>
+<title>[<% ident(); %>] IP 流量: 每月流量</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -86,7 +86,7 @@ var dg = new TomatoGrid();
 
 dg.setup = function() {
 	this.init('monthly-grid', 'sort');
-	this.headerSet(['Date', 'Host', 'Download', 'Upload', 'Total']);
+	this.headerSet(['日期', 'IP地址', '下载', '上传', '合计']);
 }
 
 function redraw() {
@@ -180,10 +180,10 @@ function redraw() {
 			}
 			if (E('_f_shortcuts').checked) {
 				h = h + '<br /><small>';
-				h = h + '<a href="javascript:viewQosDetail(' + i + ')" title="View QoS Details">[qosdetails]<\/a>';
-				h = h + '<a href="javascript:viewQosCTrates(' + i + ')" title="View transfer rates per connection">[qosrates]<\/a>';
-				h = h + '<a href="javascript:viewIptDetail(' + i + ')" title="View real-time IP Traffic for this address">[iptraf]<\/a>';
-				h = h + '<a href="javascript:addExcludeList(' + i + ')" title="Filter out this address">[hide]<\/a>';
+				h = h + '<a href="javascript:viewQosDetail(' + i + ')" title="查看 QoS 细节">[qosdetails]<\/a>';
+				h = h + '<a href="javascript:viewQosCTrates(' + i + ')" title="查看每个连接的传输率">[qosrates]<\/a>';
+				h = h + '<a href="javascript:viewIptDetail(' + i + ')" title="查看此 IP 实时流量">[iptraf]<\/a>';
+				h = h + '<a href="javascript:addExcludeList(' + i + ')" title="过滤此 IP 地址">[hide]<\/a>';
 				h = h + '<\/small>';
 			}
 			var ymd = getYMD(b[0]);
@@ -194,13 +194,13 @@ function redraw() {
 		dg.resort();
 		dg.recolor();
 		dg.footerSet([
-			'Total', 
+			'总计', 
 			('<small><i>(' +
 			(((hostslisted.length > 0) || (subnetslisted.length > 0)) ? 
-			((hostslisted.length > 0) ? (hostslisted.length + ' hosts') : '') +
+			((hostslisted.length > 0) ? (hostslisted.length + ' 主机') : '') +
 			(((hostslisted.length > 0) && (subnetslisted.length > 0)) ? ', ' : '') +
-			((subnetslisted.length > 0) ? (subnetslisted.length + ' subnets') : '')
-			: 'no data') +
+			((subnetslisted.length > 0) ? (subnetslisted.length + ' 子网') : '')
+			: '无数据') +
 			')<\/i><\/small>'),
 			rescale(rx), 
 			rescale(tx), 
@@ -366,11 +366,11 @@ function init() {
 function toggleVisibility(whichone) {
 	if(E('sesdiv' + whichone).style.display=='') {
 		E('sesdiv' + whichone).style.display='none';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to show)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处显示)';
 		cookie.set('ipt_history_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv' + whichone).style.display='';
-		E('sesdiv' + whichone + 'showhide').innerHTML='(Click here to hide)';
+		E('sesdiv' + whichone + 'showhide').innerHTML='(点击此处隐藏)';
 		cookie.set('ipt_history_' + whichone + '_vis', 1);
 	}
 }
@@ -458,26 +458,26 @@ function verifyFields(focused, quiet) {
 		<div id="monthly-grid" class="tomato-grid" style="height:auto"></div>
 	</div>
 
-	<div class='section-title'>Options <small><i><a href='javascript:toggleVisibility("options");'><span id='sesdivoptionsshowhide'>(Click here to show)</span></a></i></small></div>
+	<div class='section-title'>可选项 <small><i><a href='javascript:toggleVisibility("options");'><span id='sesdivoptionsshowhide'>(点击此处显示)</span></a></i></small></div>
 	<div class='section' id='sesdivoptions' style='display:none'>
 		<script type='text/javascript'>
 		var c;
 		c = [];
-		c.push({ title: 'List only these IPs', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-		c.push({ title: 'Exclude these IPs', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(Comma separated list)<\/small>' });
-		c.push({ title: 'Date Range', multi: [ { name: 'f_begin_date', type: 'select', options: [['0', 'Any']], suffix: ' - ' }, { name: 'f_end_date', type: 'select', options: [['0', 'Any']] } ] } );
-		c.push({ title: 'Date Format', name: 'f_dafm', type: 'select', options: [['0', 'yyyy-mm'], ['1', 'mm-yyyy'], ['2', 'mmm, yyyy'], ['3', 'mm.yyyy']] });
-		c.push({ title: 'Scale', name: 'f_scale', type: 'select', options: [['0', 'KB'], ['1', 'MB'], ['2', 'GB']] });
-		c.push({ title: 'Show subnet totals', name: 'f_subnet', type: 'checkbox', suffix: ' <small>(Not considered when calculating total traffic on the last line)<\/small>' });
-		c.push({ title: 'Hide IPs without traffic', name: 'f_ignorezeroes', type: 'checkbox' });
-		c.push({ title: 'Show known hostnames', name: 'f_hostnames', type: 'checkbox' });
-		c.push({ title: 'Show shortcuts', name: 'f_shortcuts', type: 'checkbox' });
+		c.push({ title: '仅包含这些 IP', name: 'f_filter_ip', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(用逗号分隔列表)<\/small>' });
+		c.push({ title: '不包含这些 IP', name: 'f_filter_ipe', size: 50, maxlen: 255, type: 'text', suffix: ' <small>(用逗号分隔列表)<\/small>' });
+		c.push({ title: '日期范围', multi: [ { name: 'f_begin_date', type: 'select', options: [['0', '所有']], suffix: ' - ' }, { name: 'f_end_date', type: 'select', options: [['0', 'Any']] } ] } );
+		c.push({ title: '日期格式', name: 'f_dafm', type: 'select', options: [['0', '年-月'], ['1', '月-年'], ['2', '月, 年'], ['3', '月.年']] });
+		c.push({ title: '单位', name: 'f_scale', type: 'select', options: [['0', 'KB'], ['1', 'MB'], ['2', 'GB']] });
+		c.push({ title: '显示子网统计', name: 'f_subnet', type: 'checkbox', suffix: ' <small>(计算总流量时不考虑最后一行)<\/small>' });
+		c.push({ title: '忽略没有流量的 IP', name: 'f_ignorezeroes', type: 'checkbox' });
+		c.push({ title: '显示已知的主机名', name: 'f_hostnames', type: 'checkbox' });
+		c.push({ title: '显示快捷键', name: 'f_shortcuts', type: 'checkbox' });
 		createFieldTable('',c);
 		</script>
 		<div style="float:right;text-align:right">
-			&raquo; <a href="javascript:genData()">Data</a>
+			&raquo; <a href="javascript:genData()">数据</a>
 			<br />
-			&raquo; <a href="admin-iptraffic.asp">Configure</a>
+			&raquo; <a href="admin-iptraffic.asp">设置</a>
 		</div>
 	</div>
 
@@ -493,7 +493,7 @@ function verifyFields(focused, quiet) {
 
 </td></tr>
 <tr><td id='footer' colspan=2>
-<input type='button' value='Refresh' id="refresh-button" onclick='reloadPage()'>
+<input type='button' value='刷新' id="refresh-button" onclick='reloadPage()'>
 </td></tr>
 </table>
 </form>

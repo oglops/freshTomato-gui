@@ -10,7 +10,7 @@ No part of this file may be used without permission.
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Shutting down...</title>
+<title>[<% ident(); %>] 关机...</title>
 <script type="text/javascript">
 var n = 31;
 function tick() {
@@ -18,7 +18,7 @@ function tick() {
         document.getElementById("sptime").innerHTML = n;
         setTimeout(tick, 1000);
     } else {
-        document.getElementById("msg").innerHTML = "You can now unplug the router.";
+        document.getElementById("msg").innerHTML = "现在可以关闭路由器电源.";
     }
 }
 </script>
@@ -51,7 +51,7 @@ input {
 <body onload='tick()'>
     <div class="div">
         <div style="padding:10px 0">
-            <div id="msg">Please wait while the router shuts down... &nbsp;
+            <div id="msg">请稍等路由器关闭中... &nbsp;
             <div id="sptime" style="display:inline;background:rgb(110,10,10);padding:2px 2px;border-radius:2px"></div></div>
         </div>
     </div>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] VPN: PPTP Server</title>
+<title>[<% ident(); %>] VPN设置: PPTP 服务器</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -40,7 +40,7 @@ ul.setup = function() {
 		{ type: 'text', maxlen: 32, size: 32 },
 		{ type: 'text', maxlen: 32, size: 32 } ]);
 
-	this.headerSet(['Username', 'Password']);
+	this.headerSet(['用户名', '密码']);
 
 	var r = nvram.pptpd_users.split('>');
 	for (var i = 0; i < r.length; ++i) {
@@ -72,15 +72,15 @@ function v_pptpd_secret(e, quiet) {
 	if ((e = E(e)) == null) return 0;
 	s = e.value.trim().replace(/\s+/g, '');
 	if (s.length < 1) {
-		ferror.set(e, "Username and password can not be empty.", quiet);
+		ferror.set(e, "用户名和密码不能为空.", quiet);
 		return 0;
 	}
 	if (s.length > 32) {
-		ferror.set(e, "Invalid entry: max 32 characters are allowed.", quiet);
+		ferror.set(e, "输入错误：最多32个字符.", quiet);
 		return 0;
 	}
 	if (s.search(/^[.a-zA-Z0-9_\- ]+$/) == -1) {
-		ferror.set(e, "Invalid entry. Only characters \"A-Z 0-9 . - _\" are allowed.", quiet);
+		ferror.set(e, "输入错误. 仅支持\"A-Z 0-9 . - _\"等字符.", quiet);
 		return 0;
 	}
 	e.value = s;
@@ -95,7 +95,7 @@ ul.verifyFields = function(row, quiet) {
 	if (!v_pptpd_secret(f[0], quiet)) return 0;
 
 	if (this.existUser(f[0].value)) {
-		ferror.set(f[0], 'Duplicate User', quiet);
+		ferror.set(f[0], '重复的用户名', quiet);
 		return 0;
 	}
 
@@ -115,7 +115,7 @@ function save() {
 
 	if ((E('_f_pptpd_enable').checked) && (ul.getDataCount() < 1)) {
 		var e = E('footer-msg');
-		e.innerHTML = 'Cannot proceed: at least one user must be defined.';
+		e.innerHTML = '无法保存: 至少需要添加一个用户.';
 		e.style.visibility = 'visible';
 		setTimeout(
 			function() {
@@ -230,8 +230,8 @@ function verifyFields(focused, quiet) {
 */
 /* REMOVE-END */
 	if (Math.abs((aton(a.value) - (aton(b.value)))) > 5) {
-		ferror.set(a, 'Invalid range (max 6 IPs)', quiet);
-		ferror.set(b, 'Invalid range (max 6 IPs)', quiet);
+		ferror.set(a, '错误的 IP 地址范围(最多6个 IP)', quiet);
+		ferror.set(b, '错误的 IP 地址范围(最多6个 IP)', quiet);
 		elem.setInnerHTML('pptpd_count', '(?)');
 		return 0;
 	} else {
@@ -285,11 +285,11 @@ function init() {
 function toggleVisibility(whichone) {
 	if (E('sesdiv_' + whichone).style.display == '') {
 		E('sesdiv_' + whichone).style.display = 'none';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to show)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处显示)';
 		cookie.set('vpn_pptpd_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv_' + whichone).style.display='';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to hide)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处隐藏)';
 		cookie.set('vpn_pptpd_' + whichone + '_vis', 1);
 	}
 }
@@ -313,51 +313,51 @@ function toggleVisibility(whichone) {
 <input type='hidden' name='pptpd_enable'>
 <input type='hidden' name='pptpd_remoteip'>
 
-<div class='section-title'>PPTP Server Configuration</div>
+<div class='section-title'>PPTP 服务器设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Enable', name: 'f_pptpd_enable', type: 'checkbox', value: nvram.pptpd_enable == '1' },
-	{ title: 'Local IP Address/Netmask', text: (nvram.lan_ipaddr + ' / ' + nvram.lan_netmask) },
-	{ title: 'Remote IP Address Range', multi: [
+	{ title: '启用', name: 'f_pptpd_enable', type: 'checkbox', value: nvram.pptpd_enable == '1' },
+	{ title: '本地 IP /子网掩码', text: (nvram.lan_ipaddr + ' / ' + nvram.lan_netmask) },
+	{ title: '远程 IP 地址池', multi: [
 		{ name: 'f_pptpd_startip', type: 'text', maxlen: 15, size: 17, value: nvram.dhcpd_startip, suffix: '&nbsp;-&nbsp;' },
 		{ name: 'f_pptpd_endip', type: 'text', maxlen: 15, size: 17, value: nvram.dhcpd_endip, suffix: ' <i id="pptpd_count"><\/i>' }
 	] },
-	{ title: 'Broadcast Relay Mode', name: 'pptpd_broadcast', type: 'select', options: [['disable','Disabled'], ['br0','LAN to VPN Clients'], ['ppp','VPN Clients to LAN'], ['br0ppp','Both']], value: nvram.pptpd_broadcast },
-	{ title: 'Encryption', name: 'pptpd_forcemppe', type: 'select', options: [[0, 'None'], [1, 'MPPE-128']], value: nvram.pptpd_forcemppe },
-	{ title: 'DNS Servers', name: 'pptpd_dns1', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_dns1 },
+	{ title: '广播中继模式', name: 'pptpd_broadcast', type: 'select', options: [['disable','禁用'], ['br0','LAN 到 VPN 客户端'], ['ppp','VPN 客户端到 LAN'], ['br0ppp','全部']], value: nvram.pptpd_broadcast },
+	{ title: '加密方式', name: 'pptpd_forcemppe', type: 'select', options: [[0, '无'], [1, 'MPPE-128']], value: nvram.pptpd_forcemppe },
+	{ title: 'DNS 服务器', name: 'pptpd_dns1', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_dns1 },
 	{ title: '', name: 'pptpd_dns2', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_dns2 },
-	{ title: 'WINS Servers', name: 'pptpd_wins1', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_wins1 },
+	{ title: 'WINS 服务器', name: 'pptpd_wins1', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_wins1 },
 	{ title: '', name: 'pptpd_wins2', type: 'text', maxlen: 15, size: 17, value: nvram.pptpd_wins2 },
-	{ title: 'MTU', name: 'pptpd_mtu', type: 'text', maxlen: 4, size: 6, value: (nvram.pptpd_mtu ? nvram.pptpd_mtu : 1450)},
+	{ title: 'MTU 设置', name: 'pptpd_mtu', type: 'text', maxlen: 4, size: 6, value: (nvram.pptpd_mtu ? nvram.pptpd_mtu : 1450)},
 	{ title: 'MRU', name: 'pptpd_mru', type: 'text', maxlen: 4, size: 6, value: (nvram.pptpd_mru ? nvram.pptpd_mru : 1450)},
-	{ title: '<a href="http://poptop.sourceforge.net/" class="new_window">Poptop<\/a><br />Custom configuration', name: 'pptpd_custom', type: 'textarea', value: nvram.pptpd_custom }
+	{ title: '<a href="http://poptop.sourceforge.net/" class="new_window">Poptop<\/a><br />自定义设置', name: 'pptpd_custom', type: 'textarea', value: nvram.pptpd_custom }
 ]);
 </script>
 </div>
 
-<div class='section-title'>PPTP User List</div>
+<div class='section-title'>PPTP 用户列表</div>
 <div class='section'>
 	<div class="tomato-grid" id="ul-grid"></div>
 </div>
 
-<div class='section-title'>Notes <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdiv_notes_showhide'>(Click here to show)</span></a></i></small></div>
+<div class='section-title'>说明 <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdiv_notes_showhide'>(点击此处显示)</span></a></i></small></div>
 <div class='section' id='sesdiv_notes' style='display:none'>
 	<ul>
-		<li><b>Local IP Address/Netmask</b> - Address to be used at the local end of the tunnelled PPP links between the server and the VPN clients.</li>
-		<li><b>Remote IP Address Range</b> - Remote IP addresses to be used on the tunnelled PPP links (max 6).</li>
-		<li><b>Broadcast Relay Mode</b> - Turns on broadcast relay between VPN clients and LAN interface.</li>
-		<li><b>Enable Encryption</b> - Enabling this option will turn on VPN channel encryption, but it might lead to reduced channel bandwidth.</li>
-		<li><b>DNS Servers</b> - Allows defining DNS servers manually (if none are set, the router/local IP address should be used by VPN clients).</li>
-		<li><b>WINS Servers</b> - Allows configuring extra WINS servers for VPN clients, in addition to the WINS server defined on <a href=basic-network.asp>Basic/Network</a>.</li>
-		<li><b>MTU</b> - Maximum Transmission Unit. Max packet size the PPTP interface will be able to send without packet fragmentation.</li>
-		<li><b>MRU</b> - Maximum Receive Unit. Max packet size the PPTP interface will be able to receive without packet fragmentation.</li>
+		<li><b>本地 IP /子网掩码</b> - 用于在服务器和 VPN 客户机之间建立PPTP隧道链接.</li>
+		<li><b>远程 IP 地址池</b> - 用于为 VPN 客户端分配 IP (最多允许6个IP).</li>
+		<li><b>广播中继模式</b> - 允许 VPN 客户端和本地LAN之间通讯.</li>
+		<li><b>启用加密</b> - 启用该选项后将对 VPN 通道进行加密以提升安全性,但是会导致VPN通道带宽减少.</li>
+		<li><b>DNS 服务器</b> - 使用自定义 DNS 服务器 (如果未设置，VPN 客户端将使用路由器的本地IP地址).</li>
+		<li><b>WINS 服务器</b> - 除了在<a href=basic-network.asp>基本设置 - 网络设置</a>中的 WINS 服务器以外， 额外为 VPN 客户端设置的 WINS 服务器.</li>
+		<li><b>MTU</b> - 最大传输单元.超过限制的包将不会被拆分.</li>
+		<li><b>MRU</b> - 最大接收单元.超过限制的包将不会被拆分.</li>
 	</ul>
 	<ul>
-		<li><small><b>Other relevant notes/hints:</b></small></li>
+		<li><small><b>其它说明:</b></small></li>
 		<li style="list-style:none;display:inline">
 			<ul>
-				<li><small>Try to avoid any conflicts and/or overlaps between the address ranges configured/available for DHCP and VPN clients on your local networks.</small></li>
+				<li><small>尽量避免本地网络上的DHCP和VPN客户端之间已配置/空闲的地址范围有任何冲突或重叠.</small></li>
 			</ul>
 		</li>
 	</ul>
@@ -365,14 +365,14 @@ createFieldTable('', [
 
 <br />
 <div style="float:right;text-align:right">
-&raquo; <a href="vpn-pptp-online.asp">PPTP Online</a>
+&raquo; <a href="vpn-pptp-online.asp">PPTP 用户列表</a>
 </div>
 
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

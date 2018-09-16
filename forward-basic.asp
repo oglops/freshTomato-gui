@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Forwarding: Basic</title>
+<title>[<% ident(); %>] 端口转发: IPv4 转发</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -139,7 +139,7 @@ fog.setup = function() {
 		{ type: 'text', maxlen: 5 },
 		{ type: 'text', maxlen: 15 },
 		{ type: 'text', maxlen: 32 }]);
-	this.headerSet(['On', 'Protocol', 'Src Address', 'Ext Ports', 'Int Port', 'Int Address', 'Description']);
+	this.headerSet(['启用', '协议', '源地址', '外部端口', '内部端口', '内部地址', '描述']);
 	var nv = nvram.portforward.split('>');
 	for (var i = 0; i < nv.length; ++i) {
 		var r;
@@ -212,7 +212,7 @@ function init()
 
 <input type='hidden' name='portforward'>
 
-<div class='section-title'>Port Forwarding</div>
+<div class='section-title'>IPv4 转发</div>
 <div class='section'>
 	<div class="tomato-grid" id="fo-grid"></div>
 	<script type='text/javascript'>fog.setup();</script>
@@ -221,24 +221,25 @@ function init()
 <div class='section-title'>Notes</div>
 <div class='section'>
 	<ul>
-		<li><b>Src Address</b> <i>(optional)</i> - Forward only if from this address. Ex: "1.2.3.4", "1.2.3.4 - 2.3.4.5", "1.2.3.0/24", "me.example.com".</li>
-		<li><b>Ext Ports</b> - The ports to be forwarded, as seen from the WAN. Ex: "2345", "200,300", "200-300,400".</li>
-		<li><b>Int Port</b> <i>(optional)</i> - The destination port inside the LAN. If blank, the destination port is the same as <i>Ext Ports</i>. Only one port per entry is supported when forwarding to a different internal port.</li>
-		<li><b>Int Address</b> - The destination address inside the LAN.
+		<li><b>源地址</b> <i>(可选)</i> - 仅转发来自于该地址的连接. 例: "1.2.3.4", "1.2.3.4 - 2.3.4.5", "1.2.3.0/24", "me.example.com".</li>
+		<li><b>外部端口</b> - 被转发的端口 以WAN口的视角. 例: "2345", "200,300", "200-300,400".</li>
+		<li><b>内部端口</b> <i>(可选)</i> - 局域网内部的目的端口，若为空, 则自动对应为<i>外部端口.当转发到不同的内部端口时，每条设置只能添加一个端口.</li>
+		<li><b>内部地址</b> - 局域网络内的IP地址.
 	</ul>
 </div>
-
 <br />
 <script type='text/javascript'>show_notice1('<% notice("iptables"); %>');</script>
 
 <!-- / / / -->
 
+
 </td></tr>
+
 <tr><td id='footer' colspan=2>
-	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
-</td></tr>
+<span id='footer-msg'></span>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
+	</td></tr>
 </table>
 </form>
 </body>

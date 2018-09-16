@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Basic: Wireless Filter</title>
+<title>[<% ident(); %>] 基本设置：无线过滤</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -79,7 +79,7 @@ smg.setup = function() {
 		{ type: 'text', maxlen: 17 },
 		{ type: 'text', maxlen: 48 }
 	]);
-	this.headerSet(['MAC Address', 'Description']);
+	this.headerSet(['MAC 地址', '描述']);
 	macs = nvram.wl_maclist.split(/\s+/);
 	names = nvram.macnames.split('>');
 	for (i = 0; i < macs.length; ++i) {
@@ -177,7 +177,7 @@ for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 }
 </script>
 
-<div class='section-title'>Wireless Client Filter</div>
+<div class='section-title'>无线客户端过滤</div>
 <div class='section'>
 	<br />
 	<div id="sm-grid" class="tomato-grid"></div>
@@ -198,8 +198,8 @@ for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

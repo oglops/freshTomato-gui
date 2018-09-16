@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: Scripts</title>
+<title>[<% ident(); %>] 系统管理: 脚本管理</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -34,7 +34,7 @@
 
 //	<% nvram("script_init,script_shut,script_fire,script_wanup"); %>
 
-tabs = [['as-init', 'Init'],['as-shut', 'Shutdown'],['as-fire','Firewall'],['as-wanup', 'WAN Up']];
+tabs = [['as-init', '初始化'],['as-shut', '关机时'],['as-fire','防火墙'],['as-wanup', '当 WAN 联机']];
 
 function tabSelect(name)
 {
@@ -71,7 +71,7 @@ function save()
 		x = (t[0] == 'as-fire') ? 8192 : 4096;
 		if (n > x) {
 			tabSelect(t[0]);
-			alert(t[1] + ' script is too long. Maximum allowed is ' + x + ' bytes.');
+			alert(t[1] + ' 脚本太长，最大允许 ' + x + ' bytes.');
 			return;
 		}
 	}
@@ -115,7 +115,7 @@ for (i = 0; i < tabs.length; ++i) {
 	W('<textarea class="as-script" name="script_' + t.replace('as-', '') + '" id="' + t + '-text" wrap=' + (wrap ? 'virtual' : 'off') + ' style="' + s + '"><\/textarea>');
 }
 W('<br /><input type="checkbox" id="as-wordwrap" onclick="wordWrap()" onchange="wordWrap()" ' +
-  (wrap ? 'checked' : '') + '> Word Wrap');
+  (wrap ? 'checked' : '') + '> 自动换行');
 </script>
 
 <!-- / / / -->
@@ -123,8 +123,8 @@ W('<br /><input type="checkbox" id="as-wordwrap" onclick="wordWrap()" onchange="
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

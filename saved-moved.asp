@@ -10,7 +10,7 @@ No part of this file may be used without permission.
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Restarting...</title>
+<title>[<% ident(); %>] 正在重新启动...</title>
 <script type="text/javascript">
 var n = 20;
 function tick() {
@@ -21,7 +21,7 @@ function tick() {
         e.disabled = false;
     }
     if (n == 0) {
-        e.value = "Continue";
+        e.value = "继续";
     } else {
         --n;
         setTimeout(tick, 1000);
@@ -61,10 +61,10 @@ input {
     <div class="div">
         <form action="">
             <div style="border-bottom:1px solid #aaa;margin:auto auto 5px;padding:0 0 5px;font-size:14px">
-                The router's new IP address is <% nv("lan_ipaddr"); %>. You may need to release then renew your computer's DHCP lease before continuing.
+                路由器地址已变更至 <% nv("lan_ipaddr"); %>. 你可能需要刷新计算机的 DHCP 后才能继续操作.
             </div>
             <div id="but" style="display:inline-block">
-                Please wait while the router restarts... &nbsp;
+                请稍候！正在重新启动路由器... &nbsp;
                 <input type="button" value="" id="continue" onclick="go()" disabled="disabled">
             </div>
         </form>

@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Forwarding: DMZ</title>
+<title>[<% ident(); %>] 端口转发: DMZ设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -120,19 +120,19 @@ function init() {
 <input type='hidden' name='dmz_sip'>
 <input type='hidden' name='dmz_ra'>
 
-<div class='section-title'>DMZ</div>
+<div class='section-title'>DMZ 设置</div>
 <div class='section'>
 <script type='text/javascript'>
 createFieldTable('', [
-	{ title: 'Enable DMZ', name: 'f_dmz_enable', type: 'checkbox', value: (nvram.dmz_enable == '1') },
-	{ title: 'Destination Address', indent: 2, name: 'f_dmz_ipaddr', type: 'text', maxlen: 15, size: 17,
+	{ title: '启用 DMZ', name: 'f_dmz_enable', type: 'checkbox', value: (nvram.dmz_enable == '1') },
+	{ title: '目的地址', indent: 2, name: 'f_dmz_ipaddr', type: 'text', maxlen: 15, size: 17,
 		value: (nvram.dmz_ipaddr.indexOf('.') != -1) ? nvram.dmz_ipaddr : (lipp + nvram.dmz_ipaddr) },
-	{ title: 'Destination Interface', indent: 2, name: 'dmz_ifname', type: 'select',
+	{ title: '目标接口', indent: 2, name: 'dmz_ifname', type: 'select',
 		options: [['br0','LAN (br0)'],['br1','LAN1  (br1)'],['br2','LAN2 (br2)'],['br3','LAN3 (br3)']], value: nvram.dmz_ifname },
-	{ title: 'Source Address<br />Restriction', indent: 2, name: 'f_dmz_sip', type: 'text', maxlen: 512, size: 64,
-		value: nvram.dmz_sip, suffix: '<br /><small>(optional; ex: "1.1.1.1", "1.1.1.0/24", "1.1.1.1 - 2.2.2.2" or "me.example.com")<\/small>' },
+	{ title: '源地址<br />限制', indent: 2, name: 'f_dmz_sip', type: 'text', maxlen: 512, size: 64,
+		value: nvram.dmz_sip, suffix: '<br /><small>("空白" 表示不限制,可单一IP或范围;例: "1.1.1.1", "1.1.1.0/24", "1.1.1.1 - 2.2.2.2" or "me.example.com")<\/small>' },
 	null,
-	{ title: 'Leave Remote Access', indent: 2, name: 'f_dmz_ra', type: 'checkbox', value: (nvram.dmz_ra == '1'), suffix: ' &nbsp;<small>(Redirect remote access ports for SSH and HTTP(s) to router)<\/small>' }
+	{ title: '远程访问例外', indent: 2, name: 'f_dmz_ra', type: 'checkbox', value: (nvram.dmz_ra == '1'), suffix: ' &nbsp;<small>(重新定向到路由器的 SSH 和 HTTP(s) 远程访问端口)<\/small>' }
 ]);
 </script>
 </div>
@@ -145,8 +145,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

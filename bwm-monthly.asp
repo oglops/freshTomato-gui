@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Bandwidth: Monthly</title>
+<title>[<% ident(); %>] 带宽监控：每月流量</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -67,7 +67,7 @@ function redraw()
 	gn = 0;
 
 	grid = '<table class="bwmg" cellspacing="1">';
-	grid += makeRow('header', 'Date', 'Download', 'Upload', 'Total');
+	grid += makeRow('header', '日期', '下载', '上传', '合计');
 
 	for (i = 0; i < monthly_history.length; ++i) {
 		h = monthly_history[i];
@@ -116,18 +116,18 @@ function init()
 
 <!-- / / / -->
 
-<div class='section-title'>WAN Bandwidth - Monthly</div>
+<div class='section-title'>WAN 每月流量</div>
 <div id="rstats">
 
 	<div id='bwm-monthly-grid' style='float:left'></div>
 
 	<div style="float:right;text-align:right">
-		<b>Date</b> <select onchange='changeDate(this, "ym")' id='dafm'><option value=0>yyyy-mm</option><option value=1>mm-yyyy</option><option value=2>mmm yyyy</option><option value=3>mm.yyyy</option></select><br />
-		<b>Scale</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
+		<b>日期格式</b> <select onchange='changeDate(this, "ym")' id='dafm'><option value=0>年-月</option><option value=1>月-年</option><option value=2>月 年</option><option value=3>月.年</option></select><br />
+		<b>单位切换</b> <select onchange='changeScale(this)' id='scale'><option value=0>KB</option><option value=1>MB</option><option value=2 selected>GB</option></select><br />
 		<br />
-		&raquo; <a href="javascript:genData()">Data</a>
+		&raquo; <a href="javascript:genData()">数据</a>
 		<br />
-		&raquo; <a href="admin-bwm.asp">Configure</a>
+		&raquo; <a href="admin-bwm.asp">设置</a>
 		<br /><br /><br />
 	</div>
 
@@ -143,7 +143,7 @@ function init()
 
 </td></tr>
 <tr><td id='footer' colspan=2>
-	<input type='button' value='Refresh' id='refresh-button' onclick='reloadPage()'>
+	<input type='button' value='刷新' id='refresh-button' onclick='reloadPage()'>
 </td></tr>
 </table>
 </form>

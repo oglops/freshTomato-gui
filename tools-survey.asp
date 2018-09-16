@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Tools: Wireless Survey</title>
+<title>[<% ident(); %>] 实用工具: 无线勘测</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -55,7 +55,7 @@
 
 var wlscandata = [];
 var entries = [];
-var dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var dayOfWeek = ['日','一','二','三','四','五','六'];
 
 Date.prototype.toWHMS = function() {
 	return dayOfWeek[this.getDay()] + ' ' + this.getHours() + ':' + this.getMinutes().pad(2)+ ':' + this.getSeconds().pad(2);
@@ -174,10 +174,10 @@ sg.populate = function()
 	}
 
 	s = '';
-	if (useAjax()) s = added + ' added, ' + removed + ' removed, ';
-	s += entries.length + ' total.';
+	if (useAjax()) s = added + ' 个新增, ' + removed + ' 个移除, ';
+	s += entries.length + ' 个AP可用.';
 
-	s += '<br /><br /><small>Last updated: ' + (new Date()).toWHMS() + '<\/small>';
+	s += '<br /><br /><small>更新于: 星期: ' + (new Date()).toWHMS() + '<\/small>';
 	setMsg(s);
 
 	wlscandata = [];
@@ -185,7 +185,7 @@ sg.populate = function()
 
 sg.setup = function() {
 	this.init('survey-grid', 'sort');
-	this.headerSet(['Last Seen', 'SSID', 'BSSID', 'RSSI &nbsp; &nbsp; ', 'Quality', 'Ch', 'Security', 'Rates']);
+	this.headerSet(['最近可见', 'SSID', 'BSSID', 'RSSI &nbsp; &nbsp; ', '信号质量', '所选信道', '加密方式', '传输速率']);
 	this.populate();
 	this.sort(0);
 }
@@ -247,14 +247,14 @@ function InNewWindow () {
 
 <!-- / / / -->
 
-<div class='section-title'>Wireless Site Survey</div>
+<div class='section-title'>无线网络勘测</div>
 <div class='section'>
 	<div id="survey-grid" class="tomato-grid"></div>
 	<div id='survey-msg'></div>
 	<br /><br /><br /><br />
 	<script type='text/javascript'>
 	if ('<% wlclient(); %>' == '0') {
-		document.write('<small>Warning: Wireless connections to this router may be disrupted while using this tool.<\/small>');
+		document.write('<small>注意：使用此工具可能会导致无线客户端和此路由器的连接中断.<\/small>');
 	}
 	</script>
 </div>

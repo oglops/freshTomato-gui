@@ -10,7 +10,7 @@ No part of this file may be used without permission.
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="robots" content="noindex,nofollow">
-<title>[<% ident(); %>] Restoring Defaults...</title>
+<title>[<% ident(); %>] 恢复初始设置...</title>
 <script type="text/javascript">
 var n = 130;
 function tick() {
@@ -63,9 +63,9 @@ input {
     <div class="div">
         <form action="">
             <div style="display:inline-block">
-                Please wait while the defaults are restored... &nbsp;
+                请稍等,正在恢复默认值... &nbsp;
                 <input type="button" value="" id="continue" onclick="go()" disabled="disabled">
-                <div style="width:600px;border-top:1px dashed #888;margin:5px auto;padding:5px 0" id="msg">The router will reset its address back to 192.168.1.1. You may need to renew your computer's DHCP or reboot your computer before continuing.</div>
+                <div style="width:600px;border-top:1px dashed #888;margin:5px auto;padding:5px 0" id="msg">路由器的 IP 将重置为 192.168.1.1. 你可能需要刷新计算机的 DHCP 或重启计算机后才能继续操作.</div>
             </div>
         </form>
     </div>

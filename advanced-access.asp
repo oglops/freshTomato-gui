@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: LAN Access</title>
+<title>[<% ident(); %>] 高级设置: 局域网访问</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -53,7 +53,7 @@ la.setup = function() {
 	{ type: 'select', options: [[0, 'LAN (br0)'],[1, 'LAN1 (br1)'],[2, 'LAN2 (br2)'],[3, 'LAN3 (br3)']], prefix: '<div class="centered">', suffix: '<\/div>' },
 	{ type: 'text', maxlen: 32 },
 	{ type: 'text', maxlen: 32 }]);
-	this.headerSet(['On', 'Src', 'Src Address', 'Dst', 'Dst Address', 'Description']);
+	this.headerSet(['打开', '源', '源地址', '目标', '目标地址', '描述']);
 
 	var r = nvram.lan_access.split('>');
 	for (var i = 0; i < r.length; ++i) {
@@ -131,7 +131,7 @@ la.verifyFields = function(row, quiet) {
 	}
 
 	if(f[1].selectedIndex == f[3].selectedIndex) {
-		var m = 'Source and Destination interfaces must be different';
+		var m = '源和目标的接口必须不同';
 		ferror.set(f[1], m, quiet);
 		ferror.set(f[3], m, quiet);
 		return 0;
@@ -208,11 +208,11 @@ function init() {
 function toggleVisibility(whichone) {
 	if (E('sesdiv_' + whichone).style.display == '') {
 		E('sesdiv_' + whichone).style.display = 'none';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to show)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处显示)';
 		cookie.set('advanced_access_' + whichone + '_vis', 0);
 	} else {
 		E('sesdiv_' + whichone).style.display='';
-		E('sesdiv_' + whichone + '_showhide').innerHTML = '(Click here to hide)';
+		E('sesdiv_' + whichone + '_showhide').innerHTML = '(点击此处隐藏)';
 		cookie.set('advanced_access_' + whichone + '_vis', 1);
 	}
 }
@@ -234,26 +234,26 @@ function toggleVisibility(whichone) {
 <input type='hidden' name='_service' value='firewall-restart'>
 <input type='hidden' name='lan_access'>
 
-<div class='section-title'>LAN Access</div>
+<div class='section-title'>局域网访问</div>
 <div class='section'>
 	<div class="tomato-grid" id="la-grid"></div>
 </div>
 
-<div class='section-title'>Notes <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdiv_notes_showhide'>(Click here to show)</span></a></i></small></div>
+<div class='section-title'>说明 <small><i><a href='javascript:toggleVisibility("notes");'><span id='sesdiv_notes_showhide'>(点击此处显示)</span></a></i></small></div>
 <div class='section' id='sesdiv_notes' style='display:none'>
 <ul>
-	<li><b>Src</b> - Source LAN bridge.</li>
-	<li><b>Src Address</b> <i>(optional)</i> - Source address allowed. Ex: "1.2.3.4", "1.2.3.4 - 2.3.4.5", "1.2.3.0/24".</li>
-	<li><b>Dst</b> - Destination LAN bridge.</li>
-	<li><b>Dst Address</b> <i>(optional)</i> - Destination address inside the LAN.</li>
+	<li><b>源</b> - 源局域网网桥.</li>
+	<li><b>源地址</b> <i>(可选)</i> - 允许的源地址，例如: "1.2.3.4", "1.2.3.4 - 2.3.4.5", "1.2.3.0/24".</li>
+	<li><b>目标</b> - 目标局域网网桥.</li>
+	<li><b>目标地址</b> <i>(可选)</i> - 局域网内的目标地址.</li>
 </ul>
 </div>
 
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

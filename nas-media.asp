@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] NAS: Media Server</title>
+<title>[<% ident(); %>] NAS: 媒体服务器</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -38,7 +38,7 @@
 changed = 0;
 mdup = parseInt('<% psup("minidlna"); %>');
 
-var mediatypes = [['', 'All Media Files'], ['A', 'Audio only'], ['V', 'Video only'], ['P', 'Images only']];
+var mediatypes = [['', '所有媒体文件'], ['A', '仅音频文件'], ['V', '仅视频文件'], ['P', '仅图像文件']];
 var msg = new TomatoGrid();
 
 msg.dataToView = function(data) {
@@ -84,7 +84,7 @@ msg.setup = function()
 		{ type: 'text', maxlen: 256 },
 		{ type: 'select', options: mediatypes }
 	]);
-	this.headerSet(['Directory', 'Content Filter']);
+	this.headerSet(['目录', '内容过滤']);
 
 	var s = ('' + nvram.ms_dirs).split('>');
 	for (var i = 0; i < s.length; ++i) {
@@ -204,7 +204,7 @@ function save()
 function restart(isup)
 {
 	if (changed) {
-		if (!confirm("Unsaved changes will be lost. Continue anyway?")) return;
+		if (!confirm("未保存的设置将会丢失.仍然继续?")) return;
 	}
 	E('_restart_button').disabled = true;
 	form.submitHidden('tomato.cgi', {
@@ -276,7 +276,7 @@ function init()
 <input type='hidden' name='ms_rescan'>
 <input type='hidden' name='ms_sas'>
 
-<div class='section-title'>Media / DLNA Server</div>
+<div class='section-title'>媒体/ DLNA 服务器</div>
 <div class='section'>
 <script type='text/javascript'>
 
@@ -293,16 +293,16 @@ switch (nvram.ms_dbdir) {
 }
 
 createFieldTable('', [
-	{ title: 'Enable', name: 'f_ms_enable', type: 'checkbox', value: nvram.ms_enable == '1' },
-	{ title: 'Listen on', indent: 2, name: 'ms_ifname', type: 'select', options: [
+	{ title: '启用', name: 'f_ms_enable', type: 'checkbox', value: nvram.ms_enable == '1' },
+	{ title: '监听', indent: 2, name: 'ms_ifname', type: 'select', options: [
 			['br0','LAN (br0)*'],
 			['br1','LAN1 (br1)'],
 			['br2','LAN2 (br2)'],
 			['br3','LAN3 (br3)']
-			], value: eval ( 'nvram.ms_ifname' ), suffix: ' <small>* default<\/small> ' },
-	{ title: 'Port', indent: 2, name: 'ms_port', type: 'text', maxlen: 5, size: 6, value: nvram.ms_port, suffix: '<small>(range: 0 - 65535; default (random) set 0)<\/small>' },
-	{ title: 'Database Location', multi: [
-		{ name: 'f_loc', type: 'select', options: [['','RAM (Temporary)'],
+			], value: eval ( 'nvram.ms_ifname' ), suffix: ' <small>* 默认<\/small> ' },
+	{ title: '端口', indent: 2, name: 'ms_port', type: 'text', maxlen: 5, size: 6, value: nvram.ms_port, suffix: '<small>(范围: 0 - 65535; 默认(随机地)设置为 0)<\/small>' },
+	{ title: '数据库位置', multi: [
+		{ name: 'f_loc', type: 'select', options: [['','RAM (临时)'],
 
 /* JFFS2-BEGIN */
 			['/jffs/dlna','JFFS'],
@@ -312,23 +312,23 @@ createFieldTable('', [
 			['/cifs1/dlna','CIFS 1'],['/cifs2/dlna','CIFS 2'],
 /* CIFS-END */
 /* REMOVE-END */
-			['*user','Custom Path']], value: loc },
+			['*user','用户目录']], value: loc },
 		{ name: 'f_user', type: 'text', maxlen: 256, size: 60, value: nvram.ms_dbdir }
 	] },
-	{ title: 'Scan Media at Startup*', indent: 2, name: 'f_ms_sas', type: 'checkbox', value: nvram.ms_sas == '1', hidden: 1 },
-	{ title: 'Rescan on the next run*', indent: 2, name: 'f_ms_rescan', type: 'checkbox', value: 0,
-		suffix: '<br /><small>* Media scan may take considerable time to complete.<\/small>' },
+	{ title: '启动时扫描媒体*', indent: 2, name: 'f_ms_sas', type: 'checkbox', value: nvram.ms_sas == '1', hidden: 1 },
+	{ title: '下次运行时重新扫描*', indent: 2, name: 'f_ms_rescan', type: 'checkbox', value: 0,
+		suffix: '<br /><small>* 扫描媒体可能需要大量的时间.<\/small>' },
 	null,
-	{ title: 'TiVo Support', name: 'f_ms_tivo', type: 'checkbox', value: nvram.ms_tivo == '1' },
-	{ title: 'Strictly adhere to DLNA standards', name: 'f_ms_stdlna', type: 'checkbox', value: nvram.ms_stdlna == '1' }
+	{ title: 'TiVo 支持', name: 'f_ms_tivo', type: 'checkbox', value: nvram.ms_tivo == '1' },
+	{ title: '严格遵循 DLNA 标准', name: 'f_ms_stdlna', type: 'checkbox', value: nvram.ms_stdlna == '1' }
 ]);
-W('<br /><input type="button" value="' + (mdup ? 'Res' : 'S') + 'tart Now" onclick="restart(mdup)" id="_restart_button">');
+W('<br /><input type="button" value="' + (mdup ? '重新启动' : '启动') + '" onclick="restart(mdup)" id="_restart_button">');
 </script>
 </div>
 <span id="notice-msg"></span>
 <br />
 
-<div class='section-title'>Media Directories</div>
+<div class='section-title'>媒体目录</div>
 <div class='section'>
 	<div class="tomato-grid" id="ms-grid"></div>
 	<script type='text/javascript'>msg.setup();</script>
@@ -340,8 +340,8 @@ W('<br /><input type="button" value="' + (mdup ? 'Res' : 'S') + 'tart Now" oncli
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

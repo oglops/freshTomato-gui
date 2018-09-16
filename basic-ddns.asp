@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Basic: DDNS</title>
+<title>[<% ident(); %>] 基本设置：动态域名</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -44,7 +44,7 @@ s = save state checkbox
 REMOVE-END */
 
 var services = [
-	['', 'None', '', ''],
+	['', '无', '', ''],
 	['3322', '3322', 'http://www.3322.org/', 'uhwmb'],
 	['3322-static', '3322 - Static', 'http://www.3322.org/', 'uhwmb'],
 	['dnsexit', 'DNS Exit', 'http://www.dnsexit.com/', 'uh'],
@@ -59,16 +59,16 @@ var services = [
 	['easydns', 'easyDNS', 'http://www.easydns.com/', 'uhwm'],
 	['seasydns', 'easyDNS (https)', 'http://www.easydns.com/', 'uhwm'],
 	['editdns', 'EditDNS', 'http://www.editdns.net/', 'tpz'],
-	['everydns', 'EveryDNS', 'http://www.everydns.net/', 'uj', null, null, 'Domain <small>(optional)<\/small>'],
+	['everydns', 'EveryDNS', 'http://www.everydns.net/', 'uj', null, null, '域名 <small>(可选)<\/small>'],
 	['minidns', 'miniDNS', 'http://www.minidns.net/', 'uh'],
-	['enom', 'eNom', 'http://www.enom.com/', 'ut', 'Domain'],
+	['enom', 'eNom', 'http://www.enom.com/', 'ut', '域名'],
 	['afraid', 'FreeDNS (afraid.org)', 'http://freedns.afraid.org/', 'az'],
-	['heipv6tb', 'HE.net IPv6 Tunnel Broker', 'http://www.tunnelbroker.net/', 'uh', 'User ID <small>(not your username)<\/small>', null, 'Global Tunnel ID'],
-	['ieserver', 'ieServer.net', 'http://www.ieserver.net/', 'uhz', 'Username / Hostname', null, 'Domain'],
-	['namecheap', 'namecheap', 'http://www.namecheap.com/', 'ut', 'Domain'],
-	['noip', 'No-IP.com', 'http://www.no-ip.com/', 'uh', 'Email Address', null, 'Hostname / Group'],
-	['opendns', 'OpenDNS', 'http://www.opendns.com/', 'uhoz', null, null, 'Network <small>(optional)<\/small>'],
-	['tzo', 'TZO', 'http://www.tzo.com/', 'uh', 'Email Address', 'Password'],
+	['heipv6tb', 'HE.net IPv6 Tunnel Broker', 'http://www.tunnelbroker.net/', 'uh', '用户 ID <small>(不是你的用户名)<\/small>', null, 'Global Tunnel ID'],
+	['ieserver', 'ieServer.net', 'http://www.ieserver.net/', 'uhz', '用户名/主机名', null, '域名'],
+	['namecheap', 'namecheap', 'http://www.namecheap.com/', 'ut', '域名'],
+	['noip', 'No-IP.com', 'http://www.no-ip.com/', 'uh', 'Email 地址', null, '主机名/组'],
+	['opendns', 'OpenDNS', 'http://www.opendns.com/', 'uhoz', null, null, '网络 <small>(可选)<\/small>'],
+	['tzo', 'TZO', 'http://www.tzo.com/', 'uh', 'Email 地址', '密码'],
 	['zoneedit', 'ZoneEdit', 'http://www.zoneedit.com/', 'uh'],
 	['szoneedit', 'ZoneEdit (https)', 'http://www.zoneedit.com/', 'uh'],
         ['pairnic', 'pairNIC', 'http://www.pairnic.com/', 'uh'],
@@ -76,7 +76,7 @@ var services = [
         ['ovh', 'OVH', 'http://www.ovh.com/', 'uh'],
         ['sovh', 'OVH (https)', 'https://www.ovh.com/', 'uh'],
         ['schangeip', 'ChangeIP (https)', 'https://www.changeip.com/', 'uh'],
-	['custom', 'Custom URL', '', 'c']];
+	['custom', '自定义 URL', '', 'c']];
 
 var opendns = ['208.67.222.222', '208.67.220.220'];
 var opendnsInUse = 0;
@@ -89,7 +89,7 @@ function msgLoc(s)
 	if (r = s.match(/^(.*?): (.*)/)) {
 		r[2] = r[2].replace(/#RETRY (\d+) (\d+)/,
 			function(s, min, num) {
-				return '<br /><small>(' + ((num >= 1) ? (num + '/3: ') : '') + 'Automatically retrying in ' + min + ' minutes)<\/small>';
+				return '<br /><small>(' + ((num >= 1) ? (num + '/3: ') : '') + '自动重试连接在 ' + min + ' 分钟后)<\/small>';
 			}
 		);
 		return '<small>' + (new Date(r[1])).toLocaleString() + ':<\/small><br />' + r[2];
@@ -153,9 +153,9 @@ function verifyFields(focused, quiet)
 		elem.display('last-update' + i, enabled && !op.z);
 
 		if (enabled) {
-			PR('_f_user' + i).cells[0].innerHTML = data[4] || 'Username';
-			PR('_f_pass' + i).cells[0].innerHTML = data[5] || 'Password';
-			PR('_f_host' + i).cells[0].innerHTML = data[6] || 'Hostname';
+			PR('_f_user' + i).cells[0].innerHTML = data[4] || '用户名称';
+			PR('_f_pass' + i).cells[0].innerHTML = data[5] || '用户密码';
+			PR('_f_host' + i).cells[0].innerHTML = data[6] || '主机名称';
 
 			e = E('url' + i);
 			e.href = data[2];
@@ -168,7 +168,7 @@ function verifyFields(focused, quiet)
 					e.value = 'http://';
 				}
 				if (e.value.search(/http(s?):\/\/./) != 0)  {
-					ferror.set(e, 'Expecting a URL -- http://... or https://...', quiet);
+					ferror.set(e, '请输入类似 URL -- http://... or https://...', quiet);
 					r = 0;
 				}
 				else {
@@ -183,7 +183,7 @@ function verifyFields(focused, quiet)
 					e.value = RegExp.$1;
 				}
 				if (e.value.search(/^[A-Za-z0-9]+/) == -1) {
-					ferror.set(e, 'Invalid hash or URL', quiet);
+					ferror.set(e, '无效哈希或 URL', quiet);
 					r = 0;
 				}
 				else {
@@ -192,11 +192,11 @@ function verifyFields(focused, quiet)
 				}
 			}
 			else {
-				if (((op.u) && (!v_length('_f_user' + i, quiet, 1) || !v_nodelim('_f_user' + i, quiet, 'Username'))) ||
-					(!v_length('_f_pass' + i, quiet, 1) || !v_nodelim('_f_pass' + i, quiet, 'Password')) ||
+				if (((op.u) && (!v_length('_f_user' + i, quiet, 1) || !v_nodelim('_f_user' + i, quiet, '用户名'))) ||
+					(!v_length('_f_pass' + i, quiet, 1) || !v_nodelim('_f_pass' + i, quiet, '密码')) ||
 					((op.m) && (!v_nodelim('_f_mx' + i, quiet, 'MX'))) ||
-					((op.h) && (!op.o) && (!v_length('_f_host' + i, quiet, 1) || !v_nodelim('_f_host' + i, quiet, 'Hostname'))) ||
-					((op.t) && (!v_length('_f_hosttop' + i, quiet, 1) || !v_nodelim('_f_hosttop' + i, quiet, 'Hostname')))) {
+					((op.h) && (!op.o) && (!v_length('_f_host' + i, quiet, 1) || !v_nodelim('_f_host' + i, quiet, '主机名'))) ||
+					((op.t) && (!v_length('_f_hosttop' + i, quiet, 1) || !v_nodelim('_f_hosttop' + i, quiet, '主机名')))) {
 					r = 0;
 				}
 			}
@@ -338,7 +338,7 @@ function init()
 {
 	if ('<% psup("ddns-update"); %>' != 0) {
 		var e = E('footer-msg');
-		e.innerHTML = 'DDNS update is running. Please refresh after a few seconds.';
+		e.innerHTML = '动态域名正在更新, 请稍等几秒钟后再刷新.';
 		e.style.visibility = 'visible';
 	}
 }
@@ -371,30 +371,30 @@ function init()
 <input type='hidden' name='ddnsx_save' value=''>
 
 
-<div class='section-title'>Dynamic DNS</div>
+<div class='section-title'>动态 DNS 设置</div>
 <div class='section'>
 <script type='text/javascript'>
 s = nvram.ddnsx_ip;
 a = (s != '') && (s != 'wan') && (s != 'wan2') && (s != 'wan3') && (s != 'wan4') && (s.indexOf('@') != 0) && (s != '0.0.0.0') && (s != '1.1.1.1') && (s != '10.1.1.1');
 createFieldTable('', [
-	{ title: 'IP address', name: 'f_ddnsx_ip', type: 'select',
+	{ title: 'IP 地址', name: 'f_ddnsx_ip', type: 'select',
 		options: [
-			['wan', 'Use WAN IP Address ' + ddnsx_ip + ' (recommended)'],
-			['wan2', 'Use WAN2 IP Address ' + ddnsx2_ip ],
+			['wan', '使用 WAN IP 地址 ' + ddnsx_ip + ' (推荐)'],
+			['wan2', '使用 WAN2 IP 地址 ' + ddnsx2_ip ],
 /* MULTIWAN-BEGIN */
-			['wan3', 'Use WAN3 IP Address ' + ddnsx3_ip ],
-			['wan4', 'Use WAN4 IP Address ' + ddnsx4_ip ],
+			['wan3', '使用 WAN3 IP 地址 ' + ddnsx3_ip ],
+			['wan4', '使用 WAN4 IP 地址 ' + ddnsx4_ip ],
 /* MULTIWAN-END */
-			['@', 'Use External IP Address Checker (every 10 minutes)'],
-			['0.0.0.0', 'Offline (0.0.0.0)'],
-			['1.1.1.1', 'Offline (1.1.1.1)'],
-			['10.1.1.1', 'Offline (10.1.1.1)'],
-			['custom', 'Custom IP Address...']
+			['@', '使用外部IP 地址(每十分钟检查)'],
+			['0.0.0.0', '离线 (0.0.0.0)'],
+			['1.1.1.1', '离线 (1.1.1.1)'],
+			['10.1.1.1', '离线 (10.1.1.1)'],
+			['custom', '自定义 IP 地址...']
 			],
 		value: a ? 'custom' : nvram.ddnsx_ip },
-	{ title: 'Custom IP address', indent: 2, name: 'f_custom_ip', type: 'text', maxlen: 15, size: 20,
+	{ title: '自定义 IP 地址', indent: 2, name: 'f_custom_ip', type: 'text', maxlen: 15, size: 20,
 		value: a ? nvram.ddnsx_ip : '', hidden: !a },
-	{ title: 'Auto refresh every', name: 'ddnsx_refresh', type: 'text', maxlen: 8, size: 8, suffix: '<small> days (0 = disable)<\/small>', value: fixInt(nvram.ddnsx_refresh, 0, 90, 28) }
+	{ title: '自动刷新每', name: 'ddnsx_refresh', type: 'text', maxlen: 8, size: 8, suffix: '<small> 天 (0 = 关闭)<\/small>', value: fixInt(nvram.ddnsx_refresh, 0, 90, 28) }
 ]);
 </script>
 </div>
@@ -436,28 +436,28 @@ for (i = 0; i < 2; ++i) {
 	if (u.length != 2) u = ['', ''];
 	h = (v[0] == '');
 
-	W('<div class="section-title">Dynamic DNS ' + (i + 1) + '<\/div><div class="section">');
+	W('<div class="section-title">动态 DNS ' + (i + 1) + '<\/div><div class="section">');
 	createFieldTable('', [
-		{ title: 'Service', name: 'f_service' + i, type: 'select', options: services, value: v[0] },
+		{ title: '服务', name: 'f_service' + i, type: 'select', options: services, value: v[0] },
 		{ title: 'URL', indent: 2, text: '<a href="" id="url' + i + '" target="tomato-ext-ddns"><\/a>', hidden: 1 },
-		{ title: '&nbsp;', text: '<small>* This service determines the IP address using its own method.<\/small>', hidden: 1, rid: 'row_z' + i },
-		{ title: 'Hostname', name: 'f_hosttop' + i, type: 'text', maxlen: 96, size: 35, value: v[2], hidden: 1 },
-		{ title: 'Username', name: 'f_user' + i, type: 'text', maxlen: 64, size: 35, value: u[0], hidden: 1 },
-		{ title: 'Password', name: 'f_pass' + i, type: 'password', maxlen: 64, size: 35, peekaboo: 1, value: u[1], hidden: 1 },
-		{ title: 'Hostname', name: 'f_host' + i, type: 'text', maxlen: 255, size: 80, value: v[2], hidden: 1 },
+		{ title: '&nbsp;', text: '<small>* 该服务使用自己的方法检测 IP 地址.<\/small>', hidden: 1, rid: 'row_z' + i },
+		{ title: '主机名称', name: 'f_hosttop' + i, type: 'text', maxlen: 96, size: 35, value: v[2], hidden: 1 },
+		{ title: '用户名称', name: 'f_user' + i, type: 'text', maxlen: 64, size: 35, value: u[0], hidden: 1 },
+		{ title: '用户密码', name: 'f_pass' + i, type: 'password', maxlen: 64, size: 35, peekaboo: 1, value: u[1], hidden: 1 },
+		{ title: '主机名称', name: 'f_host' + i, type: 'text', maxlen: 255, size: 80, value: v[2], hidden: 1 },
 		{ title: 'URL', name: 'f_cust' + i, type: 'text', maxlen: 255, size: 80, value: v[6], hidden: 1 },
-		{ title: ' ', text: '(Use @IP for the current IP address)', rid: ('custmsg' + i), hidden: 1 },
-		{ title: 'Wildcard', indent: 2, name: 'f_wild' + i, type: 'checkbox', value: v[3] != '0', hidden: 1 },
+		{ title: ' ', text: '(给当前的IP地址使用@IP)', rid: ('custmsg' + i), hidden: 1 },
+		{ title: '通配符', indent: 2, name: 'f_wild' + i, type: 'checkbox', value: v[3] != '0', hidden: 1 },
 		{ title: 'MX', name: 'f_mx' + i, type: 'text', maxlen: 32, size: 35, value: v[4], hidden: 1 },
-		{ title: 'Backup MX', indent: 2, name: 'f_bmx' + i, type: 'checkbox', value: v[5] != '0', hidden: 1 },
-		{ title: 'Use as DNS', name: 'f_opendns' + i, type: 'checkbox', value: (opendnsInUse == opendns.length),
-			suffix: '<br /><small>(Current DNS: ' + dns  + ')<\/small>', hidden: 1 },
+		{ title: '备份 MX', indent: 2, name: 'f_bmx' + i, type: 'checkbox', value: v[5] != '0', hidden: 1 },
+		{ title: '需要更新的域名', name: 'f_opendns' + i, type: 'checkbox', value: (opendnsInUse == opendns.length),
+			suffix: '<br /><small>(当前 DNS: ' + dns  + ')<\/small>', hidden: 1 },
 		{ title: 'Token / URL', name: 'f_afraid' + i, type: 'text', maxlen: 255, size: 80, value: v[6], hidden: 1 },
-		{ title: 'Save state when IP changes (nvram commit)', name: 'f_ddnsx_save' + i, type: 'checkbox', value: nvram.ddnsx_save == '1', hidden: 1 },
-		{ title: 'Force next update', name: 'f_force' + i, type: 'checkbox', value: 0, hidden: 1 },
+		{ title: '当 IP 改变时保存状态 (nvram commit)', name: 'f_ddnsx_save' + i, type: 'checkbox', value: nvram.ddnsx_save == '1', hidden: 1 },
+		{ title: '强制下次更新', name: 'f_force' + i, type: 'checkbox', value: 0, hidden: 1 },
 		null,
-		{ title: 'Last IP Address', custom: msgLoc(ddnsx_last[i]), rid: 'last-update' + i, hidden: 1 },
-		{ title: 'Last Result', custom: msgLoc(ddnsx_msg[i]), rid: 'last-response' + i, hidden: h }
+		{ title: '最近 IP 地址', custom: msgLoc(ddnsx_last[i]), rid: 'last-update' + i, hidden: 1 },
+		{ title: '最近更新状况', custom: msgLoc(ddnsx_msg[i]), rid: 'last-response' + i, hidden: h }
 	]);
 	W('<\/div>');
 }
@@ -469,8 +469,8 @@ for (i = 0; i < 2; ++i) {
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 <script type='text/javascript'>verifyFields(null, 1);</script>

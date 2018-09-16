@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: JFFS</title>
+<title>[<% ident(); %>] 系统管理: JFFS 设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -37,17 +37,17 @@ function verifyFields(focused, quiet)
 function formatClicked()
 {
 	if (!verifyFields(null, 0)) return;
-	if (!confirm("Format the JFFS partition?")) return;
+	if (!confirm("确认要格式化 JFFS 分区?")) return;
 	save(1);
 }
 
 function formatClock()
 {
 	if (ftime == 0) {
-		E('fclock').innerHTML = 'a few more seconds';
+		E('fclock').innerHTML = '请稍等';
 	}
 	else {
-		E('fclock').innerHTML = ((ftime > 0) ? 'about ' : '') + ftime + ' second' + ((ftime == 1) ? '' : 's');
+		E('fclock').innerHTML = ((ftime > 0) ? '剩余 ' : '') + ftime + ' 秒' + ((ftime == 1) ? '' : 's');
 	}
 	if (--ftime >= 0) setTimeout(formatClock, 1000);
 }
@@ -115,13 +115,13 @@ function submit_complete()
 
 jfon = (nvram.jffs2_on == 1);
 createFieldTable('', [
-	{ title: 'Enable', name: 'f_jffs2_on', type: 'checkbox', value: jfon },
-	{ title: 'Execute When Mounted', name: 'jffs2_exec', type: 'text', maxlen: 64, size: 34, value: nvram.jffs2_exec },
+	{ title: '启用', name: 'f_jffs2_on', type: 'checkbox', value: jfon },
+	{ title: '挂载后执行', name: 'jffs2_exec', type: 'text', maxlen: 64, size: 34, value: nvram.jffs2_exec },
 	null,
-	{ title: 'Total / Free Size', text: (((jffs2.mnt) || (jffs2.size > 0)) ? scaleSize(jffs2.size) : '') + ((jffs2.mnt) ? ' / ' + scaleSize(jffs2.free) : ' (not mounted)') },
+	{ title: 'JFFS 使用率', text: (((jffs2.mnt) || (jffs2.size > 0)) ? scaleSize(jffs2.size) : '') + ((jffs2.mnt) ? ' / ' + scaleSize(jffs2.free) : ' (未挂载)') },
 	null,
-	{ title: '', custom: '<input type="button" value="Format / Erase..." onclick="formatClicked()" id="format"><br /><br />' +
-		'<span style="background:#b55;color:#fff;padding:1px 8px;visibility:hidden" id="fmsg">Please wait for <span id="fclock">about 60 seconds<\/span>...<\/span>' }
+	{ title: '', custom: '<input type="button" value="格式化 / 擦除..." onclick="formatClicked()" id="format"><br /><br />' +
+		'<span style="background:#b55;color:#fff;padding:1px 8px;visibility:hidden" id="fmsg">请等待 <span id="fclock">约60秒<\/span>...<\/span>' }
 ]);
 </script>
 </div>
@@ -133,8 +133,8 @@ createFieldTable('', [
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='javascript:reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='javascript:reloadPage();'>
 </td></tr>
 </table>
 </form>

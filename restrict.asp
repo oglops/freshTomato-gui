@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Access Restrictions</title>
+<title>[<% ident(); %>] 访问限制: 策略列表</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -39,13 +39,13 @@
 //	<% nvram(''); %>	// http_id
 //	<% nvramseq("rrules", "rrule%d", 0, 49); %>
 
-var dowNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var dowNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
 var og = new TomatoGrid();
 og.setup = function() {
 	this.init('res-over-grid', 'sort');
-	this.headerSet(['Description', 'Schedule']);
-	var r = this.footerSet(['<input type="button" value="Add" onclick="TGO(this).addEntry()" id="res-over-add">']);
+	this.headerSet(['设定描述', '时间表']);
+	var r = this.footerSet(['<input type="button" value="增加" onclick="TGO(this).addEntry()" id="res-over-add">']);
 	r.cells[0].colSpan = 2;
 }
 og.populate = function() {
@@ -63,7 +63,7 @@ og.populate = function() {
 
 		var s = '';
 		if (v[3] == 0x7F) {
-			s += 'Everyday';
+			s += '每天';
 		}
 		else {
 			for (var j = 0; j < 7; ++j) {
@@ -75,10 +75,10 @@ og.populate = function() {
 		}
 
 		if ((v[1] >= 0) && (v[2] >= 0)) {
-			s += '<br />' + timeString(v[1]) + ' to ' + timeString(v[2]);
-			if (v[2] <= v[1]) s += ' <small>(the following day)<\/small>';
+			s += '<br />' + timeString(v[1]) + ' 至 ' + timeString(v[2]);
+			if (v[2] <= v[1]) s += ' <small>(以下日期)<\/small>';
 		}
-		if (v[0] != '1') s += '<br /><i><b>Disabled<\/b><\/i>';
+		if (v[0] != '1') s += '<br /><i><b>禁用<\/b><\/i>';
 		this.insertData(-1, [i, v[8], s]);
 	}
 	og.sort(0);
@@ -123,7 +123,7 @@ function init()
 <input type='hidden' name='_commit' value='0'>
 <input type='hidden' name='rruleN' id='t_rruleN' value=''>
 
-<div class='section-title'>Access Restriction Overview</div>
+<div class='section-title'>访问限制列表</div>
 <div class='section'>
 	<div class="tomato-grid" id="res-over-grid"></div>
 </div>

@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Forwarding: Basic IPv6</title>
+<title>[<% ident(); %>] 端口转发: IPv6 转发</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -69,7 +69,7 @@ fog.sortCompare = function(a, b) {
 }
 
 fog.dataToView = function(data) {
-	return [(data[0] != '0') ? 'On' : '', ['TCP', 'UDP', 'Both'][data[1] - 1], (data[2].match(/(.+)-(.+)/)) ? (RegExp.$1 + ' -<br />' + RegExp.$2) : data[2], data[3], data[4], data[5]];
+	return [(data[0] != '0') ? '是' : '', ['TCP', 'UDP', 'Both'][data[1] - 1], (data[2].match(/(.+)-(.+)/)) ? (RegExp.$1 + ' -<br />' + RegExp.$2) : data[2], data[3], data[4], data[5]];
 }
 
 fog.fieldValuesToData = function(row) {
@@ -114,7 +114,7 @@ fog.setup = function() {
 		{ type: 'text', maxlen: 140 },
 		{ type: 'text', maxlen: 16 },
 		{ type: 'text', maxlen: 32 }]);
-	this.headerSet(['On', 'Protocol', 'Src Address', 'Dest Address', 'Dest Ports', 'Description']);
+	this.headerSet(['启用', '协议', '源地址', '目标地址', '目标端口', '描述']);
 	var nv = nvram.ipv6_portforward.split('>');
 	for (var i = 0; i < nv.length; ++i) {
 		var r;
@@ -177,19 +177,19 @@ function init()
 
 <input type='hidden' name='ipv6_portforward'>
 
-<div class='section-title'>IPv6 Port Forwarding</div>
+<div class='section-title'>IPv6 端口转发</div>
 <div class='section'>
 	<div class="tomato-grid" id="fo-grid6"></div>
 	<script type='text/javascript'>fog.setup();</script>
 </div>
 
 <div class='section-title'>Notes</div>
-<i>Opens access to ports on machines inside the LAN, but does <b>not</b> re-map ports:</i><br />
+<i>开放对局域网内机器的端口访问, 但是<b>不</b>重新映射端口:</i><br />
 <div class='section'>
 	<ul>
-		<li><b>Src Address</b> <i>(optional)</i> - Forward only if from this address. Ex: "2001:4860:800b::/48", "me.example.com".</li>
-		<li><b>Dest Address</b> <i>(optional)</i> - The destination address inside the LAN.</li>
-		<li><b>Dest Ports</b> - The ports to be opened for forwarding. Ex: "2345", "200,300", "200-300,400".</li>
+		<li><b>源地址</b> <i>(可选)</i> - 仅转发来自于该地址的连接. 例: "2001:4860:800b::/48", "me.example.com".</li>
+		<li><b>目标地址</b> <i>(可选)</i> - 局域网络内的IP地址.</li>
+		<li><b>目标端口</b> - 转发需要打开的端口，例: "2345", "200,300", "200-300,400".</li>
 	</ul>
 </div>
 
@@ -201,8 +201,8 @@ function init()
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>

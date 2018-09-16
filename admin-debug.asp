@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Admin: Debugging</title>
+<title>[<% ident(); %>] 系统管理: 调试模式</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -82,20 +82,20 @@ function save()
 <input type='hidden' name='t_cafree'>
 <input type='hidden' name='t_hidelr'>
 
-<div class='section-title'>Debugging</div>
+<div class='section-title'>调试模式设置</div>
 <div class='section'>
 <script type='text/javascript'>
 a = [];
 for (i = 1; i <= 8; ++i) a.push([i, i]);
 createFieldTable('', [
-	{ title: 'Avoid performing an NVRAM commit', name: 'f_debug_nocommit', type: 'checkbox', value: nvram.debug_nocommit != '0' },
-	{ title: 'Enable cprintf output to console', name: 'f_debug_cprintf', type: 'checkbox', value: nvram.debug_cprintf != '0' },
-	{ title: 'Enable cprintf output to /tmp/cprintf', name: 'f_debug_cprintf_file', type: 'checkbox', value: nvram.debug_cprintf_file != '0' },
-	{ title: 'Enable DDNS output to /tmp/mdu-*', name: 'f_debug_ddns', type: 'checkbox', value: nvram.debug_ddns != '0' },
-	{ title: 'Count cache memory and buffers as free memory', name: 'f_cafree', type: 'checkbox', value: nvram.t_cafree == '1' },
-	{ title: 'Avoid displaying LAN to router connections', name: 'f_hidelr', type: 'checkbox', value: nvram.t_hidelr == '1' },
-	{ title: 'Console log level', name: 'console_loglevel', type: 'select', options: a, value: fixInt(nvram.console_loglevel, 1, 8, 1) },
-	{ title: 'Do not restart the following process if they die', multi: [
+	{ title: '避免执行 NVRAM 提交', name: 'f_debug_nocommit', type: 'checkbox', value: nvram.debug_nocommit != '0' },
+	{ title: '启用 将 cprintf<br>输出至控制台', name: 'f_debug_cprintf', type: 'checkbox', value: nvram.debug_cprintf != '0' },
+	{ title: '启用 cprintf<br>输出至 /tmp/cprintf', name: 'f_debug_cprintf_file', type: 'checkbox', value: nvram.debug_cprintf_file != '0' },
+	{ title: '启用 DDNS<br>输出至 /tmp/mdu-*', name: 'f_debug_ddns', type: 'checkbox', value: nvram.debug_ddns != '0' },
+	{ title: '将缓存内存和缓冲区<br>计算为可用内存', name: 'f_cafree', type: 'checkbox', value: nvram.t_cafree == '1' },
+	{ title: '在路由器连接中<br>不显示 LAN', name: 'f_hidelr', type: 'checkbox', value: nvram.t_hidelr == '1' },
+	{ title: '控制台日志级别', name: 'console_loglevel', type: 'select', options: a, value: fixInt(nvram.console_loglevel, 1, 8, 1) },
+	{ title: '如果以下进程退出<br>不重新启动', multi: [
 		{ name: 'f_nr_crond', type: 'checkbox', suffix: ' crond<br />', value: (nvram.debug_norestart.indexOf('crond') != -1) },
 		{ name: 'f_nr_dnsmasq', type: 'checkbox', suffix: ' dnsmasq<br />', value: (nvram.debug_norestart.indexOf('dnsmasq') != -1) },
 /* LINUX26-BEGIN */
@@ -107,38 +107,38 @@ createFieldTable('', [
 </script>
 <br /><br />
 
-&raquo; <a href='clearcookies.asp?_http_id=<% nv(http_id); %>'>Clear Cookies</a><br />
-&raquo; <a href='javascript:nvramCommit()'>NVRAM Commit</a><br />
-&raquo; <a href='javascript:reboot()'>Reboot</a><br />
-&raquo; <a href='javascript:shutdown()'>Shutdown</a><br />
+&raquo; <a href='clearcookies.asp?_http_id=<% nv(http_id); %>'>清除 Cookies</a><br />
+&raquo; <a href='javascript:nvramCommit()'>保存更改至 NVRAM</a><br />
+&raquo; <a href='javascript:reboot()'>重新启动</a><br />
+&raquo; <a href='javascript:shutdown()'>关闭系统</a><br />
 <br /><br />
 
-&raquo; <a href='/cfe/cfe.bin?_http_id=<% nv(http_id); %>'>Download CFE</a><br />
-&raquo; <a href='/ipt/iptables.txt?_http_id=<% nv(http_id); %>'>Download Iptables Dump</a><br />
+&raquo; <a href='/cfe/cfe.bin?_http_id=<% nv(http_id); %>'>下载 CFE</a><br />
+&raquo; <a href='/ipt/iptables.txt?_http_id=<% nv(http_id); %>'>下载 IPv4 防火墙配置</a><br />
 <!-- IPV6-BEGIN -->
-&raquo; <a href='/ip6t/ip6tables.txt?_http_id=<% nv(http_id); %>'>Download Ip6tables Dump</a><br />
+&raquo; <a href='/ip6t/ip6tables.txt?_http_id=<% nv(http_id); %>'>下载 IPv6 防火墙配置</a><br />
 <!-- IPV6-END -->
-&raquo; <a href='/logs/syslog.txt?_http_id=<% nv(http_id); %>'>Download Logs</a><br />
-&raquo; <a href='/nvram/nvram.txt?_http_id=<% nv(http_id); %>'>Download NVRAM Dump</a><br />
+&raquo; <a href='/logs/syslog.txt?_http_id=<% nv(http_id); %>'>下载日志文件</a><br />
+&raquo; <a href='/nvram/nvram.txt?_http_id=<% nv(http_id); %>'>下载 NVRAM 配置</a><br />
 <br />
 
 <div style='width:80%'>
-<b>Warning</b>: The NVRAM Dump text file may contain information like wireless
-encryption keys and usernames/passwords for the router, ISP and DDNS. Please
-review &amp; edit this file before sharing it with
-anyone.<br />
+<b>警告</b>: NVRAM 镜像文本文件可能包含如下信息:如 无线加密
+密钥,路由器的用户名/密码, ISP 和 DDNS 信息. 请在共享给别人之前
+检查并编辑这些文件.
+<br />
 </div>
-
 </div>
 
 <!-- / / / -->
 
 </td></tr>
+
 <tr><td id='footer' colspan=2>
-	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
-</td></tr>
+<span id='footer-msg'></span>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
+	</td></tr>
 </table>
 </form>
 </body>

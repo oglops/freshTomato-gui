@@ -17,18 +17,18 @@ function refreshNetModes(uidx)
 	if (uidx >= wl_ifaces.length) return;
 	var u = wl_unit(uidx);
 
-	var m = [['mixed','Auto']];
+	var m = [['mixed','自动']];
 	if (selectedBand(uidx) == '1') {
-		m.push(['a-only','A Only']);
+		m.push(['a-only','仅802.11a']);
 		if (nphy) {
-			m.push(['n-only','N Only']);
+			m.push(['n-only','仅802.11n']);
 		}
 	} else {
-		m.push(['b-only','B Only']);
-		m.push(['g-only','G Only']);
+		m.push(['b-only','仅802.11b']);
+		m.push(['g-only','仅802.11g']);
 		if (nphy) {
-			m.push(['bg-mixed','B/G Mixed']);
-			m.push(['n-only','N Only']);
+			m.push(['bg-mixed','B/G 混合模式']);
+			m.push(['n-only','仅802.11n']);
 		}
 	}
 
@@ -184,7 +184,7 @@ function scan()
 			for (i = 1; i < ghz[uidx].length; ++i) {
 				var s = ghz[uidx][i][1];
 				var u = wscan.inuse[ghz[uidx][i][0]];
-				if (u) s += ' (' + u.count + ' AP' + (u.count == 1 ? '' : 's') + '; strongest: "' + escapeHTML(ellipsis(u.ssid, 30)) + '", RSSI: ' + u.rssi + ' dBm, Quality: ' + u.quality + ' %)';
+				if (u) s += ' (' + u.count + ' AP' + (u.count == 1 ? '' : 's') + '; 最强: "' + escapeHTML(ellipsis(u.ssid, 30)) + '", RSSI: ' + u.rssi + ' dBm, Quality: ' + u.quality + ' %)';
 				e.options[i].innerHTML = s;
 			}
 			e.style.width = '400px';
@@ -279,7 +279,7 @@ function v_wep(e, quiet)
 	} else {
 		s = s.toUpperCase().replace(/[^0-9A-F]/g, '');
 		if (s.length != e.maxLength) {
-			ferror.set(e, 'Invalid WEP key. Expecting ' + e.maxLength + ' hex or ' + (e.maxLength >> 1) + ' ASCII characters.', quiet);
+			ferror.set(e, '无效的 WEP 密钥，应该为 ' + e.maxLength + ' 十六进制或 ' + (e.maxLength >> 1) + ' ASCII 字符.', quiet);
 			return 0;
 		}
 	}

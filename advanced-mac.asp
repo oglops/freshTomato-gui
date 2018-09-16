@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv='content-type' content='text/html;charset=utf-8'>
 <meta name='robots' content='noindex,nofollow'>
-<title>[<% ident(); %>] Advanced: MAC Address</title>
+<title>[<% ident(); %>] 高级设置:  MAC地址设置</title>
 <link rel='stylesheet' type='text/css' href='tomato.css'>
 <% css(); %>
 <script type='text/javascript' src='tomato.js'></script>
@@ -116,7 +116,7 @@ function verifyFields(focused, quiet)
 		if (!v_mac(a, quiet)) return 0;
 
 		if (findPrevMAC(a.value, uidx)) {
-			ferror.set(a, 'Addresses must be unique', quiet);
+			ferror.set(a, '地址必须是唯一的', quiet);
 			return 0;
 		}
 	}
@@ -128,7 +128,7 @@ function save()
 	var u, uidx, v;
 
 	if (!verifyFields(null, false)) return;
-	if (!confirm("Warning: Changing the MAC address may require that you reboot all devices, computers or modem connected to this router. Continue anyway?")) return;
+	if (!confirm("警告: 改变 MAC 地址有可能需要把联机到这台路由器的设备、计算机或调制解调器重新开机. 是否继续执行?")) return;
 
 	var fom = E('t_fom');
 	for (uidx = 1; uidx <= nvram.mwan_num; ++uidx){
@@ -180,7 +180,7 @@ for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 }
 </script>
 
-<div class='section-title'>MAC Address</div>
+<div class='section-title'>MAC 地址</div>
 <div class='section'>
 <script type='text/javascript'>
 
@@ -188,7 +188,7 @@ var f = [];
 for (var uidx = 1; uidx <= nvram.mwan_num; ++uidx){
 	var u = (uidx>1) ? uidx : '';
 	f.push(
-		{ title: 'WAN'+u+' Port', indent: 1, name: 'f_wan'+u+'_hwaddr', type: 'text', maxlen: 17, size: 20,
+		{ title: 'WAN'+u+' 端口', indent: 1, name: 'f_wan'+u+'_hwaddr', type: 'text', maxlen: 17, size: 20,
 			suffix: ' <input type="button" value="Default" onclick="bdefault(\'wan'+u+'\')"> <input type="button" value="Random" onclick="brand(\'wan'+u+'\')"> <input type="button" value="Clone PC" onclick="bclone(\'wan'+u+'\')">',
 			value: nvram['wan'+u+'_mac'] || defmac('wan'+u) }
 	);
@@ -197,8 +197,8 @@ for (var uidx = 1; uidx <= nvram.mwan_num; ++uidx){
 for (var uidx = 0; uidx < wl_ifaces.length; ++uidx) {
 	var u = wl_fface(uidx);
 	f.push(
-		{ title: 'Wireless Interface ' + ((wl_ifaces.length > 1) ? wl_ifaces[uidx][0] : ''), indent: 1, name: 'f_wl'+u+'_hwaddr', type: 'text', maxlen: 17, size: 20,
-			suffix:' <input type="button" value="Default" onclick="bdefault(\'wl'+u+'\')"> <input type="button" value="Random" onclick="brand(\'wl'+u+'\')"> <input type="button" value="Clone PC" onclick="bclone(\'wl'+u+'\')">',
+		{ title: '无线端口 ' + ((wl_ifaces.length > 1) ? wl_ifaces[uidx][0] : ''), indent: 1, name: 'f_wl'+u+'_hwaddr', type: 'text', maxlen: 17, size: 20,
+			suffix:' <input type="button" value="默认" onclick="bdefault(\'wl'+u+'\')"> <input type="button" value="随机" onclick="brand(\'wl'+u+'\')"> <input type="button" value="克隆 PC" onclick="bclone(\'wl'+u+'\')">',
 			value: nvram['wl'+u+'_hwaddr'] || defmac('wl' + u) }
 		);
 }
@@ -208,8 +208,8 @@ createFieldTable('', f);
 </script>
 <br />
 <table border=0 cellpadding=1>
-	<tr><td>Router's LAN MAC Address:</td><td><b><script type='text/javascript'>W(('<% nv('et0macaddr'); %>').toUpperCase());</script></b></td></tr>
-	<tr><td>Computer's MAC Address:</td><td><b><script type='text/javascript'>W(('<% compmac(); %>').toUpperCase());</script></b></td></tr>
+	<tr><td>路由器 LAN 的 MAC 地址:</td><td><b><script type='text/javascript'>W(('<% nv('et0macaddr'); %>').toUpperCase());</script></b></td></tr>
+	<tr><td>电脑的 MAC 地址:</td><td><b><script type='text/javascript'>W(('<% compmac(); %>').toUpperCase());</script></b></td></tr>
 </table>
 </div>
 
@@ -220,8 +220,8 @@ createFieldTable('', f);
 </td></tr>
 <tr><td id='footer' colspan=2>
 	<span id='footer-msg'></span>
-	<input type='button' value='Save' id='save-button' onclick='save()'>
-	<input type='button' value='Cancel' id='cancel-button' onclick='reloadPage();'>
+	<input type='button' value='保存设置' id='save-button' onclick='save()'>
+	<input type='button' value='取消设置' id='cancel-button' onclick='reloadPage();'>
 </td></tr>
 </table>
 </form>
